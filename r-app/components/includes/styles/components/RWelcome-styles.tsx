@@ -1,22 +1,34 @@
-import colors from "../helpers/colors";
+import { greenColor, grayColor } from "../helpers/colors";
 import { StyleSheet } from "react-native";
 import logo from "../helpers/logo";
-import { contentS } from "../helpers/typos";
+
+import { contentS, contentRegular, contentLight, contentBold } from "../helpers/typos";
+import { whiteMainButton, whiteSecondButton } from "../helpers/buttons";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.green.dark,
+    backgroundColor: greenColor.dark,
     paddingLeft: 20,
     paddingRight: 20
   },
+  logo,
   introContainer: {
-    marginTop: 40
+    marginTop: 20,
+    marginBottom: 40
   },
   introContent: {
-    color: colors.gray.light,
-    marginTop: 40,
-    ...contentS
+    ...contentS,
+    ...contentRegular,
+    color: grayColor.light,
+    marginTop: 20,
   },
-  logo
+  mainButton: {
+    ...whiteMainButton,
+    ...contentBold
+  },
+  secondButton: {
+    ...whiteSecondButton,
+    ...contentLight
+  }
 });
