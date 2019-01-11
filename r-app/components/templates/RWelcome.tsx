@@ -6,26 +6,20 @@ import styles from "../includes/styles/components/RWelcome-styles";
 
 export default class RWelcome extends React.PureComponent<{}> {
   render() {
-    return (
-      <View style={styles.container}>
+    return <View style={styles.container}>
         <View style={styles.logo}>
-          <SvgUri
-            width="200"
-            height="90"
-            source={require("../../assets/rtour-logo.svg")}
-          />
+          <SvgUri width="200" height="90" source={require("../../assets/rtour-logo.svg")} />
         </View>
         <View style={styles.introContainer}>
           <Text style={styles.introContent}>
-            This webapp is made for all riders which like to share their passion
-            and travel the world.
+            This webapp is made for all riders which like to share their
+            passion and travel the world.
           </Text>
           <Text style={styles.introContent}>
-            This webapp is made for all riders which like to share their passion
-            and travel the world. 🤘
+            If you feel concerned by this application, or if you are simply
+            curious, you are welcome 🤘
           </Text>
         </View>
-      </View>
-    );
+      </View>;
   }
 }

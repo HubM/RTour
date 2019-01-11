@@ -1,11 +1,32 @@
-import * as React from 'react';
+import * as React from "react";
+import * as Expo from "expo";
+import RWelcome from "./components/templates/RWelcome";
 
-import RWelcome from './components/templates/RWelcome';
 
 export default class App extends React.Component<{}> {
+  state = { isReady: false }
+
+  componentWillMount() {
+    this._loadFonts();
+  }
+
+  async _loadFonts() {
+    await Expo.Font.loadAsync({
+      merriwl: require("./assets/fonts/merriweather-l.ttf"),
+      merriwr: require("./assets/fonts/merriweather-r.ttf"),
+      merriwb: require("./assets/fonts/merriweather-b.ttf"),
+      robotol: require("./assets/fonts/roboto-l.ttf"),
+      robotor: require("./assets/fonts/roboto-r.ttf"),
+      robotom: require("./assets/fonts/roboto-m.ttf"),
+      robotob: require("./assets/fonts/roboto-b.ttf")
+    });
+    this.setState({ isReady: true });
+  }
+
   render() {
-    return (
-      <RWelcome />
-    );
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
+    return <RWelcome />;
   }
 }

@@ -1,7 +1,7 @@
 import colors from "../helpers/colors";
 import { StyleSheet } from "react-native";
-import { Font } from "expo";
 import logo from "../helpers/logo";
+import { contentS } from "../helpers/typos";
 
 export default StyleSheet.create({
   container: {
@@ -11,10 +11,12 @@ export default StyleSheet.create({
     paddingRight: 20
   },
   introContainer: {
-    marginTop: 80
+    marginTop: 40
   },
   introContent: {
     color: colors.gray.light,
+    marginTop: 40,
+    ...contentS
   },
   logo
 });
