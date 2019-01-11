@@ -1,15 +1,30 @@
 import * as React from "react";
-import { Text, View } from "react-native";
+import { View, Text } from "react-native";
+import SvgUri from "react-native-svg-uri";
 
-import styles from '../includes/styles/components/RWelcome-styles';
+import styles from "../includes/styles/components/RWelcome-styles";
 
 export default class RWelcome extends React.PureComponent<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.ts to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <View style={styles.logo}>
+          <SvgUri
+            width="200"
+            height="90"
+            source={require("../../assets/rtour-logo.svg")}
+          />
+        </View>
+        <View style={styles.introContainer}>
+          <Text style={styles.introContent}>
+            This webapp is made for all riders which like to share their passion
+            and travel the world.
+          </Text>
+          <Text style={styles.introContent}>
+            This webapp is made for all riders which like to share their passion
+            and travel the world. 🤘
+          </Text>
+        </View>
       </View>
     );
   }
