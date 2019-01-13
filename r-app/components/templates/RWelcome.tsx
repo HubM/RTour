@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { NavigationScreenProp } from 'react-navigation';
 import SvgUri from "react-native-svg-uri";
 
-import styles from "../includes/styles/components/RWelcome-styles";
+import styles from "../includes/styles/components/RWelcome--styles";
 
 
 export interface RWelcomeProps {
@@ -20,18 +20,9 @@ export default class RWelcome extends React.PureComponent<RWelcomeProps, object>
     buttonLabel: 'Connect'.toUpperCase()
   }
 
-  _connexionRedirection() {
-    this.props.navigation.navigate("ListRoadtrips");
-  }
-
-  _skipConnexion() {
-    this.props.navigation.navigate("ListRoadtrips");
-  }
-
   render() {
     const { buttonLabel } = this.state;
     const { navigate } = this.props.navigation;
-
     return <View style={styles.container}>
         <View style={styles.logo}>
           <SvgUri width="200" height="90" source={require("../../assets/rtour-logo.svg")} />
@@ -46,10 +37,10 @@ export default class RWelcome extends React.PureComponent<RWelcomeProps, object>
             curious, you are welcome 🤘
           </Text>
         </View>
-      <TouchableOpacity onPress={() => navigate('ListRoadtrips')}>
+        <TouchableOpacity onPress={() => navigate("ListRoadtrips")}>
           <Text style={styles.mainButton}>{buttonLabel}</Text>
         </TouchableOpacity>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => navigate("ListRoadtrips")}>
           <Text style={styles.secondButton}>skip</Text>
         </TouchableOpacity>
       </View>;
