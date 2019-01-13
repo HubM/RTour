@@ -1,10 +1,15 @@
 import * as React from "react";
 import * as Expo from "expo";
-import RWelcome from "./components/templates/RWelcome";
 
+import AppContainer from "./router";
 
-export default class App extends React.Component<{}> {
-  state = { isReady: false }
+interface State {
+  isReady: Boolean;
+}
+
+export default class App extends React.Component<{}, State> {
+  
+  public state: State = { isReady: false };
 
   componentWillMount() {
     this._loadFonts();
@@ -27,6 +32,7 @@ export default class App extends React.Component<{}> {
     if (!this.state.isReady) {
       return <Expo.AppLoading />;
     }
-    return <RWelcome />;
+    return <AppContainer />;
   }
+
 }
