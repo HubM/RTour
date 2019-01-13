@@ -1,24 +1,36 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { NavigationScreenProp } from 'react-navigation';
 import SvgUri from "react-native-svg-uri";
 
 import styles from "../includes/styles/components/RWelcome-styles";
 
-export default class RWelcome extends React.PureComponent<{}> {
+
+export interface RWelcomeProps {
+  navigation: NavigationScreenProp<any, any>
+};
+
+export default class RWelcome extends React.PureComponent<RWelcomeProps, object> {
+  
+  static navigationOptions = {
+    header: null,
+  };
+
   state = {
     buttonLabel: 'Connect'.toUpperCase()
   }
 
   _connexionRedirection() {
-    console.log('connexion button')
+    this.props.navigation.navigate("ListRoadtrips");
   }
 
   _skipConnexion() {
-    console.log('skip connexion button')
+    this.props.navigation.navigate("ListRoadtrips");
   }
 
   render() {
     const { buttonLabel } = this.state;
+    const { navigate } = this.props.navigation;
 
     return <View style={styles.container}>
         <View style={styles.logo}>
@@ -34,7 +46,7 @@ export default class RWelcome extends React.PureComponent<{}> {
             curious, you are welcome 🤘
           </Text>
         </View>
-        <TouchableOpacity onPress={this._connexionRedirection}>
+      <TouchableOpacity onPress={() => navigate('ListRoadtrips')}>
           <Text style={styles.mainButton}>{buttonLabel}</Text>
         </TouchableOpacity>
         <TouchableOpacity >
