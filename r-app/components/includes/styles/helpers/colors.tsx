@@ -17,3 +17,7 @@ export const grayColor = {
   light: "#EFEFEF",
   dark: "#F8F8F8"
 }
+
+export const fontWhiteColor = { color: grayColor.light };
+export const fontBlackColor = { color: blackColor.light };
+export const fontYellowColor = { color: yellowColor.light };

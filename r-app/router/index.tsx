@@ -9,7 +9,7 @@ const AppNavigator = createStackNavigator(
     ListRoadtrips: RListRoadtrips
   },
   {
-    initialRouteName: "Welcome"
+    initialRouteName: "ListRoadtrips"
   }
 );
 

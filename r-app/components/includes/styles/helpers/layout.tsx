@@ -7,5 +7,6 @@ export const containerComponent = {
 }
 
 export const headerComponent = {
-  marginTop: 25,
+  marginTop: 50,
+  flexDirection: "row"
 } as ViewStyle;
