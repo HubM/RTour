@@ -42,7 +42,7 @@ export default StyleSheet.create({
     backgroundColor: blackColor.dark,
     borderRadius: 15,
     marginBottom: 10,
-    minWidth: "50%"
+    width: "48%"
   },
   roadtripSingle__startingCity: {
     ...contentLight,

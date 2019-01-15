@@ -36,7 +36,7 @@ export default class RListRoadtrips extends React.PureComponent<{}> {
             data={roadtrips}
             numColumns={2}
             keyExtractor={item => item.id}
-            renderItem={({ item }) => <Roadtrip roadtrip={item} />}
+            renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} />}
           />
         </View>
       </View>;
