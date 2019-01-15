@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import styles from "../../../includes/styles/components/RListRoadtrips--styles";
+import styles from "../_style/R-ListRoadtrips--styles";
 import { isIndexEven } from "../../../helpers";
 
 

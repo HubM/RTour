@@ -2,11 +2,8 @@ import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
-import { ComponentNavigationProps } from "../helpers";
-import styles from "../includes/styles/components/RWelcome--styles";
-
-
-
+import { ComponentNavigationProps } from "../../helpers";
+import styles from "./_style";
 
 export default class RWelcome extends React.PureComponent<ComponentNavigationProps, object> {
   
@@ -23,7 +20,7 @@ export default class RWelcome extends React.PureComponent<ComponentNavigationPro
     const { navigate } = this.props.navigation;
     return <View style={styles.container}>
         <View style={styles.logo}>
-          <SvgUri width="200" height="90" source={require("../../assets/rtour-logo.svg")} />
+          <SvgUri width="200" height="90" source={require("../../../assets/rtour-logo.svg")} />
         </View>
         <View style={styles.introContainer}>
           <Text style={styles.introContent}>

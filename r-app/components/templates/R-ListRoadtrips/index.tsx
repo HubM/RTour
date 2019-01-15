@@ -5,7 +5,7 @@ import SvgUri from "react-native-svg-uri";
 import Roadtrip from "./_components/Roadtrip";
 
 import { ComponentNavigationProps } from "../../helpers";
-import styles from "../../includes/styles/components/RListRoadtrips--styles";
+import styles from "./_style/R-ListRoadtrips--styles";
 import fakeRoadtrips from "./_data/fakeRoadtrips";
 
 
