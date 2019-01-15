@@ -4,8 +4,8 @@ import {
   containerComponent,
   headerComponent,
   centerBtnAction
-} from "../../../includes/styles/layout";
-import { blackColor, fontWhiteColor, fontYellowColor } from "../../../includes/styles/colors";
+} from "../../../helpers/styles/layout";
+import { blackColor, fontWhiteColor, fontYellowColor } from "../../../helpers/styles/colors";
 import {
   contentLight,
   contentXs,
@@ -13,7 +13,7 @@ import {
   titleRegular,
   titleMedium,
   titleh3,
-} from "../../../includes/styles/typos";
+} from "../../../helpers/styles/typos";
 
 export default StyleSheet.create({
   container: {
