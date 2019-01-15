@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
-import { containerComponent, headerComponent } from "../helpers/layout";
+import {
+  containerComponent,
+  headerComponent,
+  centerBtnAction
+} from "../helpers/layout";
 import { blackColor, fontWhiteColor, fontYellowColor } from "../helpers/colors";
 import {
   contentLight,
@@ -65,5 +69,8 @@ export default StyleSheet.create({
     ...contentXs,
     ...fontWhiteColor,
     ...titleMedium
+  },
+  addBtn: {
+    ...centerBtnAction
   }
 });

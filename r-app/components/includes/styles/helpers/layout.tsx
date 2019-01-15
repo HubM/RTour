@@ -10,3 +10,8 @@ export const headerComponent = {
   marginTop: 50,
   flexDirection: "row"
 } as ViewStyle;
+
+export const centerBtnAction = { 
+  marginTop: 35,
+  alignSelf: "center" 
+} as ViewStyle;

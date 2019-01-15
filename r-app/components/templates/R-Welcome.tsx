@@ -1,16 +1,14 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { NavigationScreenProp } from 'react-navigation';
 import SvgUri from "react-native-svg-uri";
 
+import { ComponentNavigationProps } from "../helpers";
 import styles from "../includes/styles/components/RWelcome--styles";
 
 
-export interface RWelcomeProps {
-  navigation: NavigationScreenProp<any, any>
-};
 
-export default class RWelcome extends React.PureComponent<RWelcomeProps, object> {
+
+export default class RWelcome extends React.PureComponent<ComponentNavigationProps, object> {
   
   static navigationOptions = {
     header: null,

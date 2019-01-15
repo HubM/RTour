@@ -1,17 +1,15 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
-import { NavigationScreenProp } from "react-navigation";
 import SvgUri from "react-native-svg-uri";
 
 import Roadtrip from "./_components/Roadtrip";
 
+import { ComponentNavigationProps } from "../../helpers";
 import styles from "../../includes/styles/components/RListRoadtrips--styles";
 import fakeRoadtrips from "./_data/fakeRoadtrips";
 
 
-
-
-export default class RListRoadtrips extends React.PureComponent<{}> {
+export default class RListRoadtrips extends React.PureComponent<ComponentNavigationProps> {
   static navigationOptions = {
     header: null,
   };
@@ -38,6 +36,11 @@ export default class RListRoadtrips extends React.PureComponent<{}> {
             keyExtractor={item => item.id}
             renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} />}
           />
+        </View>
+        <View style={styles.addBtn}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('AddARoadtrip')}>
+            <SvgUri width="50" height="50" source={require("../../../assets/icons/icon--addARoadtripBtn.svg")} />
+          </TouchableOpacity>
         </View>
       </View>;
   }

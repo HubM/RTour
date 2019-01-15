@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="52px" height="52px" viewBox="0 0 52 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>addARoadtripBtn</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="addARoadtripBtn" fill-rule="nonzero">
+            <circle id="Ellipse_1-2" fill="#FFF784" cx="25.649" cy="25.649" r="25.648"></circle>
+            <polygon id="Rectangle_6" fill="#2D2D2D" points="16 24.462 35.093 24.462 35.093 26.632 16 26.632"></polygon>
+            <polygon id="Rectangle_7" fill="#2D2D2D" points="26.631 16 26.631 35.093 24.461 35.093 24.461 16"></polygon>
+        </g>
+    </g>
+</svg>
