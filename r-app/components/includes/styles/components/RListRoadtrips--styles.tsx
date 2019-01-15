@@ -41,7 +41,8 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: blackColor.dark,
     borderRadius: 15,
-    marginBottom: 10
+    marginBottom: 10,
+    minWidth: "50%"
   },
   roadtripSingle__startingCity: {
     ...contentLight,
@@ -58,7 +59,7 @@ export default StyleSheet.create({
     ...titleMedium,
     ...fontWhiteColor,
     fontSize: 14,
-    marginVertical: 9
+    marginVertical: 5
   },
   roadtripSingle__duration: {
     ...contentXs,
