@@ -10,6 +10,12 @@ import fakeRoadtrips from "./_data/fakeRoadtrips";
 
 
 export default class RListRoadtrips extends React.PureComponent<ComponentNavigationProps> {
+  constructor(props: any) {
+    super(props);
+    this._seeRoadtrip = this._seeRoadtrip.bind(this);
+  }
+
+
   static navigationOptions = {
     header: null,
   };
@@ -17,6 +23,10 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
   state = {
     filterBtn: "Filter".toUpperCase(),
     roadtrips: fakeRoadtrips
+  }
+
+  _seeRoadtrip(roadtrip: object) {
+    this.props.navigation.navigate("SingleRoadtrip", { roadtrip });
   }
   
   render() {
@@ -34,7 +44,10 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
             data={roadtrips}
             numColumns={2}
             keyExtractor={item => item.id}
-            renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} />}
+            renderItem={
+              ({ item, index }) =>
+              <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} 
+            />} 
           />
         </View>
         <View style={styles.addBtn}>

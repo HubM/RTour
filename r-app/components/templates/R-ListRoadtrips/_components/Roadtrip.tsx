@@ -11,19 +11,31 @@ interface RoadtripProps {
     hour: string,
     duration: number  
   },
-  roadtripIndex: number
+  roadtripIndex: number,
+  seeRoadtrip(roadtrip: object): void,
 };
 
 export default class Roadtrip extends React.PureComponent<RoadtripProps> {
+  constructor(props: any) {
+    super(props);
+    this.seeRoadtrip = this.seeRoadtrip.bind(this);
+  }
+  
+  seeRoadtrip() {
+    return this.props.seeRoadtrip(this.props.roadtrip);
+  }
+
   render() {
-    const { startCity, endCity, hour, duration } = this.props.roadtrip;
-    const { roadtripIndex } = this.props;
+    const { roadtripIndex, roadtrip, seeRoadtrip } = this.props;
+    const { startCity, endCity, hour, duration } = roadtrip;
     return (
       <TouchableOpacity 
         style={[
             styles.roadtripSingle, 
             { marginRight: isIndexEven(roadtripIndex) ? 10 : 0 }
-        ]}>
+        ]}
+        onPress={this.seeRoadtrip}
+      >
         <Text style={styles.roadtripSingle__startingCity}>{startCity}</Text>
         <Text style={styles.roadtripSingle__endingCity}>{endCity}</Text>
         <Text style={styles.roadtripSingle__hour}>{hour}</Text>
