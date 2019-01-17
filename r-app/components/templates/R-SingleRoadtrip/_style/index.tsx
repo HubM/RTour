@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, PixelRatio } from "react-native";
 
 import { containerComponent, headerComponent } from "../../../helpers/styles/layout";
 import { blackColor, grayColor, yellowColor } from "../../../helpers/styles/colors";
-import { titleh2, titleh3 } from "../../../helpers/styles/typos";
+import { titleh2, titleh3, contentS, contentRegular } from "../../../helpers/styles/typos";
 
 export default StyleSheet.create({
   container: {
@@ -14,8 +14,7 @@ export default StyleSheet.create({
     justifyContent: "flex-start"
   },
   roadtripTitle: {
-    marginVertical: 50,
-    lineHeight: 0
+    marginVertical: 50
   },
   roadtripTitleStartCity: {
     ...titleh3,
@@ -26,5 +25,19 @@ export default StyleSheet.create({
     ...titleh2,
     color: yellowColor.light,
     lineHeight: 50
+  },
+  roadtripCreator: {
+    width: "100%",
+    flexDirection: "row",
+    paddingBottom: 6,
+    borderBottomColor: blackColor.light,
+    borderBottomWidth: 1 / PixelRatio.get(),
+  },
+  roadtripCreatorName: {
+    ...contentS,
+    ...contentRegular,
+    color: grayColor.light,
+    marginLeft: 15,
+    alignSelf: "center",
   }
 });
