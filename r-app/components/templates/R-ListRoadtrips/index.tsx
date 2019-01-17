@@ -2,19 +2,17 @@ import * as React from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
-import Roadtrip from "./_components/Roadtrip";
-
 import { ComponentNavigationProps } from "../../helpers";
-import styles from "./_style/R-ListRoadtrips--styles";
-import fakeRoadtrips from "./_data/fakeRoadtrips";
 
+import Roadtrip from "./_components/Roadtrip";
+import styles from "./_style";
+import fakeRoadtrips from "./_data/fakeRoadtrips";
 
 export default class RListRoadtrips extends React.PureComponent<ComponentNavigationProps> {
   constructor(props: any) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
   }
-
 
   static navigationOptions = {
     header: null,

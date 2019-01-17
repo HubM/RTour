@@ -3,6 +3,9 @@ import { View, Text, TouchableOpacity } from "react-native";
 
 
 import { ComponentNavigationProps } from "../../helpers";
+import BackArrow from "../../helpers/components/BackArrow";
+import styles from "./_style";
+
 
 export default class RSingleRoadtrip extends React.PureComponent<ComponentNavigationProps> {
   static navigationOptions = {
@@ -15,10 +18,17 @@ export default class RSingleRoadtrip extends React.PureComponent<ComponentNaviga
 
     const { startCity, endCity, duration, hour} = roadtrip;
 
-    console.log(roadtrip)
     return (
-      <View>
-        <Text>{startCity}</Text>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <BackArrow color="white" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.roadtripTitle}>
+          <Text style={styles.roadtripTitleStartCity}>{startCity}</Text> 
+          <Text style={styles.roadtripTitleEndCity}>{endCity}</Text> 
+        </View>
       </View>
     );
   }
