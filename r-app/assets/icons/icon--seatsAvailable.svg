@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon--seatsAvailable</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="icon--seatsAvailable" stroke="#F8F8F8">
+            <circle id="Ellipse_8" cx="8.836" cy="8.836" r="8.336"></circle>
+            <path d="M4.289,7.321 C4.31011243,6.49917314 4.982402,5.84393263 5.8045,5.84393263 C6.626598,5.84393263 7.29888757,6.49917314 7.32,7.321" id="Tracé_20"></path>
+            <path d="M10.352,7.321 C10.3731124,6.49917314 11.045402,5.84393263 11.8675,5.84393263 C12.689598,5.84393263 13.3618876,6.49917314 13.383,7.321" id="Tracé_21"></path>
+            <path d="M11.868,10.352 C11.868,12.0262512 10.5107512,13.3835 8.8365,13.3835 C7.16224878,13.3835 5.805,12.0262512 5.805,10.352" id="Tracé_22"></path>
+        </g>
+    </g>
+</svg>

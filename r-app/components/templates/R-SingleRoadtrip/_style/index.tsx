@@ -1,8 +1,17 @@
-import { StyleSheet, PixelRatio } from "react-native";
+import { StyleSheet, PixelRatio, ViewStyle } from "react-native";
 
-import { containerComponent, headerComponent } from "../../../helpers/styles/layout";
+import { containerComponent, headerComponent, inlineElements } from "../../../helpers/styles/layout";
 import { blackColor, grayColor, yellowColor } from "../../../helpers/styles/colors";
-import { titleh2, titleh3, contentS, contentRegular } from "../../../helpers/styles/typos";
+import {
+  titleh2,
+  titleh3,
+  titleRegular,
+  titleMedium,
+  contentXs,
+  contentS,
+  contentLight,
+  contentRegular,
+} from "../../../helpers/styles/typos";
 
 export default StyleSheet.create({
   container: {
@@ -18,26 +27,43 @@ export default StyleSheet.create({
   },
   roadtripTitleStartCity: {
     ...titleh3,
+    ...titleRegular,
     color: grayColor.light,
     lineHeight: 30
   },
   roadtripTitleEndCity: {
     ...titleh2,
+    ...titleMedium,
     color: yellowColor.light,
     lineHeight: 50
   },
   roadtripCreator: {
-    width: "100%",
-    flexDirection: "row",
+    ...inlineElements,
     paddingBottom: 6,
     borderBottomColor: blackColor.light,
-    borderBottomWidth: 1 / PixelRatio.get(),
-  },
+    borderBottomWidth: 1 / PixelRatio.get()
+  } as ViewStyle,
   roadtripCreatorName: {
     ...contentS,
     ...contentRegular,
     color: grayColor.light,
     marginLeft: 15,
-    alignSelf: "center",
+    alignSelf: "center"
+  },
+  roadtripSubInfos: {
+    marginVertical: 30
+  },
+  roadtripSubInfos__single: {
+    ...inlineElements,
+    alignItems: "center",
+    marginBottom: 25
+  } as ViewStyle,
+  roadtripSubInfos__single__text: {
+    ...contentXs,
+    ...contentLight,
+    color: grayColor.light,
+    marginLeft: 15,
+    marginRight: 0,
+    padding: 0
   }
 });

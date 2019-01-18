@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="21px" viewBox="0 0 18 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon--address</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="icon--address" stroke="#F8F8F8">
+            <path d="M17.044,8.772 C17.0498276,4.58871416 13.931594,1.0595304 9.77944434,0.550052866 C5.62729465,0.0405753348 1.74833288,2.71118845 0.742618604,6.77178609 C-0.263095668,10.8323837 1.92103818,15.0046826 5.831,16.492 C7.21,18.422 8.772,20.72 8.772,20.72 L11.713,16.492 C14.931986,15.2898028 17.0600266,12.2081159 17.044,8.772 Z" id="Tracé_82"></path>
+            <circle id="Ellipse_21" cx="8.772" cy="8.772" r="2.757"></circle>
+        </g>
+    </g>
+</svg>

@@ -9,7 +9,11 @@ interface RoadtripProps {
     startCity: string,
     endCity: string,
     hour: string,
-    duration: number  
+    spec: {
+      calendar: {
+        duration: number
+      }
+    }
   },
   roadtripIndex: number,
   seeRoadtrip(roadtrip: object): void,
@@ -27,7 +31,15 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
 
   render() {
     const { roadtripIndex, roadtrip, seeRoadtrip } = this.props;
-    const { startCity, endCity, hour, duration } = roadtrip;
+    const { startCity, endCity, hour, spec } = roadtrip;
+
+    let durationExist;
+
+    if (spec.calendar) {
+      const { duration } = spec.calendar;
+      durationExist = duration;
+    }
+
     return (
       <TouchableOpacity 
         style={[
@@ -39,9 +51,13 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
         <Text style={styles.roadtripSingle__startingCity}>{startCity}</Text>
         <Text style={styles.roadtripSingle__endingCity}>{endCity}</Text>
         <Text style={styles.roadtripSingle__hour}>{hour}</Text>
-        <Text style={styles.roadtripSingle__duration}>
-          {duration} {duration > 1 ? "days" : "day"}
-        </Text>
+        {
+          durationExist && 
+          <Text style={styles.roadtripSingle__duration}>
+            {durationExist} {durationExist > 1 ? "days" : "day"}
+          </Text>
+        }
+       
      </TouchableOpacity>
     );
   }

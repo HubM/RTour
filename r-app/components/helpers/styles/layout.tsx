@@ -15,3 +15,9 @@ export const centerBtnAction = {
   marginTop: 35,
   alignSelf: "center" 
 } as ViewStyle;
+
+
+export const inlineElements = {
+  width: "100%",
+  flexDirection: "row",
+}

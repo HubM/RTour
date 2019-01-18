@@ -4,9 +4,17 @@ export default [
     startCity: "New York",
     endCity: "San Francisco",
     hour: "8h",
-    duration: 2,
     owner: {
-      name: "Hubert Moncenis",
+      name: "Hubert Moncenis"
+    },
+    spec: {
+      // seats: ,
+      // calendar: {
+      //   startingDate: "03/12/2018",
+      //   // duration: 1
+      // },
+      address: "140 East 63rd Street, New York City",
+      roadtripType: "roundTrip"
     }
   },
   {
@@ -17,6 +25,15 @@ export default [
     duration: 1,
     owner: {
       name: "Jean-Pierre Papin"
+    },
+    spec: {
+      seats: 2,
+      calendar: {
+        startingDate: "03/12/2018",
+        duration: 2
+      },
+      address: "140 East 63rd Street, New York City",
+      roadtripType: "singleTrip"
     }
   },
   {
@@ -24,9 +41,18 @@ export default [
     startCity: "Besançon",
     endCity: "Lyon",
     hour: "16h",
-    duration: 2, 
+    duration: 2,
     owner: {
       name: "Jean-Claude Vandam"
+    },
+    spec: {
+      seats: 2,
+      calendar: {
+        startingDate: "03/12/2018",
+        duration: 2
+      },
+      address: "140 East 63rd Street, New York City",
+      roadtripType: "roundTrip"
     }
   }
 ];
