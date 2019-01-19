@@ -1,6 +1,6 @@
 import { StyleSheet, PixelRatio, ViewStyle } from "react-native";
 
-import { containerComponent, headerComponent, inlineElements } from "../../../helpers/styles/layout";
+import { containerComponent, headerComponent, inlineElements, headerActionBtn, contentContained } from "../../../helpers/styles/layout";
 import { blackColor, grayColor, yellowColor } from "../../../helpers/styles/colors";
 import {
   titleh2,
@@ -11,7 +11,9 @@ import {
   contentS,
   contentLight,
   contentRegular,
+  contentBold,
 } from "../../../helpers/styles/typos";
+import { yellowMainButton, backArrow } from "../../../helpers/styles/buttons";
 
 export default StyleSheet.create({
   container: {
@@ -22,8 +24,15 @@ export default StyleSheet.create({
     ...headerComponent,
     justifyContent: "flex-start"
   },
+  backButton: {
+    ...headerActionBtn
+  },
+  content: {
+    ...contentContained
+  },
   roadtripTitle: {
-    marginVertical: 50
+    marginTop: 30,
+    marginBottom: 50
   },
   roadtripTitleStartCity: {
     ...titleh3,
@@ -51,7 +60,7 @@ export default StyleSheet.create({
     alignSelf: "center"
   },
   roadtripSubInfos: {
-    marginVertical: 30
+    marginVertical: 40,
   },
   roadtripSubInfos__single: {
     ...inlineElements,
@@ -65,5 +74,9 @@ export default StyleSheet.create({
     marginLeft: 15,
     marginRight: 0,
     padding: 0
+  },
+  mainButton: {
+    ...yellowMainButton,
+    ...contentBold
   }
 });

@@ -3,7 +3,9 @@ import { StyleSheet } from "react-native";
 import {
   containerComponent,
   headerComponent,
-  centerBtnAction
+  centerBtnAction,
+  headerActionBtn,
+  contentContained
 } from "../../../helpers/styles/layout";
 import { blackColor, fontWhiteColor, fontYellowColor } from "../../../helpers/styles/colors";
 import {
@@ -24,17 +26,24 @@ export default StyleSheet.create({
     ...headerComponent,
     justifyContent: "space-between"
   },
+  profileBtn: {
+    ...headerActionBtn 
+  },
   filterBtn: {
     ...fontWhiteColor,
     ...contentXs,
-    ...titleRegular
+    ...titleRegular,
+    ...headerActionBtn
   },
   date: {
     ...titleh3,
     ...titleMedium,
     ...fontWhiteColor,
     textAlign: "center",
-    marginVertical: 30
+    marginBottom: 30
+  },
+  content: {
+    ...contentContained
   },
   roadtripsContainer: {
     flexDirection: "row",

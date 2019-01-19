@@ -29,30 +29,36 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
   
   render() {
     const { filterBtn, roadtrips } = this.state;
-    return <View style={styles.container}>
+    return (
+      <View style={styles.container}>
         <View style={styles.header}>
-          <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
+          <TouchableOpacity style={styles.profileBtn}>
+            <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
+          </TouchableOpacity>
           <TouchableOpacity>
             <Text style={styles.filterBtn}>{filterBtn}</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.date}>03 December</Text>
-        <View style={styles.roadtripsContainer}>
-          <FlatList
-            data={roadtrips}
-            numColumns={2}
-            keyExtractor={item => item.id}
-            renderItem={
-              ({ item, index }) =>
-              <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} 
-            />} 
-          />
+        <View style={styles.content}>
+          <View style={styles.roadtripsContainer}>
+            <FlatList
+              data={roadtrips}
+              numColumns={2}
+              keyExtractor={item => item.id}
+              renderItem={
+                ({ item, index }) =>
+                <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} 
+              />} 
+            />
+          </View>
         </View>
         <View style={styles.addBtn}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('AddARoadtrip')}>
             <SvgUri width="50" height="50" source={require("../../../assets/icons/icon--addARoadtripBtn.svg")} />
           </TouchableOpacity>
         </View>
-      </View>;
+      </View>
+    );
   }
 }

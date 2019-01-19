@@ -1,15 +1,22 @@
 import { ViewStyle } from "react-native";
 
 export const containerComponent = {
-  flex: 1,
-  paddingLeft: 20,
-  paddingRight: 20
+  flex: 1
+}
+
+export const contentContained = {
+  paddingLeft: 30,
+  paddingRight: 30
 }
 
 export const headerComponent = {
-  marginTop: 50,
   flexDirection: "row"
 } as ViewStyle;
+
+export const headerActionBtn = {
+  padding: 30,
+  marginTop: 20
+}
 
 export const centerBtnAction = { 
   marginTop: 35,
