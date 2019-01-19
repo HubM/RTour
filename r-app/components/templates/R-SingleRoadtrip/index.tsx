@@ -21,20 +21,6 @@ export default class RSingleRoadtrip extends React.PureComponent<ComponentNaviga
     const { startCity, endCity, hour, owner, spec } = roadtrip;
     const { seats, calendar, address, roadtripType } = spec;
     
-    // let roadtripTypeIcon;
-
-    // if (roadtripType) {
-    //   roadtripType === "roundTrip"
-    //     ? roadtripTypeIcon = {
-    //       icon: "icon--roundTripWhite.svg",
-    //       name: "Round Trip"
-    //     }
-    //     : roadtripTypeIcon = {
-    //       icon: "icon--singleTripWhite.svg",
-    //       name: "Single Trip"
-    //     }
-    // }
-
     return (
       <ScrollView style={styles.container}>
         <View style={styles.header}>
@@ -94,13 +80,17 @@ export default class RSingleRoadtrip extends React.PureComponent<ComponentNaviga
               </Text>
             </View>            
           }
-          {/* {
-            (roadtripType) &&
-            <View style={styles.roadtripSubInfos__single}>
-              <SvgUri width="20" height="20" source={require(`../../../assets/icons/${roadtripType.icon}`)} />
-              <Text style={styles.roadtripSubInfos__single__text}>{}</Text>
-            </View>
-          } */}
+          {
+            (roadtripType) && roadtripType === "roundTrip" 
+            ? <View style={styles.roadtripSubInfos__single}>
+                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--roundTripWhite.svg")} />
+                <Text style={styles.roadtripSubInfos__single__text}>Round Trip</Text>
+              </View>
+            : <View style={styles.roadtripSubInfos__single}>
+                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--singleTripWhite.svg")} />
+                <Text style={styles.roadtripSubInfos__single__text}>Single Trip</Text>
+              </View>
+          }
         </View>
       </ScrollView>
     );
