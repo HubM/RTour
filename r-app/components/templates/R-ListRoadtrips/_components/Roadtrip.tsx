@@ -6,13 +6,21 @@ import { isIndexEven } from "../../../helpers";
 
 interface RoadtripProps {
   roadtrip: {
+    id: string,
     startCity: string,
     endCity: string,
     hour: string,
+    owner: {
+      name: string
+    },
     spec: {
+      seats: number,
       calendar: {
+        startingDate: string,
         duration: number
-      }
+      },
+      address: string,
+      roadtripType: string
     }
   },
   roadtripIndex: number,
@@ -31,6 +39,7 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
 
   render() {
     const { roadtripIndex, roadtrip, seeRoadtrip } = this.props;
+
     const { startCity, endCity, hour, spec } = roadtrip;
 
     let durationExist;
@@ -44,7 +53,7 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
       <TouchableOpacity 
         style={[
             styles.roadtripSingle, 
-            { marginRight: isIndexEven(roadtripIndex) ? 10 : 0 }
+            { marginRight: isIndexEven(roadtripIndex) ? 0 : 10 }
         ]}
         onPress={this.seeRoadtrip}
       >
@@ -57,7 +66,6 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
             {durationExist} {durationExist > 1 ? "days" : "day"}
           </Text>
         }
-       
      </TouchableOpacity>
     );
   }

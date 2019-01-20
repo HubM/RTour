@@ -50,12 +50,13 @@ export default StyleSheet.create({
     flexWrap: "wrap"
   },
   roadtripSingle: {
+    justifyContent: "flex-start",
     paddingVertical: 15,
     paddingHorizontal: 20,
     backgroundColor: blackColor.dark,
     borderRadius: 15,
     marginBottom: 10,
-    width: "48%"
+    width: "40%"
   },
   roadtripSingle__startingCity: {
     ...contentLight,
