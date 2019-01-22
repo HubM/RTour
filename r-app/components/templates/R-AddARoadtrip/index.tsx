@@ -1,10 +1,46 @@
 import * as React from "react";
-import { Text } from "react-native";
+import { Text, View, TouchableOpacity, TextInput } from "react-native";
 
 import { ComponentNavigationProps } from "../../helpers";
 
+import BackArrow from "../../helpers/components/BackArrow";
+import RInputText from "../../helpers/components/RInputText";
+
+import { grayColor, yellowColor } from "../../helpers/styles/colors";
+
+import styles from "./_style";
+
 export default class RAddARoadtrip extends React.PureComponent<ComponentNavigationProps> {
+  state = {
+    emptyInputText: true
+  }
+
+  static navigationOptions = {
+    header: null,
+  };
+
   render() {
-    return <Text>Add a roadtrip view</Text>
+    const { navigation } = this.props;
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <BackArrow color="white" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.content}>
+          <Text style={styles.title}>Your roadtrip</Text>
+          <View>
+            <RInputText 
+              placeholder="Starting City"
+              placeholderColor={grayColor.light}
+              mainColor={yellowColor.light}
+            />
+          </View>
+        </View>
+        
+      </View>
+    );
   }
 }
