@@ -15,7 +15,6 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
   constructor(props: any) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
-    
   }
 
   static navigationOptions = {
@@ -26,6 +25,7 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
     filterBtn: "Filter".toUpperCase(),
     roadtrips: fakeRoadtrips,
   }
+  
   _renderRoadtripsContainer = ({item}) => {
     return (
       <View style={{ width: width, flexWrap: "wrap" }}>
@@ -33,20 +33,14 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
           data={item.roadtrips}
           keyExtractor={item => item.id}
           numColumns={2}
-          renderItem={this._renderSingleRoadtrip}
+          renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} />}
         />
       </View>
     )
   }
 
   _renderSingleRoadtrip(data: object, index: number) {
-    console.log(data);
-    return (
-      // <View>
-        <Roadtrip roadtrip={data.item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} />
-      // </View>
-    );
-    // (roadtrip, index}) =>  /> 
+    return 
   }
 
   _seeRoadtrip(roadtrip: object) {
@@ -67,7 +61,6 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
         </View>
         <Text style={styles.date}>03 December</Text>
         <View style={styles.content}>
-          {/* <View style={styles.roadtripsContainer}> */}
             <FlatList
               data={roadtrips}
               pagingEnabled={true}

@@ -38,7 +38,7 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
   }
 
   render() {
-    const { roadtripIndex, roadtrip, seeRoadtrip } = this.props;
+    const { roadtripIndex, roadtrip } = this.props;
 
     const { startCity, endCity, hour, spec } = roadtrip;
 
@@ -53,7 +53,7 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
       <TouchableOpacity 
         style={[
             styles.roadtripSingle, 
-            { marginRight: isIndexEven(roadtripIndex) ? 0 : 10 }
+            { marginRight: !isIndexEven(roadtripIndex) ? 0 : 10 }
         ]}
         onPress={this.seeRoadtrip}
       >
