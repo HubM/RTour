@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { contentS, contentRegular } from "../styles/typos";
-import { yellowColor } from "../styles/colors";
+import { contentS, contentRegular } from "./_typos";
+import { yellowColor } from "./_colors";
 
 export default StyleSheet.create({
   inputText: {
