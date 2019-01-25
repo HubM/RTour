@@ -4,21 +4,21 @@ import { withNavigation } from "react-navigation";
 
 import stylesButtons from "../../helpers/styles/buttons";
 
-interface ButtonProps {
+interface MainButtonProps {
   text: string,
   route: string,
   color: string
 };
 
-class RWelcome extends React.PureComponent<ButtonProps> {
+class RMainButton extends React.PureComponent<MainButtonProps> {
   render() {
     const { text, route, color, navigation } = this.props;
 
     let buttonColor;
 
     color === "white" 
-    ? buttonColor = stylesButtons.white
-    : buttonColor = stylesButtons.yellow
+    ? buttonColor = stylesButtons.mainWhite
+    : buttonColor = stylesButtons.mainYellow
     
     return (
       <TouchableOpacity onPress={() => navigation.navigate(route)}>
@@ -28,4 +28,4 @@ class RWelcome extends React.PureComponent<ButtonProps> {
   }
 }
 
-export default withNavigation(RWelcome);
+export default withNavigation(RMainButton);

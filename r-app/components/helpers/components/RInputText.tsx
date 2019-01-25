@@ -3,14 +3,14 @@ import { TextInput } from "react-native";
 
 import stylesForms from "../styles/forms";
 
-interface inputTextProps {
+interface RInputTextProps {
   placeholder: string,
   placeholderColor: string,
   mainColor: string
 };
 
-export default class BackArrow extends React.PureComponent<inputTextProps> {
-  constructor(props: inputTextProps) {
+export default class BackArrow extends React.PureComponent<RInputTextProps> {
+  constructor(props: RInputTextProps) {
     super(props)
     this._writeInputText = this._writeInputText.bind(this);
   }

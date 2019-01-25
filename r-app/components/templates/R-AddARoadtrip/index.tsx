@@ -23,9 +23,7 @@ export default class RAddARoadtrip extends React.PureComponent<any> {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <BackArrow color="white" />
-          </TouchableOpacity>
+          <BackArrow color="white"/>
         </View>
         <View style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>

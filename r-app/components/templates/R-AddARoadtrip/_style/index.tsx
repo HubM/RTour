@@ -1,11 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import { greenColor, grayColor, yellowColor } from "../../../helpers/styles/colors";
-import logo from "../../../helpers/styles/logo";
-import { containerComponent, headerComponent, headerActionBtn, contentContained } from "../../../helpers/styles/layout";
-import { titleh3, titleMedium, contentS, contentRegular, contentLight, contentBold } from "../../../helpers/styles/typos";
-import { fontWhiteColor } from "../../../helpers/styles/colors";
-import { whiteSecondButton } from "../../../helpers/styles/buttons";
+import { greenColor, yellowColor } from "../../../helpers/styles/_colors";
+import { containerComponent, headerComponent, headerActionBtn, contentContained } from "../../../helpers/styles/_layout";
+import { titleh3, titleMedium, contentS, contentRegular, contentLight, contentBold } from "../../../helpers/styles/_typos";
+import { fontWhiteColor } from "../../../helpers/styles/_colors";
 
 
 

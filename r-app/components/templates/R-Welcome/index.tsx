@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
 import RMainButton from "../../helpers/components/RMainButton";
+import RSecondButton from "../../helpers/components/RSecondButton";
 
 import styles from "./_style";
 
@@ -36,12 +37,14 @@ export default class RWelcome extends React.PureComponent<any> {
           route="ListRoadtrips"
           color="white"
         />
+        <RSecondButton
+          text="skip"
+          route="ListRoadtrips"
+          color="white"
+        />
         {/* <TouchableOpacity onPress={() => navigate("ListRoadtrips")}>
-          <Text style={styles.mainButton}>{buttonLabel}</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity onPress={() => navigate("ListRoadtrips")}>
           <Text style={styles.secondButton}>skip</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }

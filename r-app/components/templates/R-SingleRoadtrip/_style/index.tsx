@@ -1,7 +1,7 @@
 import { StyleSheet, PixelRatio, ViewStyle } from "react-native";
 
-import { containerComponent, headerComponent, inlineElements, headerActionBtn, contentContained } from "../../../helpers/styles/layout";
-import { blackColor, grayColor, yellowColor } from "../../../helpers/styles/colors";
+import { containerComponent, headerComponent, inlineElements, headerActionBtn, contentContained } from "../../../helpers/styles/_layout";
+import { blackColor, grayColor, yellowColor } from "../../../helpers/styles/_colors";
 import {
   titleh2,
   titleh3,
@@ -12,8 +12,7 @@ import {
   contentLight,
   contentRegular,
   contentBold,
-} from "../../../helpers/styles/typos";
-import { yellowMainButton, backArrow } from "../../../helpers/styles/buttons";
+} from "../../../helpers/styles/_typos";
 
 export default StyleSheet.create({
   container: {
@@ -75,8 +74,4 @@ export default StyleSheet.create({
     marginRight: 0,
     padding: 0
   },
-  mainButton: {
-    ...yellowMainButton,
-    ...contentBold
-  }
 });
