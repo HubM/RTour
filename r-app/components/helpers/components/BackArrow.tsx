@@ -1,22 +1,27 @@
 import * as React from "react";
-
+import { TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import { withNavigation } from "react-navigation";
 
-import { NavigationScreenProp } from "react-navigation";
+import stylesButton from "../styles/buttons";
 
 interface RoadtripProps {
   color: string
 };
 
-
-export default class BackArrow extends React.PureComponent<RoadtripProps> {
+class BackArrow extends React.PureComponent<RoadtripProps> {
   render() {
-    const { color } = this.props;
+    const { color, navigation } = this.props;
     return (
-      color === "white" 
-      ? <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--goToBackWhite.svg")} />
-      : <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--goToBackBlack.svg")} />
+      <TouchableOpacity onPress={() => navigation.goBack()} style={stylesButton.backArrow}>
+        {
+          color === "white" 
+          ? <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--goToBackWhite.svg")} />
+          : <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--goToBackBlack.svg")} />
+        }
+      </TouchableOpacity>
     );
-    
   }
 }
+
+export default withNavigation(BackArrow)

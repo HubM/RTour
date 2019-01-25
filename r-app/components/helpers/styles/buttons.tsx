@@ -1,43 +1,42 @@
-import  { contentXs, contentS } from './typos';
-import { grayColor, yellowColor } from './colors';
-import { ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const mainButton = {
-  ...contentS,
-  paddingHorizontal: 55,
-  paddingVertical: 10,
-  alignSelf: "center",
-  borderWidth: 2,
-  borderRadius: 8,
-  marginBottom: 40
-} as ViewStyle;
+import { contentS, contentBold, contentXs, contentLight } from "./_typos";
+import { grayColor, yellowColor } from "./_colors";
 
-
-const secondButton = {
-  ...contentXs,
-  alignSelf: "center",
-  bottom: 0,
-  marginBottom: 40
-} as ViewStyle;
-
-export const whiteMainButton = { 
-  ...mainButton,
-  color: grayColor.light,
-  borderColor: grayColor.light
-}
-
-export const yellowMainButton = {
-  ...mainButton,
-  color: yellowColor.light,
-  borderColor: yellowColor.light
-}
-
-export const whiteSecondButton = {
-  ...secondButton,
-  color: grayColor.light
-}
-
-export const backArrow = {
-  marginTop: 35,
-  padding: 15,
-}
+export default StyleSheet.create({
+  main: {
+    ...contentS,
+    ...contentBold,
+    paddingHorizontal: 55,
+    paddingVertical: 10,
+    alignSelf: "center",
+    borderWidth: 2,
+    borderRadius: 8,
+    marginBottom: 40
+  },
+  second: {
+    ...contentXs,
+    ...contentLight,
+    alignSelf: "center",
+    bottom: 0,
+    marginBottom: 40
+  },
+  mainWhite: {
+    color: grayColor.light,
+    borderColor: grayColor.light
+  },
+  mainYellow: {
+    color: yellowColor.light,
+    borderColor: yellowColor.light    
+  },
+  secondWhite: {
+    color: grayColor.light
+  },
+  secondYellow: {
+    color: yellowColor.light
+  },
+  backArrow: {
+    marginTop: 35,
+    padding: 15,
+  }
+});
