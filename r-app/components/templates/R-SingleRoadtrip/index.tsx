@@ -1,14 +1,13 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-
-import { ComponentNavigationProps } from "../../helpers";
-
-import BackArrow from "../../helpers/components/BackArrow";
-import styles from "./_style";
 import SvgUri from 'react-native-svg-uri';
 
+import RMainButton from "../../helpers/components/RMainButton";
+import BackArrow from "../../helpers/components/BackArrow";
+import styles from "./_style";
 
-export default class RSingleRoadtrip extends React.PureComponent<ComponentNavigationProps> {
+
+export default class RSingleRoadtrip extends React.PureComponent<any> {
   static navigationOptions = {
     header: null,
   };
@@ -16,6 +15,7 @@ export default class RSingleRoadtrip extends React.PureComponent<ComponentNaviga
   state = {
     buttonLabel: 'Join'.toUpperCase()
   }
+
   render() {
     const { navigation } = this.props;
     const roadtrip = navigation.getParam("roadtrip");
@@ -23,8 +23,6 @@ export default class RSingleRoadtrip extends React.PureComponent<ComponentNaviga
     const { startCity, endCity, hour, owner, spec } = roadtrip;
     const { seats, calendar, address, roadtripType } = spec;
     
-    const { buttonLabel } = this.state;
-
     return (
       <ScrollView style={styles.container}>
         <View style={styles.header}>
@@ -98,9 +96,11 @@ export default class RSingleRoadtrip extends React.PureComponent<ComponentNaviga
             }
           </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("ListRoadtrips")}>
-          <Text style={styles.mainButton}>{buttonLabel}</Text>
-        </TouchableOpacity>
+        <RMainButton 
+          text="Join"
+          route="ListRoadtrips"
+          color="yellow"
+        />
       </ScrollView>
     );
   }

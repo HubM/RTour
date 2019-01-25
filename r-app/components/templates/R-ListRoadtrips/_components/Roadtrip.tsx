@@ -28,7 +28,7 @@ interface RoadtripProps {
 };
 
 export default class Roadtrip extends React.PureComponent<RoadtripProps> {
-  constructor(props: any) {
+  constructor(props: RoadtripProps) {
     super(props);
     this.seeRoadtrip = this.seeRoadtrip.bind(this);
   }

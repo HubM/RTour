@@ -1,8 +1,7 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, FlatList, ScrollView, Dimensions } from "react-native";
 import SvgUri from "react-native-svg-uri";
-
-import { ComponentNavigationProps } from "../../helpers";
+import { withNavigation } from "react-navigation";
 
 import Roadtrip from "./_components/Roadtrip";
 import styles from "./_style";
@@ -11,7 +10,8 @@ import fakeRoadtrips from "./_data/fakeRoadtrips";
 
 const width = Dimensions.get('window').width;
 
-export default class RListRoadtrips extends React.PureComponent<ComponentNavigationProps> {
+class RListRoadtrips extends React.PureComponent<any> {
+  
   constructor(props: any) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
@@ -44,11 +44,14 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
   }
 
   _seeRoadtrip(roadtrip: object) {
-    this.props.navigation.navigate("SingleRoadtrip", { roadtrip });
+    const { navigation } = this.props;
+    navigation.navigate("SingleRoadtrip", { roadtrip });
   }
   
   render() {
     const { filterBtn, roadtrips } = this.state;
+    const { navigation } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -61,17 +64,17 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
         </View>
         <Text style={styles.date}>03 December</Text>
         <View style={styles.content}>
-            <FlatList
-              data={roadtrips}
-              pagingEnabled={true}
-              showsHorizontalScrollIndicator={true}
-              keyExtractor={item => item.date}
-              horizontal={true}
-              renderItem={this._renderRoadtripsContainer} 
-            />
+          <FlatList
+            data={roadtrips}
+            pagingEnabled={true}
+            showsHorizontalScrollIndicator={true}
+            keyExtractor={item => item.date}
+            horizontal={true}
+            renderItem={this._renderRoadtripsContainer} 
+          />
         </View>
         <View style={styles.addBtn}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('AddARoadtrip')}>
+          <TouchableOpacity onPress={() => navigation.navigate('AddARoadtrip')}>
             <SvgUri width="50" height="50" source={require("../../../assets/icons/icon--addARoadtripBtn.svg")} />
           </TouchableOpacity>
         </View>
@@ -79,3 +82,5 @@ export default class RListRoadtrips extends React.PureComponent<ComponentNavigat
     );
   }
 }
+
+export default withNavigation(RListRoadtrips);

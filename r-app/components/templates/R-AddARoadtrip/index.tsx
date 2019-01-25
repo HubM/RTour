@@ -1,16 +1,14 @@
 import * as React from "react";
 import { Text, View, TouchableOpacity, TextInput } from "react-native";
 
-import { ComponentNavigationProps } from "../../helpers";
-
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
 
-import { grayColor, yellowColor } from "../../helpers/styles/colors";
+import { grayColor, yellowColor } from "../../helpers/styles/_colors";
 
 import styles from "./_style";
 
-export default class RAddARoadtrip extends React.PureComponent<ComponentNavigationProps> {
+export default class RAddARoadtrip extends React.PureComponent<any> {
   state = {
     emptyInputText: true
   }
@@ -39,7 +37,6 @@ export default class RAddARoadtrip extends React.PureComponent<ComponentNavigati
             />
           </View>
         </View>
-        
       </View>
     );
   }

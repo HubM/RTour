@@ -2,21 +2,17 @@ import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
-import { ComponentNavigationProps } from "../../helpers";
+import RMainButton from "../../helpers/components/RMainButton";
+
 import styles from "./_style";
 
-export default class RWelcome extends React.PureComponent<ComponentNavigationProps, object> {
+export default class RWelcome extends React.PureComponent<any> {
   
   static navigationOptions = {
     header: null,
   };
 
-  state = {
-    buttonLabel: 'Connect'.toUpperCase()
-  }
-
   render() {
-    const { buttonLabel } = this.state;
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -34,10 +30,15 @@ export default class RWelcome extends React.PureComponent<ComponentNavigationPro
               curious, you are welcome 🤘
             </Text>
           </View>
-        </View>        
-        <TouchableOpacity onPress={() => navigate("ListRoadtrips")}>
+        </View>       
+        <RMainButton 
+          text="Connect"
+          route="ListRoadtrips"
+          color="white"
+        />
+        {/* <TouchableOpacity onPress={() => navigate("ListRoadtrips")}>
           <Text style={styles.mainButton}>{buttonLabel}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => navigate("ListRoadtrips")}>
           <Text style={styles.secondButton}>skip</Text>
         </TouchableOpacity>
