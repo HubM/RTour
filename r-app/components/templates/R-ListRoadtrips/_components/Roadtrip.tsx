@@ -52,8 +52,8 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
     return (
       <TouchableOpacity 
         style={[
-            styles.roadtripSingle, 
-            { marginRight: !isIndexEven(roadtripIndex) ? 0 : 10 }
+          styles.roadtripSingle,
+          isIndexEven(roadtripIndex)  ? {marginRight: "2%"} : {marginLeft: "2%"}
         ]}
         onPress={this.seeRoadtrip}
       >

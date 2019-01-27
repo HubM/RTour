@@ -49,14 +49,21 @@ export default StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap"
   },
+  roadtripPerDayContainer: {
+    flexWrap: "wrap",
+    justifyContent: 'space-between',
+    paddingHorizontal: 30,
+    paddingVertical: 0
+  },
   roadtripSingle: {
     justifyContent: "flex-start",
+    alignSelf: "flex-start",
     paddingVertical: 15,
     paddingHorizontal: 20,
     backgroundColor: blackColor.dark,
     borderRadius: 15,
     marginBottom: 10,
-    width: "40%"
+    width: "46%"
   },
   roadtripSingle__startingCity: {
     ...contentLight,

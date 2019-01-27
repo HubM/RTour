@@ -7,7 +7,6 @@ import Roadtrip from "./_components/Roadtrip";
 import styles from "./_style";
 import fakeRoadtrips from "./_data/fakeRoadtrips";
 
-
 const width = Dimensions.get('window').width;
 
 class RListRoadtrips extends React.PureComponent<any> {
@@ -26,9 +25,10 @@ class RListRoadtrips extends React.PureComponent<any> {
     roadtrips: fakeRoadtrips,
   }
   
-  _renderRoadtripsContainer = ({item}) => {
+  _renderRoadtripsContainer = ({ item }) => {
     return (
-      <View style={{ width: width, flexWrap: "wrap" }}>
+      <View style={[ styles.roadtripPerDayContainer, { width: width } ]}>
+        <Text style={styles.date}>{item.date}</Text>
         <FlatList
           data={item.roadtrips}
           keyExtractor={item => item.id}
@@ -62,8 +62,7 @@ class RListRoadtrips extends React.PureComponent<any> {
             <Text style={styles.filterBtn}>{filterBtn}</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.date}>03 December</Text>
-        <View style={styles.content}>
+        <View>
           <FlatList
             data={roadtrips}
             pagingEnabled={true}

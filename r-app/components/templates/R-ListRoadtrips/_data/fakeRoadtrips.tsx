@@ -80,6 +80,42 @@ export default [
           address: "140 East 63rd Street, New York City",
           roadtripType: "roundTrip"
         }
+      },
+      {
+        id: "1",
+        startCity: "Mon cul",
+        endCity: "Ton cul",
+        hour: "8h",
+        owner: {
+          name: "Hubert Moncenis"
+        },
+        spec: {
+          seats: null,
+          calendar: {
+            startingDate: "04/12/2018",
+            duration: 1
+          },
+          address: "140 East 63rd Street, New York City",
+          roadtripType: "roundTrip"
+        }
+      },
+      {
+        id: "1",
+        startCity: "Mon cul",
+        endCity: "Ton cul",
+        hour: "8h",
+        owner: {
+          name: "Hubert Moncenis"
+        },
+        spec: {
+          seats: null,
+          calendar: {
+            startingDate: "04/12/2018",
+            duration: 1
+          },
+          address: "140 East 63rd Street, New York City",
+          roadtripType: "roundTrip"
+        }
       }
     ]
   } 
