@@ -55,8 +55,10 @@
     "@types/expo": "^31.0.7",
     "@types/react-navigation": "^3.0.1",
     "expo": "^27.1.1",
+    "moment": "^2.24.0",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-modal-datetime-picker": "^6.0.0",
     "react-native-svg-uri": "^1.2.3",
     "react-navigation": "^3.0.9"
   }
