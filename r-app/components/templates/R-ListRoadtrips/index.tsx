@@ -10,7 +10,12 @@ import fakeRoadtrips from "./_data/fakeRoadtrips";
 
 const width = Dimensions.get('window').width;
 
-class RListRoadtrips extends React.PureComponent<any> {
+interface RListRoadtripsState {
+  filterBtn: string,
+  roadtrips: object,
+}
+
+class RListRoadtrips extends React.PureComponent<any, RListRoadtripsState> {
   
   constructor(props: any) {
     super(props);

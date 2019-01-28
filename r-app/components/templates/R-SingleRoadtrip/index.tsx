@@ -6,8 +6,12 @@ import RMainButton from "../../helpers/components/RMainButton";
 import BackArrow from "../../helpers/components/BackArrow";
 import styles from "./_style";
 
+interface RSingleRoadtripState {
+  buttonLabel: string;
+}
 
-export default class RSingleRoadtrip extends React.PureComponent<any> {
+
+export default class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
   static navigationOptions = {
     header: null,
   };

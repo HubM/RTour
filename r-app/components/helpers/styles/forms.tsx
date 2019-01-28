@@ -1,13 +1,26 @@
 import { StyleSheet } from 'react-native';
 
 import { contentS, contentRegular } from "./_typos";
-import { yellowColor } from "./_colors";
+import { yellowColor, grayColor } from "./_colors";
+
+
+const inputDefault = {
+  ...contentS,
+  ...contentRegular,
+  marginBottom: 25
+}
 
 export default StyleSheet.create({
   inputText: {
+    ...inputDefault,
     paddingBottom: 15,
-    ...contentS,
-    ...contentRegular,
-    color: yellowColor.light
+    color: yellowColor.light,
+  },
+  inputDate: {
+    ...inputDefault,
+    paddingBottom: 5,
+    color: grayColor.light,
+    borderBottomWidth: 1,
+    borderBottomColor: "#FFFFFF"
   }
 });

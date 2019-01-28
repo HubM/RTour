@@ -6,10 +6,15 @@ import stylesForms from "../styles/forms";
 interface RInputTextProps {
   placeholder: string,
   placeholderColor: string,
-  mainColor: string
+  mainColor: string,
+  onChangeText(text: string): void
 };
 
-export default class BackArrow extends React.PureComponent<RInputTextProps> {
+interface RInputTextState {
+  emptyInputText: boolean
+}
+
+export default class RInputText extends React.PureComponent<RInputTextProps, RInputTextState> {
   constructor(props: RInputTextProps) {
     super(props)
     this._writeInputText = this._writeInputText.bind(this);
@@ -20,6 +25,10 @@ export default class BackArrow extends React.PureComponent<RInputTextProps> {
   }
 
   _writeInputText(text: string) {
+    const { onChangeText } = this.props;
+
+    onChangeText(text)
+
     if (text.length > 0) {
       this.setState({
         emptyInputText: false
