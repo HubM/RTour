@@ -14,7 +14,6 @@ export default class RWelcome extends React.PureComponent<any> {
   };
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
@@ -42,9 +41,6 @@ export default class RWelcome extends React.PureComponent<any> {
           route="ListRoadtrips"
           color="white"
         />
-        {/* <TouchableOpacity onPress={() => navigate("ListRoadtrips")}>
-          <Text style={styles.secondButton}>skip</Text>
-        </TouchableOpacity> */}
       </View>
     );
   }

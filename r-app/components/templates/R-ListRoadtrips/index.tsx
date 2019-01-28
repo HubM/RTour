@@ -2,6 +2,7 @@ import * as React from "react";
 import { View, Text, TouchableOpacity, FlatList, ScrollView, Dimensions } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { withNavigation } from "react-navigation";
+import moment from "moment";
 
 import Roadtrip from "./_components/Roadtrip";
 import styles from "./_style";
@@ -26,9 +27,11 @@ class RListRoadtrips extends React.PureComponent<any> {
   }
   
   _renderRoadtripsContainer = ({ item }) => {
+    const listRoadtripsDate = moment(item.date).format('ddd, D MMM');
+
     return (
       <View style={[ styles.roadtripPerDayContainer, { width: width } ]}>
-        <Text style={styles.date}>{item.date}</Text>
+        <Text style={styles.date}>{listRoadtripsDate}</Text>
         <FlatList
           data={item.roadtrips}
           keyExtractor={item => item.id}
@@ -36,7 +39,7 @@ class RListRoadtrips extends React.PureComponent<any> {
           renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} />}
         />
       </View>
-    )
+    ) 
   }
 
   _renderSingleRoadtrip(data: object, index: number) {
