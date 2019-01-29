@@ -11,7 +11,8 @@ import styles from "./_style";
 
 interface RAddARoadtripState {
   startingCity: string,
-  endingCity: string
+  endingCity: string,
+  startingDate: string
 }
 
 export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
@@ -21,31 +22,35 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
 
   state = {
     startingCity: "",
-    endingCity: ""
+    endingCity: "",
+    startingDate: ""
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <BackArrow color="white"/>
+          <BackArrow color="white" />
         </View>
         <View style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>
           <View>
-            <RInputText 
+            <RInputText
               placeholder="Starting City"
               placeholderColor={grayColor.light}
               mainColor={yellowColor.light}
-              onChangeText={(text) => this.setState({ startingCity: text})}
+              onChangeText={(text) => this.setState({ startingCity: text })}
             />
             <RInputText
               placeholder="Ending City"
               placeholderColor={grayColor.light}
               mainColor={yellowColor.light}
               onChangeText={(text) => this.setState({ endingCity: text })}
-            />    
-            <RInputDate />        
+            />
+            <RInputDate
+              placeholder="Starting Date"
+              getDate={date => this.setState({ startingDate: date })}
+            />
           </View>
         </View>
       </View>

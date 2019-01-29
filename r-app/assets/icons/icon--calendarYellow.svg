@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon--calendarWhite</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon--calendarWhite">
+            <g id="Groupe_130">
+                <g id="Tracé_122" transform="translate(0.000000, 1.425000)">
+                    <path d="M-4.20778863e-16,12.11 C-0.0101312095,12.6798131 0.211761524,13.2292737 0.614743908,13.6322561 C1.01772629,14.0352385 1.56718691,14.2571312 2.137,14.247 L13.537,14.247 C14.1068131,14.2571312 14.6562737,14.0352385 15.0592561,13.6322561 C15.4622385,13.2292737 15.6841312,12.6798131 15.674,12.11 L15.674,2.137 C15.6841474,1.56683348 15.4619831,1.01705682 15.058562,0.614013007 C14.655141,0.210969193 14.1051568,-0.0106807748 13.535,3.33175328e-16 L2.135,3.33175328e-16 C1.56553076,-0.00958233356 1.01659347,0.212552815 0.614049497,0.615473877 C0.211505524,1.01839494 -0.0101155401,1.56753999 -4.20778863e-16,2.137 L-4.20778863e-16,12.11 Z" id="Shape"></path>
+                    <path d="M13.53479,13.24716 C14.1936646,13.24716 14.671875,12.7689495 14.671875,12.1100903 L14.671875,2.13707018 C14.671875,1.47820997 14.1936646,1 13.53479,1 L2.13708496,1 C1.47821045,1 1,1.47820997 1,2.13707018 L1,12.1100903 C1,12.7689495 1.47821045,13.24716 2.13708496,13.24716 L13.53479,13.24716 Z M13.53479,14.24716 L2.13708496,14.24716 C0.926055908,14.24716 0,13.3210907 0,12.1100903 L0,2.13707018 C0,0.926069975 0.926055908,0 2.13708496,0 L13.53479,0 C14.7458191,0 15.671875,0.926069975 15.671875,2.13707018 L15.671875,12.1100903 C15.671875,13.3210907 14.7458191,14.24716 13.53479,14.24716 Z" id="Shape" fill="#FFF784" fill-rule="nonzero"></path>
+                </g>
+                <path d="M0,5 L15.672,5" id="Ligne_83" stroke="#FFF784" stroke-linejoin="round"></path>
+                <path d="M7.836,1 L7.836,0" id="Ligne_84" stroke="#FFF784" stroke-linejoin="round"></path>
+                <path d="M3.562,1 L3.562,0" id="Ligne_85" stroke="#FFF784" stroke-linejoin="round"></path>
+                <path d="M12.11,1 L12.11,0" id="Ligne_86" stroke="#FFF784" stroke-linejoin="round"></path>
+            </g>
+            <path d="M2.849,9 L4.274,9" id="Ligne_87" stroke="#FFF784" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M7.124,9 L8.549,9" id="Ligne_88" stroke="#FFF784" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M11.398,9 L12.823,9" id="Ligne_89" stroke="#FFF784" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M2.849,12 L4.274,12" id="Ligne_90" stroke="#FFF784" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M7.124,12 L8.549,12" id="Ligne_91" stroke="#FFF784" stroke-width="2" stroke-linejoin="round"></path>
+            <path d="M11.398,12 L12.823,12" id="Ligne_92" stroke="#FFF784" stroke-width="2" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

@@ -26,11 +26,11 @@ export default class RSingleRoadtrip extends React.PureComponent<any, RSingleRoa
 
     const { startCity, endCity, hour, owner, spec } = roadtrip;
     const { seats, calendar, address, roadtripType } = spec;
-    
+
     return (
       <ScrollView style={styles.container}>
         <View style={styles.header}>
-          <BackArrow color="white"/>
+          <BackArrow color="white" />
         </View>
         <View style={styles.content}>
           <View style={styles.roadtripTitle}>
@@ -43,28 +43,28 @@ export default class RSingleRoadtrip extends React.PureComponent<any, RSingleRoa
           </View>
           <View style={styles.roadtripSubInfos}>
             {
-              seats && 
-                <View style={styles.roadtripSubInfos__single}>
-                  <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--seatsAvailable.svg")} />
-                  <Text style={styles.roadtripSubInfos__single__text}>
-                    {seats} { seats > 1 ? "seats available" : "seat available"}
-                  </Text>
-                </View>
+              seats &&
+              <View style={styles.roadtripSubInfos__single}>
+                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--seatsAvailable.svg")} />
+                <Text style={styles.roadtripSubInfos__single__text}>
+                  {seats} {seats > 1 ? "seats available" : "seat available"}
+                </Text>
+              </View>
             }
             {
               (calendar && calendar.startingDate ||
-              calendar && calendar.duration) &&
+                calendar && calendar.duration) &&
               <View style={styles.roadtripSubInfos__single}>
-                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--calendar.svg")} />
-                  <Text style={styles.roadtripSubInfos__single__text}>
-                    {
-                      calendar.startingDate && calendar.startingDate 
-                    }{
-                      calendar.duration && calendar.duration > 1 
-                      ? `- ${calendar.duration} days` 
-                      : `- ${calendar.duration} day`  
-                    }
-                  </Text>
+                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--calendarWhite.svg")} />
+                <Text style={styles.roadtripSubInfos__single__text}>
+                  {
+                    calendar.startingDate && calendar.startingDate
+                  }{
+                    calendar.duration && calendar.duration > 1
+                      ? `- ${calendar.duration} days`
+                      : `- ${calendar.duration} day`
+                  }
+                </Text>
               </View>
             }
             {
@@ -77,28 +77,28 @@ export default class RSingleRoadtrip extends React.PureComponent<any, RSingleRoa
               </View>
             }
             {
-              hour && 
+              hour &&
               <View style={styles.roadtripSubInfos__single}>
                 <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--hour.svg")} />
                 <Text style={styles.roadtripSubInfos__single__text}>
                   {hour}
                 </Text>
-              </View>            
+              </View>
             }
             {
-              (roadtripType) && roadtripType === "roundTrip" 
-              ? <View style={styles.roadtripSubInfos__single}>
+              (roadtripType) && roadtripType === "roundTrip"
+                ? <View style={styles.roadtripSubInfos__single}>
                   <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--roundTripWhite.svg")} />
                   <Text style={styles.roadtripSubInfos__single__text}>Round Trip</Text>
                 </View>
-              : <View style={styles.roadtripSubInfos__single}>
+                : <View style={styles.roadtripSubInfos__single}>
                   <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--singleTripWhite.svg")} />
                   <Text style={styles.roadtripSubInfos__single__text}>Single Trip</Text>
                 </View>
             }
           </View>
         </View>
-        <RMainButton 
+        <RMainButton
           text="Join"
           route="ListRoadtrips"
           color="yellow"
