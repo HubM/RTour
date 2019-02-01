@@ -11,19 +11,19 @@ const inputDefault = {
 }
 
 export default StyleSheet.create({
+  inputContainer: {
+    marginBottom: 30,
+    borderBottomWidth: 1,
+    paddingBottom: 5,
+    justifyContent: "space-between",
+    alignItems: "center",
+    ...inlineElements
+  } as ViewStyle,
   inputText: {
     ...inputDefault,
-    marginBottom: 25,
-    paddingBottom: 15,
+    width: "80%",
     color: yellowColor.light,
   },
-  inputDateContainer: {
-    ...inlineElements,
-    justifyContent: "space-between",
-    paddingBottom: 5,
-    borderBottomWidth: 1,
-    marginBottom: 30
-  } as ViewStyle,
   emptyInput: {
     borderBottomColor: "#FFFFFF",
   },

@@ -1,7 +1,8 @@
 import * as React from "react";
-import { TextInput } from "react-native";
+import { TextInput, View } from "react-native";
+import SvgUri from "react-native-svg-uri";
 
-import stylesForms from "../styles/forms";
+import styleForm from "../styles/forms";
 
 interface RInputTextProps {
   placeholder: string,
@@ -42,17 +43,24 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
 
   render() {
     const { emptyInputText } = this.state;
-    const { placeholder } = this.props;
+    const { placeholder } = this.props;
     return (
-      <TextInput
-        style={stylesForms.inputText}
-        underlineColorAndroid={emptyInputText ? "#ffffff" : "#FFF784"}
-        placeholder={placeholder}
-        placeholderTextColor="#F8F8F8"
-        autoCapitalize="none"
-        keyboardAppearance="dark"
-        onChangeText={this._writeInputText}
-      />
+      <View style={[styleForm.inputContainer, emptyInputText ? styleForm.emptyInput : styleForm.busyInput]}>
+        <TextInput
+          style={styleForm.inputText}
+          underlineColorAndroid="transparent"
+          placeholder={placeholder}
+          placeholderTextColor="#F8F8F8"
+          autoCapitalize="none"
+          keyboardAppearance="dark"
+          onChangeText={this._writeInputText}
+        />
+        <SvgUri width="25" height="13" source={
+          emptyInputText
+            ? require("../../../assets/icons/icon--textInputWhite.svg")
+            : require("../../../assets/icons/icon--textInputYellow.svg")
+        } />
+      </View>
     );
 
   }
