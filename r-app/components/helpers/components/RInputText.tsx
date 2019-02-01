@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TextInput, View } from "react-native";
+import { TextInput, View, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
 import styleForm from "../styles/forms";
@@ -12,25 +12,33 @@ interface RInputTextProps {
 };
 
 interface RInputTextState {
-  emptyInputText: boolean
+  emptyInputText: boolean,
+  textValue: string
 }
 
 export default class RInputText extends React.PureComponent<RInputTextProps, RInputTextState> {
   constructor(props: RInputTextProps) {
     super(props)
     this._writeInputText = this._writeInputText.bind(this);
+    this._clearTextValue = this._clearTextValue.bind(this)
   }
 
   state = {
-    emptyInputText: true
+    emptyInputText: true,
+    textValue: ""
   }
 
   _writeInputText(text: string) {
     const { onChangeText } = this.props;
+    const { textValue } = this.state;
 
-    onChangeText(text)
+    this.setState({
+      textValue: text
+    })
 
-    if (text.length > 0) {
+
+    if (textValue.length > 0) {
+      onChangeText(textValue)
       this.setState({
         emptyInputText: false
       })
@@ -39,6 +47,13 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
         emptyInputText: true
       })
     }
+  }
+
+  _clearTextValue() {
+    this.setState({
+      textValue: "",
+      emptyInputText: true
+    })
   }
 
   render() {
@@ -54,12 +69,18 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
           autoCapitalize="none"
           keyboardAppearance="dark"
           onChangeText={this._writeInputText}
+          value={this.state.textValue}
         />
-        <SvgUri width="25" height="13" source={
+        {
           emptyInputText
-            ? require("../../../assets/icons/icon--textInputWhite.svg")
-            : require("../../../assets/icons/icon--textInputYellow.svg")
-        } />
+            ?
+            <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--textInputWhite.svg")} />
+            :
+            <TouchableOpacity onPress={this._clearTextValue} style={{ padding: 15, transform: [{ translateX: 15 }, { translateY: -5 }] }}>
+              <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--deleteBusyInput.svg")} />
+            </TouchableOpacity>
+        }
+
       </View>
     );
 

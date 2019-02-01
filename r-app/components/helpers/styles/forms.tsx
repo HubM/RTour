@@ -2,7 +2,7 @@ import { StyleSheet, ViewStyle } from 'react-native';
 
 import { inlineElements } from "./_layout";
 import { contentS, contentRegular } from "./_typos";
-import { yellowColor, placeholderColor } from "./_colors";
+import { yellowColor, placeholderColor, fontWhiteColor } from "./_colors";
 
 
 const inputDefault = {
@@ -21,14 +21,14 @@ export default StyleSheet.create({
   } as ViewStyle,
   inputText: {
     ...inputDefault,
-    width: "80%",
-    color: yellowColor.light,
+    ...fontWhiteColor,
+    width: "80%"
   },
   emptyInput: {
     borderBottomColor: placeholderColor,
   },
   busyInput: {
-    borderBottomColor: yellowColor.light
+    borderBottomColor: "transparent"
   },
   inputDate: {
     ...inputDefault,

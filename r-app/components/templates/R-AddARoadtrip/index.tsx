@@ -1,14 +1,15 @@
 import * as React from "react";
 import { Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import SvgUri from 'react-native-svg-uri';
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
 import RInputDate from "../../helpers/components/RInputDate";
 import RInputNumber from "../../helpers/components/RInputNumber";
 
-import { grayColor, yellowColor } from "../../helpers/styles/_colors";
-
 import styles from "./_style";
+import buttons from "../../helpers/styles/buttons";
+import { withNavigation } from 'react-navigation';
 
 interface RAddARoadtripState {
   startingCity: string,
@@ -18,7 +19,12 @@ interface RAddARoadtripState {
   seatAvailable: number
 }
 
-export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
+class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
+  constructor(props: any) {
+    super(props);
+    this._saveRoadtrip = this._saveRoadtrip.bind(this);
+  }
+
   static navigationOptions = {
     header: null,
   };
@@ -29,6 +35,14 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
     startingDate: "",
     endingDate: "",
     seatAvailable: 0
+  }
+
+  _saveRoadtrip() {
+    const { navigation } = this.props;
+
+    console.log(this.state);
+
+    // navigation.navigate('ListRoadtrips')
   }
 
   render() {
@@ -60,9 +74,14 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
               placeholder="Seats available..."
               onChangeNumber={(seats) => this.setState({ seatAvailable: seats })}
             />
+            {/* <TouchableOpacity style={buttons.centered} onPress={this._saveRoadtrip}>
+              <SvgUri width="50" height="50" source={require("../../../assets/icons/yes.svg")} />
+            </TouchableOpacity> */}
           </ScrollView>
         </View>
       </View>
     );
   }
 }
+
+export default withNavigation(RAddARoadtrip);

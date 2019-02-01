@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TouchableOpacity, Text } from "react-native";
-import { withNavigation } from "react-navigation";
+import { withNavigation } from "react-navigation";
 
 import stylesButtons from "../../helpers/styles/buttons";
 
@@ -16,13 +16,13 @@ class RMainButton extends React.PureComponent<MainButtonProps> {
 
     let buttonColor;
 
-    color === "white" 
-    ? buttonColor = stylesButtons.mainWhite
-    : buttonColor = stylesButtons.mainYellow
-    
+    color === "white"
+      ? buttonColor = stylesButtons.mainWhite
+      : buttonColor = stylesButtons.mainYellow
+
     return (
       <TouchableOpacity onPress={() => navigation.navigate(route)}>
-        <Text style={[stylesButtons.main, buttonColor]}>{text.toUpperCase()}</Text>
+        <Text style={[stylesButtons.centered, stylesButtons.main, buttonColor]}>{text.toUpperCase()}</Text>
       </TouchableOpacity>
     );
   }

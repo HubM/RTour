@@ -4,15 +4,17 @@ import { contentS, contentBold, contentXs, contentLight } from "./_typos";
 import { grayColor, yellowColor } from "./_colors";
 
 export default StyleSheet.create({
+  centered: {
+    alignSelf: "center",
+    marginBottom: 40
+  },
   main: {
     ...contentS,
     ...contentBold,
     paddingHorizontal: 55,
     paddingVertical: 10,
-    alignSelf: "center",
     borderWidth: 2,
     borderRadius: 8,
-    marginBottom: 40
   },
   second: {
     ...contentXs,
@@ -27,7 +29,7 @@ export default StyleSheet.create({
   },
   mainYellow: {
     color: yellowColor.light,
-    borderColor: yellowColor.light    
+    borderColor: yellowColor.light
   },
   secondWhite: {
     color: grayColor.light
