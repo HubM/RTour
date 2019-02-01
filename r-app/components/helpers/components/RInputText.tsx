@@ -3,10 +3,11 @@ import { TextInput, View } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
 import styleForm from "../styles/forms";
+import { placeholderColor } from "../styles/_colors";
+
 
 interface RInputTextProps {
   placeholder: string,
-  placeholderColor: string,
   mainColor: string,
   onChangeText(text: string): void
 };
@@ -50,7 +51,7 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
           style={styleForm.inputText}
           underlineColorAndroid="transparent"
           placeholder={placeholder}
-          placeholderTextColor="#F8F8F8"
+          placeholderTextColor={placeholderColor}
           autoCapitalize="none"
           keyboardAppearance="dark"
           onChangeText={this._writeInputText}

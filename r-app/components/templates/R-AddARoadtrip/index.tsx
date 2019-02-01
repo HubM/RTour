@@ -4,6 +4,7 @@ import { Text, View, TouchableOpacity, TextInput } from "react-native";
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
 import RInputDate from "../../helpers/components/RInputDate";
+import RInputNumber from "../../helpers/components/RInputNumber";
 
 import { grayColor, yellowColor } from "../../helpers/styles/_colors";
 
@@ -13,7 +14,8 @@ interface RAddARoadtripState {
   startingCity: string,
   endingCity: string,
   startingDate: string,
-  endingDate: string
+  endingDate: string,
+  seatAvailable: number
 }
 
 export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
@@ -25,7 +27,8 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
     startingCity: "",
     endingCity: "",
     startingDate: "",
-    endingDate: ""
+    endingDate: "",
+    seatAvailable: 0
   }
 
   render() {
@@ -39,13 +42,11 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
           <View>
             <RInputText
               placeholder="Starting City"
-              placeholderColor={grayColor.light}
               mainColor={yellowColor.light}
               onChangeText={(text) => this.setState({ startingCity: text })}
             />
             <RInputText
               placeholder="Ending City"
-              placeholderColor={grayColor.light}
               mainColor={yellowColor.light}
               onChangeText={(text) => this.setState({ endingCity: text })}
             />
@@ -56,6 +57,11 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
             <RInputDate
               placeholder="Ending Date"
               getDate={date => this.setState({ endingDate: date })}
+            />
+            <RInputNumber
+              placeholder="Seats available..."
+              mainColor={yellowColor.light}
+              onChangeNumber={(seats) => this.setState({ seatAvailable: seats })}
             />
           </View>
         </View>

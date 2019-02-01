@@ -18,6 +18,10 @@ export const grayColor = {
   dark: "#F8F8F8"
 }
 
+export const placeholderColor = "#a5b1c2"
+
+
 export const fontWhiteColor = { color: grayColor.light };
 export const fontBlackColor = { color: blackColor.light };
 export const fontYellowColor = { color: yellowColor.light };
+export const fontPlaceholderColor = { color: placeholderColor };

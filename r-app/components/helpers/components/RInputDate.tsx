@@ -5,7 +5,7 @@ import moment from "moment";
 import SvgUri from "react-native-svg-uri";
 
 import styleForm from "../styles/forms";
-import { fontWhiteColor, fontYellowColor } from "../styles/_colors";
+import { fontYellowColor, fontPlaceholderColor } from "../styles/_colors";
 
 interface RInputDateProps {
   placeholder: string,
@@ -53,7 +53,7 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
             </TouchableOpacity>
             :
             <TouchableOpacity onPress={this._showDateTimePicker} style={[styleForm.inputContainer, styleForm.emptyInput]}>
-              <Text style={[styleForm.inputDate, { ...fontWhiteColor }]}>{placeholder}</Text>
+              <Text style={[styleForm.inputDate, { ...fontPlaceholderColor }]}>{placeholder}</Text>
               <SvgUri width="30" height="20" source={require("../../../assets/icons/icon--calendarWhite.svg")} />
             </TouchableOpacity>
         }

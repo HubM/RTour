@@ -2,7 +2,7 @@ import { StyleSheet, ViewStyle } from 'react-native';
 
 import { inlineElements } from "./_layout";
 import { contentS, contentRegular } from "./_typos";
-import { yellowColor, grayColor } from "./_colors";
+import { yellowColor, placeholderColor } from "./_colors";
 
 
 const inputDefault = {
@@ -25,7 +25,7 @@ export default StyleSheet.create({
     color: yellowColor.light,
   },
   emptyInput: {
-    borderBottomColor: "#FFFFFF",
+    borderBottomColor: placeholderColor,
   },
   busyInput: {
     borderBottomColor: yellowColor.light
