@@ -12,7 +12,8 @@ import styles from "./_style";
 interface RAddARoadtripState {
   startingCity: string,
   endingCity: string,
-  startingDate: string
+  startingDate: string,
+  endingDate: string
 }
 
 export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
@@ -23,7 +24,8 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
   state = {
     startingCity: "",
     endingCity: "",
-    startingDate: ""
+    startingDate: "",
+    endingDate: ""
   }
 
   render() {
@@ -50,6 +52,10 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
             <RInputDate
               placeholder="Starting Date"
               getDate={date => this.setState({ startingDate: date })}
+            />
+            <RInputDate
+              placeholder="Ending Date"
+              getDate={date => this.setState({ endingDate: date })}
             />
           </View>
         </View>

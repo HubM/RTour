@@ -16,7 +16,7 @@ interface RListRoadtripsState {
 }
 
 class RListRoadtrips extends React.PureComponent<any, RListRoadtripsState> {
-  
+
   constructor(props: any) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
@@ -30,12 +30,12 @@ class RListRoadtrips extends React.PureComponent<any, RListRoadtripsState> {
     filterBtn: "Filter".toUpperCase(),
     roadtrips: fakeRoadtrips,
   }
-  
+
   _renderRoadtripsContainer = ({ item }) => {
-    const listRoadtripsDate = moment(item.date).format('ddd, D MMM');
+    const listRoadtripsDate = moment(item.date, "DD/MM/YYYY").format('ddd D MMM');
 
     return (
-      <View style={[ styles.roadtripPerDayContainer, { width: width } ]}>
+      <View style={[styles.roadtripPerDayContainer, { width: width }]}>
         <Text style={styles.date}>{listRoadtripsDate}</Text>
         <FlatList
           data={item.roadtrips}
@@ -44,18 +44,18 @@ class RListRoadtrips extends React.PureComponent<any, RListRoadtripsState> {
           renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} />}
         />
       </View>
-    ) 
+    )
   }
 
   _renderSingleRoadtrip(data: object, index: number) {
-    return 
+    return
   }
 
   _seeRoadtrip(roadtrip: object) {
-    const { navigation } = this.props;
+    const { navigation } = this.props;
     navigation.navigate("SingleRoadtrip", { roadtrip });
   }
-  
+
   render() {
     const { filterBtn, roadtrips } = this.state;
     const { navigation } = this.props;
@@ -77,7 +77,7 @@ class RListRoadtrips extends React.PureComponent<any, RListRoadtripsState> {
             showsHorizontalScrollIndicator={true}
             keyExtractor={item => item.date}
             horizontal={true}
-            renderItem={this._renderRoadtripsContainer} 
+            renderItem={this._renderRoadtripsContainer}
           />
         </View>
         <View style={styles.addBtn}>

@@ -48,12 +48,12 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
           date.length > 0
             ?
             <TouchableOpacity onPress={this._showDateTimePicker} style={[styleForm.inputDateContainer, styleForm.busyInput]}>
-              <Text style={[styleForm.inputDate, fontYellowColor]}>{date}</Text>
+              <Text style={[styleForm.inputDate, { ...fontYellowColor }]}>{date}</Text>
               <SvgUri width="30" height="20" source={require("../../../assets/icons/icon--calendarYellow.svg")} />
             </TouchableOpacity>
             :
             <TouchableOpacity onPress={this._showDateTimePicker} style={[styleForm.inputDateContainer, styleForm.emptyInput]}>
-              <Text style={[styleForm.inputDate, fontWhiteColor]}>{placeholder}</Text>
+              <Text style={[styleForm.inputDate, { ...fontWhiteColor }]}>{placeholder}</Text>
               <SvgUri width="30" height="20" source={require("../../../assets/icons/icon--calendarWhite.svg")} />
             </TouchableOpacity>
         }

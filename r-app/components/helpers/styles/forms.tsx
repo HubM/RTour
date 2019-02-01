@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 
 import { inlineElements } from "./_layout";
 import { contentS, contentRegular } from "./_typos";
@@ -22,13 +22,12 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: 5,
     borderBottomWidth: 1,
-  },
+    marginBottom: 30
+  } as ViewStyle,
   emptyInput: {
     borderBottomColor: "#FFFFFF",
-    color: grayColor.light,
   },
   busyInput: {
-    color: yellowColor.light,
     borderBottomColor: yellowColor.light
   },
   inputDate: {
