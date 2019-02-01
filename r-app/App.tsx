@@ -1,6 +1,10 @@
 import * as React from "react";
 import * as Expo from "expo";
 
+// Disable warnings
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Remote debugger']);
+
 import AppContainer from "./router";
 
 interface State {
@@ -8,7 +12,7 @@ interface State {
 }
 
 export default class App extends React.Component<{}, State> {
-  
+
   public state: State = { isReady: false };
 
   componentWillMount() {
