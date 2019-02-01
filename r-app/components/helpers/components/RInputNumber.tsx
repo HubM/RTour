@@ -1,58 +1,67 @@
 import * as React from "react";
-import { TextInput } from "react-native";
+import { View, TextInput } from "react-native";
+import SvgUri from "react-native-svg-uri";
 
-import stylesForms from "../styles/forms";
+import styleForm from "../styles/forms";
+import { placeholderColor } from "../styles/_colors";
 
-interface RInputTextProps {
-  placeholder: number,
-  placeholderColor: string,
-  mainColor: string,
-  onChangeText(number: number): void
+interface RInputNumberProps {
+  placeholder: string,
+  onChangeNumber(seats: number): void
 };
 
-interface RInputTextState {
-  emptyInputText: boolean
+interface RInputNumberState {
+  emptyInputNumber: boolean
 }
 
-export default class RInputText extends React.PureComponent<RInputTextProps, RInputTextState> {
-  constructor(props: RInputTextProps) {
+export default class RInputNumber extends React.PureComponent<RInputNumberProps, RInputNumberState> {
+  constructor(props: RInputNumberProps) {
     super(props)
-    this._writeInputText = this._writeInputText.bind(this);
+    this._writeInputNumber = this._writeInputNumber.bind(this);
   }
 
   state = {
-    emptyInputText: true
+    emptyInputNumber: true
   }
 
-  _writeInputText(numer: string) {
-    const { onChangeText } = this.props;
+  _writeInputNumber(stringifiedNumber: string) {
+    const { onChangeNumber } = this.props;
+    const numberSeats = Number(stringifiedNumber);
 
-    onChangeText(text)
+    onChangeNumber(numberSeats)
 
-    if (text.length > 0) {
+    if (numberSeats > 0) {
       this.setState({
-        emptyInputText: false
+        emptyInputNumber: false
       })
     } else {
       this.setState({
-        emptyInputText: true
+        emptyInputNumber: true
       })
     }
   }
 
   render() {
-    const { emptyInputText } = this.state;
+    const { emptyInputNumber } = this.state;
     const { placeholder } = this.props;
     return (
-      <TextInput
-        style={stylesForms.inputText}
-        underlineColorAndroid={emptyInputText ? "#ffffff" : "#FFF784"}
-        placeholder={placeholder}
-        placeholderTextColor="#F8F8F8"
-        autoCapitalize="none"
-        keyboardAppearance="dark"
-        onChangeText={this._writeInputText}
-      />
+      <View style={[styleForm.inputContainer, emptyInputNumber ? styleForm.emptyInput : styleForm.busyInput]}>
+        <TextInput
+          style={styleForm.inputText}
+          underlineColorAndroid="transparent"
+          placeholder={placeholder}
+          placeholderTextColor={placeholderColor}
+          autoCapitalize="none"
+          keyboardAppearance="dark"
+          keyboardType="numeric"
+          onChangeText={this._writeInputNumber}
+        />
+        <SvgUri width="25" height="13" source={
+          emptyInputNumber
+            ? require("../../../assets/icons/icon--numberInputWhite.svg")
+            : require("../../../assets/icons/icon--numberInputYellow.svg")
+        } />
+      </View>
     );
 
   }

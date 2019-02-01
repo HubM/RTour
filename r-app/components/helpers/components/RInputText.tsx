@@ -8,7 +8,6 @@ import { placeholderColor } from "../styles/_colors";
 
 interface RInputTextProps {
   placeholder: string,
-  mainColor: string,
   onChangeText(text: string): void
 };
 

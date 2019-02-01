@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
@@ -39,31 +39,28 @@ export default class RAddARoadtrip extends React.PureComponent<any, RAddARoadtri
         </View>
         <View style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>
-          <View>
+          <ScrollView>
             <RInputText
-              placeholder="Starting City"
-              mainColor={yellowColor.light}
+              placeholder="Starting City..."
               onChangeText={(text) => this.setState({ startingCity: text })}
             />
             <RInputText
-              placeholder="Ending City"
-              mainColor={yellowColor.light}
+              placeholder="Ending City..."
               onChangeText={(text) => this.setState({ endingCity: text })}
             />
             <RInputDate
-              placeholder="Starting Date"
+              placeholder="Starting Date..."
               getDate={date => this.setState({ startingDate: date })}
             />
             <RInputDate
-              placeholder="Ending Date"
+              placeholder="Ending Date..."
               getDate={date => this.setState({ endingDate: date })}
             />
             <RInputNumber
               placeholder="Seats available..."
-              mainColor={yellowColor.light}
               onChangeNumber={(seats) => this.setState({ seatAvailable: seats })}
             />
-          </View>
+          </ScrollView>
         </View>
       </View>
     );
