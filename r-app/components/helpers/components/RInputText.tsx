@@ -57,7 +57,7 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
   }
 
   render() {
-    const { emptyInputText } = this.state;
+    const { emptyInputText, textValue } = this.state;
     const { placeholder } = this.props;
     return (
       <View style={[styleForm.inputContainer, emptyInputText ? styleForm.emptyInput : styleForm.busyInput]}>
@@ -69,14 +69,14 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
           autoCapitalize="none"
           keyboardAppearance="dark"
           onChangeText={this._writeInputText}
-          value={this.state.textValue}
+          value={textValue}
         />
         {
           emptyInputText
             ?
             <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--textInputWhite.svg")} />
             :
-            <TouchableOpacity onPress={this._clearTextValue} style={styleForm.clearInputCross}>
+            <TouchableOpacity onPress={this._clearTextValue}>
               <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--deleteBusyInput.svg")} />
             </TouchableOpacity>
         }

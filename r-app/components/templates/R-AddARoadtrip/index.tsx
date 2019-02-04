@@ -71,7 +71,7 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
             />
             <RInputNumber
               placeholder="Seats available..."
-              onChangeNumber={(seats) => this.setState({ seatAvailable: seats })}
+              onChangeNumber={(seats) => this.setState({ seatAvailable: Number(seats) })}
             />
             {/* <TouchableOpacity style={buttons.centered} onPress={this._saveRoadtrip}>
               <SvgUri width="50" height="50" source={require("../../../assets/icons/yes.svg")} />

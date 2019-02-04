@@ -5,7 +5,7 @@ import moment from "moment";
 import SvgUri from "react-native-svg-uri";
 
 import styleForm from "../styles/forms";
-import { fontYellowColor, fontPlaceholderColor } from "../styles/_colors";
+import { fontYellowColor, fontPlaceholderColor, fontWhiteColor } from "../styles/_colors";
 
 interface RInputDateProps {
   placeholder: string,
@@ -18,17 +18,28 @@ interface RInputTextState {
 }
 
 export default class RInputDate extends React.PureComponent<RInputDateProps, RInputTextState> {
+  constructor(props: RInputDateProps) {
+    super(props);
 
+    this._showDateTimePicker = this._showDateTimePicker.bind(this);
+    this._hideDateTimePicker = this._hideDateTimePicker.bind(this);
+    this._handleDatePicked = this._handleDatePicked.bind(this);
+    this._clearDateValue = this._clearDateValue.bind(this);
+  }
   state = {
     date: "",
     isDateTimePickerVisible: false,
   }
 
-  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+  _showDateTimePicker() {
+    this.setState({ isDateTimePickerVisible: true });
+  }
 
-  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+  _hideDateTimePicker() {
+    this.setState({ isDateTimePickerVisible: false });
+  }
 
-  _handleDatePicked = (date: object) => {
+  _handleDatePicked(date: object) {
     const dateStringified = moment(date).format('DD/MM/YYYY');
 
     this.setState({
@@ -37,6 +48,12 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
     this._hideDateTimePicker();
     this.props.getDate(dateStringified);
   };
+
+  _clearDateValue() {
+    this.setState({
+      date: ""
+    })
+  }
 
   render() {
     const { placeholder } = this.props;
@@ -48,8 +65,10 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
           date.length > 0
             ?
             <TouchableOpacity onPress={this._showDateTimePicker} style={[styleForm.inputContainer, styleForm.busyInput]}>
-              <Text style={[styleForm.inputDate, { ...fontYellowColor }]}>{date}</Text>
-              <SvgUri width="30" height="20" source={require("../../../assets/icons/icon--calendarYellow.svg")} />
+              <Text style={[styleForm.inputDate, { ...fontWhiteColor }]}>{date}</Text>
+              <TouchableOpacity onPress={this._clearDateValue}>
+                <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--deleteBusyInput.svg")} />
+              </TouchableOpacity>
             </TouchableOpacity>
             :
             <TouchableOpacity onPress={this._showDateTimePicker} style={[styleForm.inputContainer, styleForm.emptyInput]}>

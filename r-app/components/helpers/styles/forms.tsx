@@ -32,9 +32,5 @@ export default StyleSheet.create({
   },
   inputDate: {
     ...inputDefault,
-  },
-  clearInputCross: {
-    padding: 20,
-    transform: [{ translateX: 10 }]
   }
 });
