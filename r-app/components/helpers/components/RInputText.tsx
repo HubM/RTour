@@ -76,11 +76,10 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
             ?
             <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--textInputWhite.svg")} />
             :
-            <TouchableOpacity onPress={this._clearTextValue} style={{ padding: 15, transform: [{ translateX: 15 }, { translateY: -5 }] }}>
+            <TouchableOpacity onPress={this._clearTextValue} style={styleForm.clearInputCross}>
               <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--deleteBusyInput.svg")} />
             </TouchableOpacity>
         }
-
       </View>
     );
 

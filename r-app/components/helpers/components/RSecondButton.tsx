@@ -7,26 +7,25 @@ import stylesButtons from "../../helpers/styles/buttons";
 interface SecondButtonProps {
   text: string,
   route: string,
-  color: string
+  color: string,
+  onPressEvent(): void
 };
 
 
-class RSecondButton extends React.PureComponent<SecondButtonProps> {
+export default class RSecondButton extends React.PureComponent<SecondButtonProps> {
   render() {
-    const { text, route, color, navigation } = this.props;
-   
+    const { text, route, color, onPressEvent } = this.props;
+
     let buttonColor;
 
     color === "white"
       ? buttonColor = stylesButtons.secondWhite
       : buttonColor = stylesButtons.secondYellow
-    
+
     return (
-      <TouchableOpacity onPress={() => navigation.navigate(route)}>
+      <TouchableOpacity onPress={onPressEvent}>
         <Text style={[stylesButtons.second, buttonColor]}>{text}</Text>
       </TouchableOpacity>
     );
   }
 }
-
-export default withNavigation(RSecondButton)

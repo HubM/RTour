@@ -1,19 +1,22 @@
 import * as React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import { withNavigation } from "react-navigation";
 
 import RMainButton from "../../helpers/components/RMainButton";
 import RSecondButton from "../../helpers/components/RSecondButton";
 
 import styles from "./_style";
 
-export default class RWelcome extends React.PureComponent<any> {
-  
+class RWelcome extends React.PureComponent<any> {
+
   static navigationOptions = {
     header: null,
   };
 
   render() {
+    const { navigation } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
@@ -30,18 +33,21 @@ export default class RWelcome extends React.PureComponent<any> {
               curious, you are welcome 🤘
             </Text>
           </View>
-        </View>       
-        <RMainButton 
+        </View>
+        <RMainButton
           text="Connect"
-          route="ListRoadtrips"
           color="white"
+          onPressEvent={() => navigation.navigate('ListRoadtrips')}
         />
         <RSecondButton
           text="skip"
           route="ListRoadtrips"
           color="white"
+          onPressEvent={() => navigation.navigate('ListRoadtrips')}
         />
       </View>
     );
   }
 }
+
+export default withNavigation(RWelcome);

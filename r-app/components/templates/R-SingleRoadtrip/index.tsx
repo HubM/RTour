@@ -5,13 +5,14 @@ import SvgUri from 'react-native-svg-uri';
 import RMainButton from "../../helpers/components/RMainButton";
 import BackArrow from "../../helpers/components/BackArrow";
 import styles from "./_style";
+import { withNavigation } from 'react-navigation';
 
 interface RSingleRoadtripState {
   buttonLabel: string;
 }
 
 
-export default class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
+class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
   static navigationOptions = {
     header: null,
   };
@@ -100,10 +101,12 @@ export default class RSingleRoadtrip extends React.PureComponent<any, RSingleRoa
         </View>
         <RMainButton
           text="Join"
-          route="ListRoadtrips"
           color="yellow"
+          onPressEvent={() => navigation.navigate('ListRoadtrips')}
         />
       </ScrollView>
     );
   }
 }
+
+export default withNavigation(RSingleRoadtrip);

@@ -1,18 +1,17 @@
 import * as React from "react";
 import { TouchableOpacity, Text } from "react-native";
-import { withNavigation } from "react-navigation";
 
 import stylesButtons from "../../helpers/styles/buttons";
 
 interface MainButtonProps {
   text: string,
-  route: string,
-  color: string
+  color: string,
+  onPressEvent(): void
 };
 
-class RMainButton extends React.PureComponent<MainButtonProps> {
+export default class RMainButton extends React.PureComponent<MainButtonProps> {
   render() {
-    const { text, route, color, navigation } = this.props;
+    const { text, color, onPressEvent } = this.props;
 
     let buttonColor;
 
@@ -21,11 +20,9 @@ class RMainButton extends React.PureComponent<MainButtonProps> {
       : buttonColor = stylesButtons.mainYellow
 
     return (
-      <TouchableOpacity onPress={() => navigation.navigate(route)}>
+      <TouchableOpacity onPress={onPressEvent}>
         <Text style={[stylesButtons.centered, stylesButtons.main, buttonColor]}>{text.toUpperCase()}</Text>
       </TouchableOpacity>
     );
   }
 }
-
-export default withNavigation(RMainButton);

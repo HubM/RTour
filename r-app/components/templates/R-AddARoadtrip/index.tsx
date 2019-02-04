@@ -1,14 +1,13 @@
 import * as React from "react";
 import { Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
-import SvgUri from 'react-native-svg-uri';
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
 import RInputDate from "../../helpers/components/RInputDate";
 import RInputNumber from "../../helpers/components/RInputNumber";
+import RMainButton from "../../helpers/components/RMainButton";
 
 import styles from "./_style";
-import buttons from "../../helpers/styles/buttons";
 import { withNavigation } from 'react-navigation';
 
 interface RAddARoadtripState {
@@ -42,7 +41,7 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
 
     console.log(this.state);
 
-    // navigation.navigate('ListRoadtrips')
+    navigation.navigate('ListRoadtrips');
   }
 
   render() {
@@ -78,6 +77,11 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
               <SvgUri width="50" height="50" source={require("../../../assets/icons/yes.svg")} />
             </TouchableOpacity> */}
           </ScrollView>
+          <RMainButton
+            text="Create"
+            color="yellow"
+            onPressEvent={this._saveRoadtrip}
+          />
         </View>
       </View>
     );
