@@ -16,8 +16,7 @@ export default StyleSheet.create({
     ...contentContained
   },
   introContainer: {
-    marginTop: 20,
-    marginBottom: 40
+    marginTop: 20
   },
   introContent: {
     ...contentS,

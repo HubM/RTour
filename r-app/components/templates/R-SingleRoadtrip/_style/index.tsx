@@ -59,7 +59,7 @@ export default StyleSheet.create({
     alignSelf: "center"
   },
   roadtripSubInfos: {
-    marginVertical: 40,
+    marginTop: 40,
   },
   roadtripSubInfos__single: {
     ...inlineElements,

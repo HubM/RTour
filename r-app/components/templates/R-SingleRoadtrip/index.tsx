@@ -29,11 +29,11 @@ class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
     const { seats, calendar, address, roadtripType } = spec;
 
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.header}>
           <BackArrow color="white" />
         </View>
-        <View style={styles.content}>
+        <ScrollView style={styles.content}>
           <View style={styles.roadtripTitle}>
             <Text style={styles.roadtripTitleStartCity}>{startCity}</Text>
             <Text style={styles.roadtripTitleEndCity}>{endCity}</Text>
@@ -98,13 +98,13 @@ class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
                 </View>
             }
           </View>
-        </View>
+        </ScrollView>
         <RMainButton
           text="Join"
           color="yellow"
           onPressEvent={() => navigation.navigate('ListRoadtrips')}
         />
-      </ScrollView>
+      </View>
     );
   }
 }

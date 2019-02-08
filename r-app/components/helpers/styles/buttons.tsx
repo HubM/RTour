@@ -15,6 +15,7 @@ export default StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 2,
     borderRadius: 8,
+    marginTop: 40
   },
   second: {
     ...contentXs,

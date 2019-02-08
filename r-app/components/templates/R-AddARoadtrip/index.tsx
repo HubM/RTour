@@ -50,39 +50,34 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
         <View style={styles.header}>
           <BackArrow color="white" />
         </View>
-        <View style={styles.content}>
+        <ScrollView style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>
-          <ScrollView>
-            <RInputText
-              placeholder="Starting City..."
-              onChangeText={(text) => this.setState({ startingCity: text })}
-            />
-            <RInputText
-              placeholder="Ending City..."
-              onChangeText={(text) => this.setState({ endingCity: text })}
-            />
-            <RInputDate
-              placeholder="Starting Date..."
-              getDate={date => this.setState({ startingDate: date })}
-            />
-            <RInputDate
-              placeholder="Ending Date..."
-              getDate={date => this.setState({ endingDate: date })}
-            />
-            <RInputNumber
-              placeholder="Seats available..."
-              onChangeNumber={(seats) => this.setState({ seatAvailable: Number(seats) })}
-            />
-            {/* <TouchableOpacity style={buttons.centered} onPress={this._saveRoadtrip}>
-              <SvgUri width="50" height="50" source={require("../../../assets/icons/yes.svg")} />
-            </TouchableOpacity> */}
-          </ScrollView>
+          <RInputText
+            placeholder="Starting City..."
+            onChangeText={(text) => this.setState({ startingCity: text })}
+          />
+          <RInputText
+            placeholder="Ending City..."
+            onChangeText={(text) => this.setState({ endingCity: text })}
+          />
+          <RInputDate
+            placeholder="Starting Date..."
+            getDate={date => this.setState({ startingDate: date })}
+          />
+          <RInputDate
+            placeholder="Ending Date..."
+            getDate={date => this.setState({ endingDate: date })}
+          />
+          <RInputNumber
+            placeholder="Seats available..."
+            onChangeNumber={(seats) => this.setState({ seatAvailable: Number(seats) })}
+          />
           <RMainButton
             text="Create"
             color="yellow"
             onPressEvent={this._saveRoadtrip}
           />
-        </View>
+        </ScrollView>
       </View>
     );
   }
