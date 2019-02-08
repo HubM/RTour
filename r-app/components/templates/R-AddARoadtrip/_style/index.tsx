@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 import { greenColor, yellowColor } from "../../../helpers/styles/_colors";
-import { containerComponent, headerComponent, headerActionBtn, contentContained } from "../../../helpers/styles/_layout";
+import { containerComponent, headerComponent, headerActionBtn, contentContained, centeredInlineElements, inlineElements } from "../../../helpers/styles/_layout";
 import { titleh3, titleMedium, contentS, contentRegular, contentLight, contentBold } from "../../../helpers/styles/_typos";
-import { fontWhiteColor } from "../../../helpers/styles/_colors";
+import { fontWhiteColor, placeholderColor } from "../../../helpers/styles/_colors";
 
 
 
@@ -16,9 +16,6 @@ export default StyleSheet.create({
     ...headerComponent,
     justifyContent: "flex-start"
   },
-  backButton: {
-    ...headerActionBtn
-  },
   content: {
     ...contentContained
   },
@@ -29,10 +26,12 @@ export default StyleSheet.create({
     textAlign: "center",
     marginBottom: 30
   },
-  inputText: {
-    paddingBottom: 15,
-    ...contentS,
-    ...contentRegular,
-    color: yellowColor.light
+  roadtripType: {
+    ...inlineElements,
+    ...centeredInlineElements
+  },
+  roadtripType__text: {
+    marginTop: 5,
+    color: placeholderColor
   }
 })

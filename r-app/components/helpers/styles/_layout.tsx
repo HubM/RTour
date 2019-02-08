@@ -21,8 +21,13 @@ export const centerBtnAction = {
   alignSelf: "center"
 };
 
-
 export const inlineElements = {
+  flex: 1,
   width: "100%",
   flexDirection: "row",
+}
+
+export const centeredInlineElements = {
+  alignItems: "center",
+  justifyContent: "center"
 }

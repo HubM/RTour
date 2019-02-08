@@ -23,9 +23,6 @@ export default StyleSheet.create({
     ...headerComponent,
     justifyContent: "flex-start"
   },
-  backButton: {
-    ...headerActionBtn
-  },
   content: {
     ...contentContained
   },

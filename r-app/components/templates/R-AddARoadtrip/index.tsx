@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import SvgUri from "react-native-svg-uri";
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
@@ -112,8 +113,15 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
               }
             }}
           />
-          <View>
-
+          <View style={styles.roadtripType}>
+            <TouchableOpacity style={{ flexDirection: "column", alignItems: "center", marginRight: 10 }}>
+              <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--twoWaystripYellow.svg")} />
+              <Text style={styles.roadtripType__text}>Two ways trip</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ flexDirection: "column", alignItems: "center", marginLeft: 10 }}>
+              <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--oneWaytripGray.svg")} />
+              <Text style={styles.roadtripType__text}>Two ways trip</Text>
+            </TouchableOpacity>
           </View>
           <RMainButton
             text="Create"
