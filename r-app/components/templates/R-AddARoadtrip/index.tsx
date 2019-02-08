@@ -69,7 +69,7 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
             getDate={date => this.setState({ endingDate: date })}
           />
           <RInputNumber
-            placeholder="Seats available..."
+            placeholder="0 seat available..."
             onChangeNumber={(seats) => this.setState({ seatAvailable: Number(seats) })}
           />
           <RMainButton

@@ -28,19 +28,16 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
   }
 
   _writeInputNumber(stringifiedNumber: string) {
-    const { onChangeNumber } = this.props;
-    const { numberValue } = this.state;
 
+    if (stringifiedNumber !== "") {
+      const { onChangeNumber } = this.props;
+      const numberSeats = Number(stringifiedNumber) > 1 ? `${stringifiedNumber} seats availaible` : `${stringifiedNumber} seat availaible`
 
-    this.setState({
-      numberValue: stringifiedNumber
-    })
-
-    if (numberValue.length > 0) {
-      onChangeNumber(numberValue)
       this.setState({
+        numberValue: numberSeats,
         emptyInputNumber: false
       })
+      onChangeNumber(stringifiedNumber)
     } else {
       this.setState({
         emptyInputNumber: true
