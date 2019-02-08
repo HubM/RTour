@@ -8,6 +8,7 @@ import RInputNumber from "../../helpers/components/RInputNumber";
 import RMainButton from "../../helpers/components/RMainButton";
 
 import styles from "./_style";
+import { convertToUkHour } from "../../helpers/index";
 import { withNavigation } from 'react-navigation';
 
 interface RAddARoadtripState {
@@ -15,7 +16,11 @@ interface RAddARoadtripState {
   endingCity: string,
   startingDate: string,
   endingDate: string,
-  seatAvailable: number
+  startingHour: number,
+  seatAvailable: number,
+  roadtripType: string,
+  hourStateValue: string,
+  seatStateValue: string
 }
 
 class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
@@ -33,7 +38,11 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
     endingCity: "",
     startingDate: "",
     endingDate: "",
-    seatAvailable: 0
+    startingHour: 0,
+    seatAvailable: 0,
+    roadtripType: "",
+    hourStateValue: "",
+    seatStateValue: ""
   }
 
   _saveRoadtrip() {
@@ -45,6 +54,7 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
   }
 
   render() {
+    const { seatStateValue, hourStateValue } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -69,9 +79,42 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
             getDate={date => this.setState({ endingDate: date })}
           />
           <RInputNumber
-            placeholder="0 seat available..."
-            onChangeNumber={(seats) => this.setState({ seatAvailable: Number(seats) })}
+            placeholder="Starting hour..."
+            complementaryStateValue={hourStateValue}
+            onChangeNumber={(hour) => {
+              if (Number(hour) === 0) {
+                this.setState({
+                  hourStateValue: "",
+                  startingHour: Number(hour)
+                })
+              } else {
+                this.setState({
+                  hourStateValue: convertToUkHour(hour),
+                  startingHour: Number(hour)
+                })
+              }
+            }}
           />
+          <RInputNumber
+            placeholder="0 seat available..."
+            complementaryStateValue={seatStateValue}
+            onChangeNumber={(seats) => {
+              if (Number(seats) === 0) {
+                this.setState({
+                  seatStateValue: "",
+                  seatAvailable: Number(seats)
+                })
+              } else {
+                this.setState({
+                  seatStateValue: Number(seats) > 1 ? `${seats} seats` : `${seats} seat`,
+                  seatAvailable: Number(seats)
+                })
+              }
+            }}
+          />
+          <View>
+
+          </View>
           <RMainButton
             text="Create"
             color="yellow"

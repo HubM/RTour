@@ -7,11 +7,11 @@ import { placeholderColor } from "../styles/_colors";
 
 interface RInputNumberProps {
   placeholder: string,
+  complementaryStateValue: string,
   onChangeNumber(seats: string): void
 };
 
 interface RInputNumberState {
-  numberValue: string,
   emptyInputNumber: boolean,
 }
 
@@ -23,7 +23,6 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
   }
 
   state = {
-    numberValue: "",
     emptyInputNumber: true,
   }
 
@@ -31,10 +30,8 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
 
     if (stringifiedNumber !== "") {
       const { onChangeNumber } = this.props;
-      const numberSeats = Number(stringifiedNumber) > 1 ? `${stringifiedNumber} seats availaible` : `${stringifiedNumber} seat availaible`
 
       this.setState({
-        numberValue: numberSeats,
         emptyInputNumber: false
       })
       onChangeNumber(stringifiedNumber)
@@ -46,15 +43,16 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
   }
 
   _clearNumberValue() {
+    const { onChangeNumber } = this.props;
     this.setState({
-      numberValue: "",
       emptyInputNumber: true
     })
+    onChangeNumber("")
   }
 
   render() {
-    const { emptyInputNumber, numberValue } = this.state;
-    const { placeholder } = this.props;
+    const { emptyInputNumber } = this.state;
+    const { placeholder, complementaryStateValue } = this.props;
 
     return (
       <View style={[styleForm.inputContainer, emptyInputNumber ? styleForm.emptyInput : styleForm.busyInput]}>
@@ -67,7 +65,7 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
           keyboardAppearance="dark"
           keyboardType="numeric"
           onChangeText={this._writeInputNumber}
-          value={numberValue}
+          value={complementaryStateValue}
         />
 
         {
