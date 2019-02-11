@@ -1,6 +1,9 @@
 import * as React from "react";
 import * as Expo from "expo";
 
+import { Provider } from "mobx-react";
+import store from "./store";
+
 // Disable warnings
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Remote debugger']);
@@ -36,7 +39,11 @@ export default class App extends React.Component<{}, State> {
     if (!this.state.isReady) {
       return <Expo.AppLoading />;
     }
-    return <AppContainer />;
+    return (
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    );
   }
 
 }

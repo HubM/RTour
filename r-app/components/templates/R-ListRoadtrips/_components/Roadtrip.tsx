@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Text, TouchableOpacity } from "react-native";
+import { inject, observer } from "mobx-react";
 import styles from "../_style";
 import { isIndexEven } from "../../../helpers";
-
 
 interface RoadtripProps {
   roadtrip: {
@@ -27,12 +27,12 @@ interface RoadtripProps {
   seeRoadtrip(roadtrip: object): void,
 };
 
-export default class Roadtrip extends React.PureComponent<RoadtripProps> {
+export default class Roadtrip extends React.Component<RoadtripProps> {
   constructor(props: RoadtripProps) {
     super(props);
     this.seeRoadtrip = this.seeRoadtrip.bind(this);
   }
-  
+
   seeRoadtrip() {
     return this.props.seeRoadtrip(this.props.roadtrip);
   }
@@ -50,10 +50,10 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
     }
 
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[
           styles.roadtripSingle,
-          isIndexEven(roadtripIndex)  ? {marginRight: "2%"} : {marginLeft: "2%"}
+          isIndexEven(roadtripIndex) ? { marginRight: "2%" } : { marginLeft: "2%" }
         ]}
         onPress={this.seeRoadtrip}
       >
@@ -61,12 +61,12 @@ export default class Roadtrip extends React.PureComponent<RoadtripProps> {
         <Text style={styles.roadtripSingle__endingCity}>{endCity}</Text>
         <Text style={styles.roadtripSingle__hour}>{hour}</Text>
         {
-          durationExist && 
+          durationExist &&
           <Text style={styles.roadtripSingle__duration}>
             {durationExist} {durationExist > 1 ? "days" : "day"}
           </Text>
         }
-     </TouchableOpacity>
+      </TouchableOpacity>
     );
   }
 }

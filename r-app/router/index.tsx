@@ -12,7 +12,7 @@ const AppNavigator = createStackNavigator(
     AddARoadtrip: RAddARoadtip
   },
   {
-    initialRouteName: "Welcome"
+    initialRouteName: "ListRoadtrips"
   }
 );
 

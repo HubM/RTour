@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import { observer, inject } from "mobx-react";
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
@@ -27,7 +28,14 @@ interface RAddARoadtripState {
   isOneWayTrip: boolean,
 }
 
-class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
+interface RAddARoadtripProps {
+  store: store
+}
+
+
+@inject("store")
+@observer
+class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripState> {
   constructor(props: any) {
     super(props);
     this._saveRoadtrip = this._saveRoadtrip.bind(this);
@@ -54,8 +62,6 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
   _saveRoadtrip() {
     const { navigation } = this.props;
 
-    console.log(this.state);
-
     navigation.navigate('ListRoadtrips');
 
     this.setState({
@@ -75,6 +81,9 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
 
   render() {
     const { seatStateValue, hourStateValue, isOneWayTrip, isTwoWaysTrip } = this.state;
+    const { store } = this.props;
+
+    console.log(store);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -82,6 +91,7 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
         </View>
         <ScrollView style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>
+          <Text>Hello {store.test}</Text>
           <RInputText
             placeholder="Starting City..."
             onChangeText={(text) => this.setState({ startingCity: text })}
