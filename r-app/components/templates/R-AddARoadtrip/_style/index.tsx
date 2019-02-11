@@ -30,6 +30,11 @@ export default StyleSheet.create({
     ...inlineElements,
     ...centeredInlineElements
   },
+  roadtripType__container: {
+    flexDirection: "column",
+    alignItems: "center",
+    marginRight: 10
+  },
   roadtripType__text: {
     marginTop: 5,
     color: placeholderColor

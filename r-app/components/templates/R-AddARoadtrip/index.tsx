@@ -9,6 +9,7 @@ import RInputNumber from "../../helpers/components/RInputNumber";
 import RMainButton from "../../helpers/components/RMainButton";
 
 import styles from "./_style";
+import { yellowColor } from "../../helpers/styles/_colors";
 import { convertToUkHour } from "../../helpers/index";
 import { withNavigation } from 'react-navigation';
 
@@ -21,7 +22,9 @@ interface RAddARoadtripState {
   seatAvailable: number,
   roadtripType: string,
   hourStateValue: string,
-  seatStateValue: string
+  seatStateValue: string,
+  isTwoWaysTrip: boolean,
+  isOneWayTrip: boolean,
 }
 
 class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
@@ -41,9 +44,11 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
     endingDate: "",
     startingHour: 0,
     seatAvailable: 0,
-    roadtripType: "",
     hourStateValue: "",
-    seatStateValue: ""
+    seatStateValue: "",
+    roadtripType: "twoWays",
+    isTwoWaysTrip: true,
+    isOneWayTrip: false,
   }
 
   _saveRoadtrip() {
@@ -52,10 +57,24 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
     console.log(this.state);
 
     navigation.navigate('ListRoadtrips');
+
+    this.setState({
+      startingCity: "",
+      endingCity: "",
+      startingDate: "",
+      endingDate: "",
+      startingHour: 0,
+      seatAvailable: 0,
+      hourStateValue: "",
+      seatStateValue: "",
+      roadtripType: "twoWays",
+      isTwoWaysTrip: true,
+      isOneWayTrip: false,
+    })
   }
 
   render() {
-    const { seatStateValue, hourStateValue } = this.state;
+    const { seatStateValue, hourStateValue, isOneWayTrip, isTwoWaysTrip } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -114,13 +133,34 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
             }}
           />
           <View style={styles.roadtripType}>
-            <TouchableOpacity style={{ flexDirection: "column", alignItems: "center", marginRight: 10 }}>
-              <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--twoWaystripYellow.svg")} />
-              <Text style={styles.roadtripType__text}>Two ways trip</Text>
+            <TouchableOpacity style={[styles.roadtripType__container, { marginRight: 10 }]} onPress={() => {
+              this.setState({
+                isTwoWaysTrip: true,
+                isOneWayTrip: false,
+                roadtripType: "twoWays"
+              })
+            }}>
+              {
+                isTwoWaysTrip
+                  ? <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--twoWaystripYellow.svg")} />
+                  : <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--twoWaystripGray.svg")} />
+              }
+              <Text style={[styles.roadtripType__text, isTwoWaysTrip && { color: yellowColor.light }]}>Two ways trip</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{ flexDirection: "column", alignItems: "center", marginLeft: 10 }}>
-              <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--oneWaytripGray.svg")} />
-              <Text style={styles.roadtripType__text}>Two ways trip</Text>
+
+            <TouchableOpacity style={[styles.roadtripType__container, { marginLeft: 10 }]} onPress={() => {
+              this.setState({
+                isTwoWaysTrip: false,
+                isOneWayTrip: true,
+                roadtripType: "oneWay"
+              })
+            }}>
+              {
+                isOneWayTrip
+                  ? <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--oneWaytripYellow.svg")} />
+                  : <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--oneWaytripGray.svg")} />
+              }
+              <Text style={[styles.roadtripType__text, isOneWayTrip && { color: yellowColor.light }]}>One way trip</Text>
             </TouchableOpacity>
           </View>
           <RMainButton
