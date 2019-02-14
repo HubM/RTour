@@ -28,14 +28,10 @@ interface RAddARoadtripState {
   isOneWayTrip: boolean,
 }
 
-interface RAddARoadtripProps {
-  store: store
-}
 
-
-@inject("store")
+@inject("rootStore")
 @observer
-class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripState> {
+class RAddARoadtrip extends React.Component<RAddARoadtripState> {
   constructor(props: any) {
     super(props);
     this._saveRoadtrip = this._saveRoadtrip.bind(this);

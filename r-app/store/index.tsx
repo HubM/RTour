@@ -1,14 +1,15 @@
-import { autorun, observable } from 'mobx';
-import { observer } from "mobx-react"
+import { observable } from "mobx";
 
-class mainStore {
-  @observable test = "HUB !"
+class RootStore {
+  constructor() {
+    this.userStore = new UserStore(this)
+  }
 }
 
-const store = new mainStore;
+class UserStore {
+  @observable name = "Hub"
+}
 
-export default store;
 
-autorun(() => {
-  console.log(store.test);
-})
+
+export default RootStore;
