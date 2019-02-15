@@ -9,6 +9,9 @@ import RInputDate from "../../helpers/components/RInputDate";
 import RInputNumber from "../../helpers/components/RInputNumber";
 import RMainButton from "../../helpers/components/RMainButton";
 
+
+import { grayColor } from "../../helpers/styles/_colors";
+
 import styles from "./_style";
 import { yellowColor } from "../../helpers/styles/_colors";
 import { convertToUkHour } from "../../helpers/index";
@@ -82,10 +85,18 @@ class RAddARoadtrip extends React.Component<RAddARoadtripState> {
           <RInputText
             placeholder="Starting City..."
             onChangeText={text => this.setState({ startingCity: text })}
+            textColor={grayColor.light}
+            crossMode="light"
+            textContentType="location"
+            isSecureText={false}
           />
           <RInputText
             placeholder="Ending City..."
             onChangeText={text => this.setState({ endingCity: text })}
+            textColor={grayColor.light}
+            crossMode="light"
+            textContentType="location"
+            isSecureText={false}
           />
           <RInputDate
             placeholder="Starting Date..."

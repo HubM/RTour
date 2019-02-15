@@ -20,7 +20,7 @@ class RWelcome extends React.PureComponent<any> {
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
-          <SvgUri width="200" height="90" source={require("../../../assets/rtour-logo.svg")} />
+          <SvgUri width="200" height="90" source={require("../../../assets/rtourLogoWhite.svg")} />
         </View>
         <View style={styles.content}>
           <View style={styles.introContainer}>

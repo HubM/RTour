@@ -61,14 +61,25 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   render() {
     const { filterBtn, roadtrips } = this.state;
-    const { navigation } = this.props;
+    const { navigation, rootStore } = this.props;
+
+    const { userStore } = rootStore;
 
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.profileBtn}>
-            <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
-          </TouchableOpacity>
+          {
+            userStore.isLoggedIn
+              ?
+              <TouchableOpacity style={styles.profileBtn} onPress={() => console.log("GO TO PROFILE SECTION")}>
+                <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
+              </TouchableOpacity>
+              :
+              <TouchableOpacity style={styles.profileBtn} onPress={() => console.log("GO TO LOGIN PAGE")}>
+                <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
+              </TouchableOpacity>
+          }
+
           <TouchableOpacity>
             <Text style={styles.filterBtn}>{filterBtn}</Text>
           </TouchableOpacity>

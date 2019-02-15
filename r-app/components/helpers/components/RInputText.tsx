@@ -8,7 +8,11 @@ import { placeholderColor } from "../styles/_colors";
 
 interface RInputTextProps {
   placeholder: string,
-  onChangeText(text: string): void
+  onChangeText(text: string): void,
+  textColor: string,
+  crossMode: string,
+  textContentType: string,
+  isSecureText: boolean
 };
 
 interface RInputTextState {
@@ -58,11 +62,19 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
 
   render() {
     const { emptyInputText, textValue } = this.state;
-    const { placeholder } = this.props;
+    const { placeholder, textColor, crossMode, textContentType, isSecureText } = this.props;
+
+    let secureContext;
+
+    isSecureText
+      ? secureContext = true
+      : secureContext = false
+
+
     return (
       <View style={[styleForm.inputContainer, emptyInputText ? styleForm.emptyInput : styleForm.busyInput]}>
         <TextInput
-          style={styleForm.inputText}
+          style={[styleForm.inputText, { color: textColor }]}
           underlineColorAndroid="transparent"
           placeholder={placeholder}
           placeholderTextColor={placeholderColor}
@@ -70,6 +82,8 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
           keyboardAppearance="dark"
           onChangeText={this._writeInputText}
           value={textValue}
+          textContentType={textContentType}
+          secureTextEntry={secureContext}
         />
         {
           emptyInputText
@@ -77,7 +91,13 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
             <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--textInputWhite.svg")} />
             :
             <TouchableOpacity onPress={this._clearTextValue}>
-              <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--deleteBusyInput.svg")} />
+              {
+                crossMode === "light"
+                  ?
+                  <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--deleteBusyInputLight.svg")} />
+                  :
+                  <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--deleteBusyInputDark.svg")} />
+              }
             </TouchableOpacity>
         }
       </View>

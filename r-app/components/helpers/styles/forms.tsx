@@ -21,7 +21,6 @@ export default StyleSheet.create({
   } as ViewStyle,
   inputText: {
     ...inputDefault,
-    ...fontWhiteColor,
     width: "80%"
   },
   emptyInput: {
