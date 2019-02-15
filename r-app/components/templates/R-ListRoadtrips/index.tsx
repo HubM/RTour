@@ -1,4 +1,5 @@
 import * as React from "react";
+import { inject, observer } from 'mobx-react';
 import { View, Text, TouchableOpacity, FlatList, ScrollView, Dimensions } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { withNavigation } from "react-navigation";
@@ -6,7 +7,7 @@ import moment from "moment";
 
 import Roadtrip from "./_components/Roadtrip";
 import styles from "./_style";
-import fakeRoadtrips from "./_data/fakeRoadtrips";
+import fakeRoadtrips from "./_data";
 
 const width = Dimensions.get('window').width;
 
@@ -15,9 +16,15 @@ interface RListRoadtripsState {
   roadtrips: object,
 }
 
-class RListRoadtrips extends React.PureComponent<any, RListRoadtripsState> {
+interface RListRoadtripsProps {
+  appState: object
+}
 
-  constructor(props: any) {
+
+@inject('rootStore')
+@observer
+class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtripsState> {
+  constructor(props: RListRoadtripsProps) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
   }
@@ -45,10 +52,6 @@ class RListRoadtrips extends React.PureComponent<any, RListRoadtripsState> {
         />
       </View>
     )
-  }
-
-  _renderSingleRoadtrip(data: object, index: number) {
-    return
   }
 
   _seeRoadtrip(roadtrip: object) {

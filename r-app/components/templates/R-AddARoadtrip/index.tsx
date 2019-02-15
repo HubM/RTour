@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import { observer, inject } from "mobx-react";
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
@@ -12,6 +13,21 @@ import styles from "./_style";
 import { yellowColor } from "../../helpers/styles/_colors";
 import { convertToUkHour } from "../../helpers/index";
 import { withNavigation } from 'react-navigation';
+
+
+const initialState = {
+  startingCity: "",
+  endingCity: "",
+  startingDate: "",
+  endingDate: "",
+  startingHour: 0,
+  seatAvailable: 0,
+  hourStateValue: "",
+  seatStateValue: "",
+  roadtripType: "twoWays",
+  isTwoWaysTrip: false,
+  isOneWayTrip: false,
+}
 
 interface RAddARoadtripState {
   startingCity: string,
@@ -26,55 +42,36 @@ interface RAddARoadtripState {
   isTwoWaysTrip: boolean,
   isOneWayTrip: boolean,
 }
-
-class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
+@inject("rootStore")
+@observer
+class RAddARoadtrip extends React.Component<RAddARoadtripState> {
   constructor(props: any) {
     super(props);
     this._saveRoadtrip = this._saveRoadtrip.bind(this);
+    this.state = initialState
   }
 
   static navigationOptions = {
     header: null,
   };
 
-  state = {
-    startingCity: "",
-    endingCity: "",
-    startingDate: "",
-    endingDate: "",
-    startingHour: 0,
-    seatAvailable: 0,
-    hourStateValue: "",
-    seatStateValue: "",
-    roadtripType: "twoWays",
-    isTwoWaysTrip: true,
-    isOneWayTrip: false,
-  }
-
   _saveRoadtrip() {
-    const { navigation } = this.props;
+    const { navigation, rootStore } = this.props;
+    const { roadtripsStore } = rootStore;
 
-    console.log(this.state);
-
-    navigation.navigate('ListRoadtrips');
+    const newRoadtrip = this.state;
+    roadtripsStore.setNewRoadtrip(newRoadtrip);
 
     this.setState({
-      startingCity: "",
-      endingCity: "",
-      startingDate: "",
-      endingDate: "",
-      startingHour: 0,
-      seatAvailable: 0,
-      hourStateValue: "",
-      seatStateValue: "",
-      roadtripType: "twoWays",
-      isTwoWaysTrip: true,
-      isOneWayTrip: false,
+      ...initialState
     })
+
+    navigation.navigate('ListRoadtrips');
   }
 
   render() {
-    const { seatStateValue, hourStateValue, isOneWayTrip, isTwoWaysTrip } = this.state;
+    const { hourStateValue, seatStateValue, isTwoWaysTrip, isOneWayTrip } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -84,11 +81,11 @@ class RAddARoadtrip extends React.PureComponent<any, RAddARoadtripState> {
           <Text style={styles.title}>Your roadtrip</Text>
           <RInputText
             placeholder="Starting City..."
-            onChangeText={(text) => this.setState({ startingCity: text })}
+            onChangeText={text => this.setState({ startingCity: text })}
           />
           <RInputText
             placeholder="Ending City..."
-            onChangeText={(text) => this.setState({ endingCity: text })}
+            onChangeText={text => this.setState({ endingCity: text })}
           />
           <RInputDate
             placeholder="Starting Date..."
