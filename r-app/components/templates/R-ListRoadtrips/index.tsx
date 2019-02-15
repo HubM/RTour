@@ -61,8 +61,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   render() {
     const { filterBtn, roadtrips } = this.state;
-
-    console.log(this.props);
+    const { navigation } = this.props;
 
     return (
       <View style={styles.container}>
