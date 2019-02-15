@@ -6,6 +6,7 @@ import RMainButton from "../../helpers/components/RMainButton";
 import BackArrow from "../../helpers/components/BackArrow";
 import styles from "./_style";
 import { withNavigation } from 'react-navigation';
+import { yellowColor } from '../../helpers/styles/_colors';
 
 interface RSingleRoadtripState {
   buttonLabel: string;
@@ -101,7 +102,7 @@ class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
         </ScrollView>
         <RMainButton
           text="Join"
-          color="yellow"
+          color={yellowColor.light}
           onPressEvent={() => navigation.navigate('ListRoadtrips')}
         />
       </View>

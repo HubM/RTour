@@ -173,7 +173,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripState> {
           </View>
           <RMainButton
             text="Create"
-            color="yellow"
+            color={yellowColor.light}
             onPressEvent={this._saveRoadtrip}
           />
         </ScrollView>

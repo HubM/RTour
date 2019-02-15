@@ -7,6 +7,7 @@ import RMainButton from "../../helpers/components/RMainButton";
 import RSecondButton from "../../helpers/components/RSecondButton";
 
 import styles from "./_style";
+import { grayColor } from '../../helpers/styles/_colors';
 
 class RWelcome extends React.PureComponent<any> {
 
@@ -36,7 +37,7 @@ class RWelcome extends React.PureComponent<any> {
         </View>
         <RMainButton
           text="Connect"
-          color="white"
+          color={grayColor.light}
           onPressEvent={() => navigation.navigate('ListRoadtrips')}
         />
         <RSecondButton

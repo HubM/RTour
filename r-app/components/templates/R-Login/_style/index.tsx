@@ -15,6 +15,6 @@ export default StyleSheet.create({
   },
   content: {
     ...contentContained,
-    marginTop: 100
+    marginTop: 50
   },
 })

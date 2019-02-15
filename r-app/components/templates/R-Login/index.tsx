@@ -22,6 +22,8 @@ class RLogin extends React.PureComponent<any> {
   }
 
   render() {
+    const { navigation } = this.props;
+
     return (
       <View style={styleRLogin.container}>
         <View style={styleRLogin.logo}>
@@ -43,6 +45,11 @@ class RLogin extends React.PureComponent<any> {
             crossMode="dark"
             textContentType="password"
             isSecureText={true}
+          />
+          <RMainButton
+            text="Let's go"
+            color={greenColor.light}
+            onPressEvent={() => navigation.navigate('ListRoadtrips')}
           />
         </ScrollView>
       </View>

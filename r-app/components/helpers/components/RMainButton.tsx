@@ -13,15 +13,9 @@ export default class RMainButton extends React.PureComponent<MainButtonProps> {
   render() {
     const { text, color, onPressEvent } = this.props;
 
-    let buttonColor;
-
-    color === "white"
-      ? buttonColor = stylesButtons.mainWhite
-      : buttonColor = stylesButtons.mainYellow
-
     return (
       <TouchableOpacity onPress={onPressEvent}>
-        <Text style={[stylesButtons.centered, stylesButtons.main, buttonColor]}>{text.toUpperCase()}</Text>
+        <Text style={[stylesButtons.centered, stylesButtons.main, { color, borderColor: color }]}>{text.toUpperCase()}</Text>
       </TouchableOpacity>
     );
   }
