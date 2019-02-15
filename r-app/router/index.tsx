@@ -1,43 +1,22 @@
-import * as React from "react";
-
-import { createStackNavigator, createAppContainer, StackNavigator } from "react-navigation";
-import { inject, observer } from "mobx-react"
+import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import RWelcome from "../components/templates/R-Welcome";
+import RLogin from "../components/templates/R-Login";
 import RListRoadtrips from "../components/templates/R-ListRoadtrips";
 import RSingleRoadtrip from "../components/templates/R-SingleRoadtrip";
 import RAddARoadtip from "../components/templates/R-AddARoadtrip";
 
-
-// const RouteConfigs = 
-
-// const RootNavigator = StackNavigator(RouteConfigs);
-
 const RootNavigator = createStackNavigator(
   {
     Welcome: RWelcome,
+    Login: RLogin,
     ListRoadtrips: RListRoadtrips,
     SingleRoadtrip: RSingleRoadtrip,
     AddARoadtrip: RAddARoadtip
   },
   {
-    initialRouteName: "ListRoadtrips"
+    initialRouteName: "Login"
   }
 );
 
-
-@inject('rootNavigation')
-@observer
-class AppContainer extends React.Component<any> {
-  render() {
-    const { rootNavigation } = this.props;
-    console.log(rootNavigation);
-    return <RootNavigator />;
-  }
-}
-
-export default AppContainer;
-
-
-
-// export default createAppContainer(AppNavigator);
+export default createAppContainer(RootNavigator);
