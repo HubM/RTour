@@ -4,8 +4,8 @@ import { withNavigation } from 'react-navigation';
 import SvgUri from "react-native-svg-uri";
 
 import RInputText from "../../helpers/components/RInputText";
-import RMainButton from "../../helpers/components/RMainButton";
-import RSecondButton from "../../helpers/components/RSecondButton";
+
+import RButton from "../../helpers/components/RButton";
 
 import styleRLogin from "./_style";
 import { greenColor } from '../../helpers/styles/_colors';
@@ -46,10 +46,17 @@ class RLogin extends React.PureComponent<any> {
             textContentType="password"
             isSecureText={true}
           />
-          <RMainButton
+          <RButton
             text="Let's go"
             color={greenColor.light}
             onPressEvent={() => navigation.navigate('ListRoadtrips')}
+            type="main"
+          />
+          <RButton
+            text="skip"
+            color={greenColor.light}
+            onPressEvent={() => navigation.navigate('ListRoadtrips')}
+            type="second"
           />
         </ScrollView>
       </View>

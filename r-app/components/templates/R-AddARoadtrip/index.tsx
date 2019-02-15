@@ -2,12 +2,13 @@ import * as React from "react";
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { observer, inject } from "mobx-react";
+import { withNavigation } from 'react-navigation';
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
 import RInputDate from "../../helpers/components/RInputDate";
 import RInputNumber from "../../helpers/components/RInputNumber";
-import RMainButton from "../../helpers/components/RMainButton";
+import RButton from '../../helpers/components/RButton';
 
 
 import { grayColor } from "../../helpers/styles/_colors";
@@ -15,7 +16,6 @@ import { grayColor } from "../../helpers/styles/_colors";
 import styles from "./_style";
 import { yellowColor } from "../../helpers/styles/_colors";
 import { convertToUkHour } from "../../helpers/index";
-import { withNavigation } from 'react-navigation';
 
 
 const initialState = {
@@ -171,10 +171,11 @@ class RAddARoadtrip extends React.Component<RAddARoadtripState> {
               <Text style={[styles.roadtripType__text, isOneWayTrip && { color: yellowColor.light }]}>One way trip</Text>
             </TouchableOpacity>
           </View>
-          <RMainButton
+          <RButton
             text="Create"
             color={yellowColor.light}
             onPressEvent={this._saveRoadtrip}
+            type="main"
           />
         </ScrollView>
       </View>

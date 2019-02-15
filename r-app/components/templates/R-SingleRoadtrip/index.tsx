@@ -2,7 +2,8 @@ import * as React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import SvgUri from 'react-native-svg-uri';
 
-import RMainButton from "../../helpers/components/RMainButton";
+import RButton from "../../helpers/components/RButton";
+
 import BackArrow from "../../helpers/components/BackArrow";
 import styles from "./_style";
 import { withNavigation } from 'react-navigation';
@@ -100,10 +101,11 @@ class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
             }
           </View>
         </ScrollView>
-        <RMainButton
+        <RButton
           text="Join"
           color={yellowColor.light}
           onPressEvent={() => navigation.navigate('ListRoadtrips')}
+          type="main"
         />
       </View>
     );

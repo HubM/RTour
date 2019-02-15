@@ -3,9 +3,7 @@ import { View, Text } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import { withNavigation } from "react-navigation";
 
-import RMainButton from "../../helpers/components/RMainButton";
-import RSecondButton from "../../helpers/components/RSecondButton";
-
+import RButton from "../../helpers/components/RButton";
 import styles from "./_style";
 import { grayColor } from '../../helpers/styles/_colors';
 
@@ -35,16 +33,17 @@ class RWelcome extends React.PureComponent<any> {
             </Text>
           </View>
         </View>
-        <RMainButton
+        <RButton
           text="Connect"
           color={grayColor.light}
           onPressEvent={() => navigation.navigate('ListRoadtrips')}
+          type="main"
         />
-        <RSecondButton
+        <RButton
           text="skip"
-          route="ListRoadtrips"
-          color="white"
+          color={grayColor.light}
           onPressEvent={() => navigation.navigate('ListRoadtrips')}
+          type="second"
         />
       </View>
     );
