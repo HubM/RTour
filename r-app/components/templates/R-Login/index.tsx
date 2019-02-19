@@ -1,6 +1,7 @@
 import * as React from "react";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView } from "react-native";
 import { withNavigation } from 'react-navigation';
+import { observer, inject } from "mobx-react";
 import SvgUri from "react-native-svg-uri";
 
 import RInputText from "../../helpers/components/RInputText";
@@ -10,16 +11,39 @@ import RButton from "../../helpers/components/RButton";
 import styleRLogin from "./_style";
 import { greenColor } from '../../helpers/styles/_colors';
 
-class RLogin extends React.PureComponent<any> {
+interface RLoginState {
+  usernameOrEmail: string,
+  password: string
+}
+
+@inject("rootStore")
+@observer
+class RLogin extends React.Component<any, RLoginState> {
+  constructor(props: any) {
+    super(props);
+
+    this._checkAuth = this._checkAuth.bind(this);
+    this.state = {
+      usernameOrEmail: "",
+      password: ""
+    }
+  }
 
   static navigationOptions = {
     header: null,
   };
 
-  state = {
-    usernameOrEmail: "",
-    password: ""
+  _checkAuth() {
+    const { usernameOrEmail, password } = this.state;
+    const { navigation, rootStore } = this.props;
+    const { userStore } = rootStore;
+
+    if (usernameOrEmail === "H" && password === "u") {
+      userStore.setLoggedStatusToTrue();
+      navigation.navigate('ListRoadtrips');
+    }
   }
+
 
   render() {
     const { navigation } = this.props;
@@ -49,7 +73,7 @@ class RLogin extends React.PureComponent<any> {
           <RButton
             text="Let's go"
             color={greenColor.light}
-            onPressEvent={() => navigation.navigate('ListRoadtrips')}
+            onPressEvent={this._checkAuth}
             type="main"
           />
           <RButton

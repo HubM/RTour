@@ -94,11 +94,14 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
             renderItem={this._renderRoadtripsContainer}
           />
         </View>
-        <View style={styles.addBtn}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddARoadtrip')}>
-            <SvgUri width="50" height="50" source={require("../../../assets/icons/icon--addARoadtripBtn.svg")} />
-          </TouchableOpacity>
-        </View>
+        {
+          userStore.isLoggedIn &&
+          <View style={styles.addBtn}>
+            <TouchableOpacity onPress={() => navigation.navigate('AddARoadtrip')}>
+              <SvgUri width="50" height="50" source={require("../../../assets/icons/icon--addARoadtripBtn.svg")} />
+            </TouchableOpacity>
+          </View>
+        }
       </View>
     );
   }
