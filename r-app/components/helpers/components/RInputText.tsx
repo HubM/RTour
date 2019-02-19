@@ -23,23 +23,18 @@ interface RInputTextState {
 export default class RInputText extends React.PureComponent<RInputTextProps, RInputTextState> {
   constructor(props: RInputTextProps) {
     super(props)
-    this._writeInputText = this._writeInputText.bind(this);
+    this._sendText = this._sendText.bind(this);
     this._clearTextValue = this._clearTextValue.bind(this)
+
+    this.state = {
+      emptyInputText: true,
+      textValue: ""
+    }
   }
 
-  state = {
-    emptyInputText: true,
-    textValue: ""
-  }
-
-  _writeInputText(text: string) {
-    const { onChangeText } = this.props;
+  _sendText() {
     const { textValue } = this.state;
-
-    this.setState({
-      textValue: text
-    })
-
+    const { onChangeText } = this.props;
 
     if (textValue.length > 0) {
       onChangeText(textValue)
@@ -80,7 +75,8 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
           placeholderTextColor={placeholderColor}
           autoCapitalize="none"
           keyboardAppearance="dark"
-          onChangeText={this._writeInputText}
+          onChangeText={text => this.setState({ textValue: text })}
+          onEndEditing={this._sendText}
           value={textValue}
           textContentType={textContentType}
           secureTextEntry={secureContext}
