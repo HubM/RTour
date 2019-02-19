@@ -36,7 +36,7 @@ class RWelcome extends React.PureComponent<any> {
         <RButton
           text="Connect"
           color={grayColor.light}
-          onPressEvent={() => navigation.navigate('ListRoadtrips')}
+          onPressEvent={() => navigation.navigate('Login')}
           type="main"
         />
         <RButton

@@ -75,7 +75,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
                 <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
               </TouchableOpacity>
               :
-              <TouchableOpacity style={styles.profileBtn} onPress={() => console.log("GO TO LOGIN PAGE")}>
+              <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('Login')}>
                 <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
               </TouchableOpacity>
           }
