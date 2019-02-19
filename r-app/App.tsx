@@ -6,8 +6,6 @@ import { Provider } from "mobx-react";
 import AppContainer from "./router";
 import RootStore from "./store";
 
-
-// Disable warnings
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Remote debugger']);
 
@@ -16,12 +14,34 @@ interface State {
 }
 
 export default class App extends React.Component<{}, State> {
-
   public state: State = { isReady: false };
 
   componentWillMount() {
     this._loadFonts();
+    this._registerNotifications();
+    Expo.Notifications.addListener(this._listenNotifications);
   }
+
+  componentWillUnmount() {
+    Expo.Notifications.removeListener(this._listenNotifications);
+  }
+
+  _listenNotifications({ origin, data }) {
+    console.log("cool data", origin, data);
+  }
+
+
+  async _registerNotifications() {
+    const { status } = await Expo.Permissions.askAsync(Expo.Permissions.NOTIFICATIONS);
+
+    if (status !== "granted") {
+      alert('You must enable notifications in your application settings');
+      return;
+    }
+    const token = await Expo.Notifications.getExpoPushTokenAsync();
+    console.log(status, token);
+  }
+
 
   async _loadFonts() {
     await Expo.Font.loadAsync({
@@ -37,10 +57,10 @@ export default class App extends React.Component<{}, State> {
   }
 
   render() {
-
     if (!this.state.isReady) {
       return <Expo.AppLoading />;
     }
+
     return (
       <Provider rootStore={new RootStore()}>
         <AppContainer />
