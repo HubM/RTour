@@ -16,7 +16,7 @@ interface State {
 export default class App extends React.Component<{}, State> {
   public state: State = { isReady: false };
 
-  componentWillMount() {
+  componentDidMount() {
     this._loadFonts();
     this._registerNotifications();
     Expo.Notifications.addListener(this._listenNotifications);
