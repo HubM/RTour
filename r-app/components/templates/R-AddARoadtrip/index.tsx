@@ -1,22 +1,20 @@
 import * as React from "react";
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import SvgUri from "react-native-svg-uri";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { observer, inject } from "mobx-react";
 import { withNavigation } from 'react-navigation';
+
+import rootStore from '../../../store';
+import styles from "./_style";
+import { grayColor } from "../../helpers/styles/_colors";
+import { yellowColor } from "../../helpers/styles/_colors";
+import { convertToUkHour } from "../../helpers/index";
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
 import RInputDate from "../../helpers/components/RInputDate";
 import RInputNumber from "../../helpers/components/RInputNumber";
 import RButton from '../../helpers/components/RButton';
-
-
-import { grayColor } from "../../helpers/styles/_colors";
-
-import styles from "./_style";
-import { yellowColor } from "../../helpers/styles/_colors";
-import { convertToUkHour } from "../../helpers/index";
-
 
 const initialState = {
   startingCity: "",
@@ -45,10 +43,18 @@ interface RAddARoadtripState {
   isTwoWaysTrip: boolean,
   isOneWayTrip: boolean,
 }
-@inject("rootStore")
+
+interface RAddARoadtripProps {
+  roadtripsStore?: rootStore,
+  appState: object
+}
+
+@inject(stores => ({
+  roadtripsStore: stores.rootStore.roadtripsStore as rootStore
+}))
 @observer
-class RAddARoadtrip extends React.Component<RAddARoadtripState> {
-  constructor(props: any) {
+class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripState> {
+  constructor(props: RAddARoadtripProps) {
     super(props);
     this._saveRoadtrip = this._saveRoadtrip.bind(this);
     this.state = initialState
@@ -59,8 +65,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripState> {
   };
 
   _saveRoadtrip() {
-    const { navigation, rootStore } = this.props;
-    const { roadtripsStore } = rootStore;
+    const { navigation, roadtripsStore } = this.props;
 
     const newRoadtrip = this.state;
     console.log("NEW TRIP", newRoadtrip)

@@ -1,13 +1,15 @@
 import * as React from "react";
-import { inject, observer } from 'mobx-react';
-import { View, Text, TouchableOpacity, FlatList, ScrollView, Dimensions } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import { withNavigation } from "react-navigation";
 import moment from "moment";
+import { inject, observer } from 'mobx-react';
+import { withNavigation } from "react-navigation";
+import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
 
-import Roadtrip from "./_components/Roadtrip";
+import rootStore from '../../../store';
 import styles from "./_style";
 import fakeRoadtrips from "./_data";
+
+import Roadtrip from "./_components/Roadtrip";
 
 const width = Dimensions.get('window').width;
 
@@ -17,26 +19,27 @@ interface RListRoadtripsState {
 }
 
 interface RListRoadtripsProps {
+  isLoggedIn?: rootStore,
   appState: object
 }
 
-
-@inject('rootStore')
+@inject(stores => ({
+  isLoggedIn: stores.rootStore.userStore.isLoggedIn as rootStore
+}))
 @observer
 class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtripsState> {
   constructor(props: RListRoadtripsProps) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
+    this.state = {
+      filterBtn: "Filter".toUpperCase(),
+      roadtrips: fakeRoadtrips,
+    }
   }
 
   static navigationOptions = {
     header: null,
   };
-
-  state = {
-    filterBtn: "Filter".toUpperCase(),
-    roadtrips: fakeRoadtrips,
-  }
 
   _renderRoadtripsContainer = ({ item }) => {
     const listRoadtripsDate = moment(item.date, "DD/MM/YYYY").format('ddd D MMM');
@@ -61,15 +64,13 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   render() {
     const { filterBtn, roadtrips } = this.state;
-    const { navigation, rootStore } = this.props;
-
-    const { userStore } = rootStore;
+    const { navigation, isLoggedIn } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           {
-            userStore.isLoggedIn
+            isLoggedIn
               ?
               <TouchableOpacity style={styles.profileBtn} onPress={() => console.log("GO TO PROFILE SECTION")}>
                 <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
@@ -95,7 +96,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
           />
         </View>
         {
-          userStore.isLoggedIn &&
+          isLoggedIn &&
           <View style={styles.addBtn}>
             <TouchableOpacity onPress={() => navigation.navigate('AddARoadtrip')}>
               <SvgUri width="50" height="50" source={require("../../../assets/icons/icon--addARoadtripBtn.svg")} />

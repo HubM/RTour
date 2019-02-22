@@ -1,27 +1,32 @@
 import * as React from "react";
-import { View, ScrollView } from "react-native";
+import SvgUri from "react-native-svg-uri";
+import { View, ScrollView, Text } from "react-native";
 import { withNavigation } from 'react-navigation';
 import { observer, inject } from "mobx-react";
-import SvgUri from "react-native-svg-uri";
 
-import RInputText from "../../helpers/components/RInputText";
-
-import RButton from "../../helpers/components/RButton";
-
+import rootStore from "../../../store";
 import styleRLogin from "./_style";
 import { greenColor } from '../../helpers/styles/_colors';
+
+import RButton from "../../helpers/components/RButton";
+import RInputText from "../../helpers/components/RInputText";
 
 interface RLoginState {
   usernameOrEmail: string,
   password: string
 }
 
-@inject("rootStore")
-@observer
-class RLogin extends React.Component<any, RLoginState> {
-  constructor(props: any) {
-    super(props);
+interface RLoginProps {
+  userStore?: rootStore
+}
 
+@inject(stores => ({
+  userStore: stores.rootStore.userStore as rootStore
+}))
+@observer
+class RLogin extends React.Component<RLoginProps, RLoginState> {
+  constructor(props: RLoginProps) {
+    super(props);
     this._checkAuth = this._checkAuth.bind(this);
     this.state = {
       usernameOrEmail: "",
@@ -35,8 +40,7 @@ class RLogin extends React.Component<any, RLoginState> {
 
   _checkAuth() {
     const { usernameOrEmail, password } = this.state;
-    const { navigation, rootStore } = this.props;
-    const { userStore } = rootStore;
+    const { navigation, userStore } = this.props;
 
     if (usernameOrEmail === "H" && password === "u") {
       userStore.setLoggedStatusToTrue();
@@ -76,12 +80,21 @@ class RLogin extends React.Component<any, RLoginState> {
             onPressEvent={this._checkAuth}
             type="main"
           />
-          <RButton
-            text="skip"
-            color={greenColor.light}
-            onPressEvent={() => navigation.navigate('ListRoadtrips')}
-            type="second"
-          />
+          <View style={styleRLogin.multiplesSecondAction}>
+            <RButton
+              text="Password forget ?"
+              color={greenColor.light}
+              onPressEvent={() => navigation.navigate('ListRoadtrips')}
+              type="second"
+            />
+            <Text style={styleRLogin.secondActionSeparator}>|</Text>
+            <RButton
+              text="Register"
+              color={greenColor.light}
+              onPressEvent={() => navigation.navigate('ListRoadtrips')}
+              type="second"
+            />
+          </View>
         </ScrollView>
       </View>
     )
