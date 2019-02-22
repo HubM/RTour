@@ -13,6 +13,7 @@ import { convertToUkHour } from "../../helpers/index";
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
 import RInputDate from "../../helpers/components/RInputDate";
+import RInputTime from "../../helpers/components/RInputTime";
 import RInputNumber from "../../helpers/components/RInputNumber";
 import RButton from '../../helpers/components/RButton';
 
@@ -21,7 +22,7 @@ const initialState = {
   endingCity: "",
   startingDate: "",
   endingDate: "",
-  startingHour: 0,
+  startingHour: "",
   seatAvailable: 0,
   hourStateValue: "",
   seatStateValue: "",
@@ -35,7 +36,7 @@ interface RAddARoadtripState {
   endingCity: string,
   startingDate: string,
   endingDate: string,
-  startingHour: number,
+  startingHour: string,
   seatAvailable: number,
   roadtripType: string,
   hourStateValue: string,
@@ -112,23 +113,11 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
             placeholder="Ending Date..."
             getDate={date => this.setState({ endingDate: date })}
           />
-          <RInputNumber
+          <RInputTime
             placeholder="Starting hour..."
             complementaryStateValue={hourStateValue}
             textColor={grayColor.light}
-            onChangeNumber={(hour) => {
-              if (Number(hour) === 0) {
-                this.setState({
-                  hourStateValue: "",
-                  startingHour: Number(hour)
-                })
-              } else {
-                this.setState({
-                  hourStateValue: convertToUkHour(hour),
-                  startingHour: Number(hour)
-                })
-              }
-            }}
+            onChangeNumber={(hour) => this.setState({ startingHour: hour })}
           />
           <RInputNumber
             placeholder="0 seat available..."

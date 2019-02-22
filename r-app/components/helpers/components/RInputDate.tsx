@@ -5,7 +5,7 @@ import moment from "moment";
 import SvgUri from "react-native-svg-uri";
 
 import styleForm from "../styles/forms";
-import { fontYellowColor, fontPlaceholderColor, fontWhiteColor } from "../styles/_colors";
+import { fontPlaceholderColor, fontWhiteColor } from "../styles/_colors";
 
 interface RInputDateProps {
   placeholder: string,
@@ -25,10 +25,11 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
     this._hideDateTimePicker = this._hideDateTimePicker.bind(this);
     this._handleDatePicked = this._handleDatePicked.bind(this);
     this._clearDateValue = this._clearDateValue.bind(this);
-  }
-  state = {
-    date: "",
-    isDateTimePickerVisible: false,
+
+    this.state = {
+      date: "",
+      isDateTimePickerVisible: false,
+    }
   }
 
   _showDateTimePicker() {
@@ -40,13 +41,16 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
   }
 
   _handleDatePicked(date: object) {
+    const { getDate } = this.props;
+
     const dateStringified = moment(date).format('DD/MM/YYYY');
 
     this.setState({
       date: dateStringified
     })
     this._hideDateTimePicker();
-    this.props.getDate(dateStringified);
+
+    getDate(dateStringified);
   };
 
   _clearDateValue() {
@@ -57,7 +61,7 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
 
   render() {
     const { placeholder } = this.props;
-    const { date } = this.state;
+    const { date, isDateTimePickerVisible } = this.state;
 
     return (
       <View>
@@ -77,7 +81,7 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
             </TouchableOpacity>
         }
         <DateTimePicker
-          isVisible={this.state.isDateTimePickerVisible}
+          isVisible={isDateTimePickerVisible}
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
         />
