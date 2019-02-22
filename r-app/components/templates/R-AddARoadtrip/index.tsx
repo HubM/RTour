@@ -63,6 +63,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripState> {
     const { roadtripsStore } = rootStore;
 
     const newRoadtrip = this.state;
+    console.log("NEW TRIP", newRoadtrip)
     roadtripsStore.setNewRoadtrip(newRoadtrip);
 
     this.setState({
@@ -109,6 +110,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripState> {
           <RInputNumber
             placeholder="Starting hour..."
             complementaryStateValue={hourStateValue}
+            textColor={grayColor.light}
             onChangeNumber={(hour) => {
               if (Number(hour) === 0) {
                 this.setState({
@@ -126,6 +128,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripState> {
           <RInputNumber
             placeholder="0 seat available..."
             complementaryStateValue={seatStateValue}
+            textColor={grayColor.light}
             onChangeNumber={(seats) => {
               if (Number(seats) === 0) {
                 this.setState({

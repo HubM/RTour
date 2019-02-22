@@ -8,6 +8,7 @@ import { placeholderColor } from "../styles/_colors";
 interface RInputNumberProps {
   placeholder: string,
   complementaryStateValue: string,
+  textColor: string,
   onChangeNumber(seats: string): void
 };
 
@@ -52,12 +53,12 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
 
   render() {
     const { emptyInputNumber } = this.state;
-    const { placeholder, complementaryStateValue } = this.props;
+    const { placeholder, complementaryStateValue, textColor } = this.props;
 
     return (
       <View style={[styleForm.inputContainer, emptyInputNumber ? styleForm.emptyInput : styleForm.busyInput]}>
         <TextInput
-          style={styleForm.inputText}
+          style={[styleForm.inputText, { color: textColor }]}
           underlineColorAndroid="transparent"
           placeholder={placeholder}
           placeholderTextColor={placeholderColor}

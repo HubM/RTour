@@ -1,7 +1,7 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import SvgUri from 'react-native-svg-uri';
-
+import { inject, observer } from "mobx-react";
 import RButton from "../../helpers/components/RButton";
 
 import BackArrow from "../../helpers/components/BackArrow";
@@ -13,14 +13,34 @@ interface RSingleRoadtripState {
   buttonLabel: string;
 }
 
+@inject('rootStore')
+@observer
+class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
+  constructor(props: any) {
+    super(props);
 
-class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
+    this._joinRoadtrip = this._joinRoadtrip.bind(this);
+    this.state = {
+      buttonLabel: 'Join'.toUpperCase()
+    }
+
+  }
+
   static navigationOptions = {
     header: null,
   };
 
-  state = {
-    buttonLabel: 'Join'.toUpperCase()
+  _joinRoadtrip() {
+    const { navigation, rootStore } = this.props;
+    const { userStore } = rootStore;
+
+    if (userStore.isLoggedIn) {
+      console.log("Yeah, you can join the trip")
+      navigation.navigate("ListRoadtrips");
+    } else {
+      console.log("You must be connected to join the trip")
+      navigation.navigate("Login");
+    }
   }
 
   render() {
@@ -104,7 +124,7 @@ class RSingleRoadtrip extends React.PureComponent<any, RSingleRoadtripState> {
         <RButton
           text="Join"
           color={yellowColor.light}
-          onPressEvent={() => navigation.navigate('ListRoadtrips')}
+          onPressEvent={this._joinRoadtrip}
           type="main"
         />
       </View>
