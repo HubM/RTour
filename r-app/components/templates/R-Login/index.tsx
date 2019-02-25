@@ -81,19 +81,22 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
             type="main"
           />
           <View style={styleRLogin.multiplesSecondAction}>
-            <RButton
-              text="Password forget ?"
-              color={greenColor.light}
-              onPressEvent={() => navigation.navigate('ListRoadtrips')}
-              type="second"
-            />
-            <Text style={styleRLogin.secondActionSeparator}>|</Text>
-            <RButton
-              text="Register"
-              color={greenColor.light}
-              onPressEvent={() => navigation.navigate('ListRoadtrips')}
-              type="second"
-            />
+            <View style={{ marginRight: 5 }}>
+              <RButton
+                text="Password forget ?"
+                color={greenColor.light}
+                onPressEvent={() => navigation.navigate('ListRoadtrips')}
+                type="second"
+              />
+            </View>
+            <View style={{ marginLeft: 5 }}>
+              <RButton
+                text="Register"
+                color={greenColor.light}
+                onPressEvent={() => navigation.navigate('ListRoadtrips')}
+                type="second"
+              />
+            </View>
           </View>
         </ScrollView>
       </View>
