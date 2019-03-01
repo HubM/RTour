@@ -12,7 +12,7 @@ export default StyleSheet.create({
     marginBottom: 30
   },
   content: {
-    paddingHorizontal: 30
+    paddingHorizontal: 30,
     marginTop: 50
   }
 })

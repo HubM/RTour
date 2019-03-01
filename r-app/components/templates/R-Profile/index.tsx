@@ -1,21 +1,41 @@
 import * as React from "react";
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
-import BackArrow from "../../helpers/components/BackArrow";
+import style from "./_style";
 
-class RProfile extends React.Component<any, any> {
+import CrossExit from "../../helpers/components/CrossExit";
+import RInputText from '../../helpers/components/RInputText';
+
+interface RProfileState {
+  isEditable: boolean
+}
+
+class RProfile extends React.Component<RProfileState, any> {
   static navigationOptions = {
     header: null,
   };
 
+  state = {
+    isEditable: false
+  }
+
   render() {
+    const { isEditable } = this.state;
     return (
-      <View>
-        <View>
-          <BackArrow color="white" />
+      <View style={style.container}>
+        <View style={style.header}>
+          <CrossExit color="white" route="ListRoadtrips" />
         </View>
-        <Text>HELLO</Text>
+        <Text style={style.title}>Profile</Text>
+        {
+          isEditable
+            ?
+
+            :
+              // <Image source={require()} />
+
+        }
       </View>
     );
   }
