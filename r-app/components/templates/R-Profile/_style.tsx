@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import {
   blackColor, fontWhiteColor,
 } from "../../helpers/styles/colors";
-import { titleh3, titleMedium } from '../../helpers/styles/typos';
+import { titleh3, titleMedium, contentXs, contentLight, contentS, contentRegular, contentM } from '../../helpers/styles/typos';
 
 export default StyleSheet.create({
   container: {
@@ -21,4 +21,21 @@ export default StyleSheet.create({
     textAlign: "center",
     marginBottom: 30
   },
+  content: {
+    paddingHorizontal: 30
+  },
+  profileInfoContainer: {
+    marginBottom: 15
+  },
+  profileInfoType: {
+    ...contentXs,
+    ...contentLight,
+    ...fontWhiteColor
+  },
+  profileInfoValue: {
+    ...contentM,
+    ...contentRegular,
+    ...fontWhiteColor,
+    lineHeight: 25
+  }
 });

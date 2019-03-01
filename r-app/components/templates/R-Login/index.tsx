@@ -42,10 +42,24 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
     const { usernameOrEmail, password } = this.state;
     const { navigation, userStore } = this.props;
 
-    if (usernameOrEmail === "H" && password === "u") {
-      userStore.setLoggedStatusToTrue();
-      navigation.navigate('ListRoadtrips');
-    }
+
+    const fakeLoggedUser = {
+      id: 10,
+      firstname: "Hubert",
+      lastname: "Moncenis",
+      age: 24,
+      email: "hubmoncenis@gmail.com",
+      username: "HubM",
+      profilePic: './tmpProfile.png',
+      city: "Bordeaux",
+      trips: [],
+    };
+
+    // if (usernameOrEmail === "H" && password === "u") {
+    userStore.setLoggedStatusToTrue();
+    userStore.setUser(fakeLoggedUser);
+    navigation.navigate('ListRoadtrips');
+    // }
   }
 
 

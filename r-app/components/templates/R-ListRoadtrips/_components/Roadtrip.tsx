@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { inject, observer } from "mobx-react";
 import styles from "../_style";
 import { isIndexEven } from "../../../helpers";
 
