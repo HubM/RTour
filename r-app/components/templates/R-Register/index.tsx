@@ -33,14 +33,10 @@ class RLogin extends React.PureComponent<any, RLoginState> {
   };
 
   _checkRegister() {
-    console.log("New user !")
-    // const { email, password } = this.state;
-    // const { navigation, userStore } = this.props;
+    console.log("New user !", this.state)
+    const { navigation } = this.props;
 
-    // if (usernameOrEmail === "H" && password === "u") {
-    //   userStore.setLoggedStatusToTrue();
-    //   navigation.navigate('ListRoadtrips');
-    // }
+    navigation.navigate('RListRoadtrips')
   }
 
 
@@ -57,16 +53,16 @@ class RLogin extends React.PureComponent<any, RLoginState> {
             placeholder="Email"
             onChangeText={text => this.setState({ email: text })}
             textColor={grayColor.light}
-            crossMode="dark"
-            textContentType="emailAddress"
+            crossMode="light"
+            textContentType="none"
             isSecureText={false}
           />
           <RInputText
-            placeholder="Email"
+            placeholder="Username"
             onChangeText={username => this.setState({ username })}
             textColor={grayColor.light}
-            crossMode="dark"
-            textContentType="emailAddress"
+            crossMode="light"
+            textContentType="username"
             isSecureText={false}
           />
           <RInputText

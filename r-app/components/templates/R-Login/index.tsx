@@ -85,7 +85,7 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
               <RButton
                 text="Password forget ?"
                 color={greenColor.light}
-                onPressEvent={() => navigation.navigate('ListRoadtrips')}
+                onPressEvent={() => navigation.navigate('PasswordForget')}
                 type="second"
               />
             </View>
@@ -93,7 +93,7 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
               <RButton
                 text="Register"
                 color={greenColor.light}
-                onPressEvent={() => navigation.navigate('ListRoadtrips')}
+                onPressEvent={() => navigation.navigate('Register')}
                 type="second"
               />
             </View>
