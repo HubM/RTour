@@ -6,7 +6,7 @@ import { withNavigation } from "react-navigation";
 import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
 
 import rootStore from '../../../store';
-import styles from "./_style";
+import styles from "./_styles";
 import fakeRoadtrips from "./_data";
 
 import Roadtrip from "./_components/Roadtrip";
@@ -72,7 +72,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
           {
             isLoggedIn
               ?
-              <TouchableOpacity style={styles.profileBtn} onPress={() => console.log("GO TO PROFILE SECTION")}>
+              <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('Profile')}>
                 <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
               </TouchableOpacity>
               :

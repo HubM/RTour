@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
 
-import { greenColor, grayColor } from "../../../helpers/styles/_colors";
-import logo from "../../../helpers/styles/logo";
-import { containerComponent, contentContained } from "../../../helpers/styles/_layout";
-import { contentS, contentRegular, contentLight, contentBold } from "../../../helpers/styles/_typos";
+import { greenColor, grayColor } from "../../helpers/styles/_colors";
+import logo from "../../helpers/styles/logo";
+import { contentContained } from "../../helpers/styles/_layout";
+import { contentS, contentRegular, contentLight, contentBold } from "../../helpers/styles/_typos";
 
 
 export default StyleSheet.create({
   container: {
-    ...containerComponent,
+    flex: 1,
     backgroundColor: greenColor.dark,
   },
   logo,

@@ -50,4 +50,5 @@ class RWelcome extends React.PureComponent<any> {
   }
 }
 
+
 export default withNavigation(RWelcome);

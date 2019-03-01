@@ -1,7 +1,7 @@
 import { StyleSheet, PixelRatio, ViewStyle } from "react-native";
 
-import { containerComponent, headerComponent, inlineElements, headerActionBtn, contentContained } from "../../../helpers/styles/_layout";
-import { blackColor, grayColor, yellowColor } from "../../../helpers/styles/_colors";
+import { inlineElements, contentContained } from "../../helpers/styles/_layout";
+import { blackColor, grayColor, yellowColor } from "../../helpers/styles/_colors";
 import {
   titleh2,
   titleh3,
@@ -11,16 +11,15 @@ import {
   contentS,
   contentLight,
   contentRegular,
-  contentBold,
-} from "../../../helpers/styles/_typos";
+} from "../../helpers/styles/_typos";
 
 export default StyleSheet.create({
   container: {
-    ...containerComponent,
+    flex: 1,
     backgroundColor: blackColor.dark
   },
   header: {
-    ...headerComponent,
+    flexDirection: "row",
     justifyContent: "flex-start"
   },
   content: {

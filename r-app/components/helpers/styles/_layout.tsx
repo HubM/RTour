@@ -1,14 +1,6 @@
-export const containerComponent = {
-  flex: 1
-}
-
 export const contentContained = {
   paddingLeft: 30,
   paddingRight: 30
-};
-
-export const headerComponent = {
-  flexDirection: "row"
 };
 
 export const headerActionBtn = {

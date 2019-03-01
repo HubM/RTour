@@ -1,11 +1,11 @@
 import * as React from "react";
 import SvgUri from "react-native-svg-uri";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView } from "react-native";
 import { withNavigation } from 'react-navigation';
 import { observer, inject } from "mobx-react";
 
 import rootStore from "../../../store";
-import styleRLogin from "./_style";
+import styles from "./_style";
 import { greenColor } from '../../helpers/styles/_colors';
 
 import RButton from "../../helpers/components/RButton";
@@ -53,11 +53,11 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
     const { navigation } = this.props;
 
     return (
-      <View style={styleRLogin.container}>
-        <View style={styleRLogin.logo}>
+      <View style={styles.container}>
+        <View style={styles.logo}>
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoColored.svg")} />
         </View>
-        <ScrollView style={styleRLogin.content}>
+        <ScrollView style={styles.content}>
           <RInputText
             placeholder="Username or email"
             onChangeText={text => this.setState({ usernameOrEmail: text })}
@@ -80,7 +80,7 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
             onPressEvent={this._checkAuth}
             type="main"
           />
-          <View style={styleRLogin.multiplesSecondAction}>
+          <View style={styles.multiplesSecondAction}>
             <View style={{ marginRight: 5 }}>
               <RButton
                 text="Password forget ?"

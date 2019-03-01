@@ -1,13 +1,17 @@
 import { StyleSheet } from "react-native";
 
 import {
-  containerComponent,
-  headerComponent,
   centerBtnAction,
   headerActionBtn,
   contentContained
-} from "../../../helpers/styles/_layout";
-import { blackColor, fontWhiteColor, fontYellowColor } from "../../../helpers/styles/_colors";
+} from "../../helpers/styles/_layout";
+
+import {
+  blackColor,
+  fontWhiteColor,
+  fontYellowColor
+} from "../../helpers/styles/_colors";
+
 import {
   contentLight,
   contentXs,
@@ -15,19 +19,19 @@ import {
   titleRegular,
   titleMedium,
   titleh3,
-} from "../../../helpers/styles/_typos";
+} from "../../helpers/styles/_typos";
 
 export default StyleSheet.create({
   container: {
-    ...containerComponent,
+    flex: 1,
     backgroundColor: blackColor.light
   },
   header: {
-    ...headerComponent,
+    flexDirection: "row",
     justifyContent: "space-between"
   },
   profileBtn: {
-    ...headerActionBtn 
+    ...headerActionBtn
   },
   filterBtn: {
     ...fontWhiteColor,

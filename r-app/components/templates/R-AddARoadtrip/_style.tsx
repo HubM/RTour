@@ -1,19 +1,19 @@
 import { StyleSheet } from 'react-native';
 
-import { greenColor, yellowColor } from "../../../helpers/styles/_colors";
-import { containerComponent, headerComponent, headerActionBtn, contentContained, centeredInlineElements, inlineElements } from "../../../helpers/styles/_layout";
-import { titleh3, titleMedium, contentS, contentRegular, contentLight, contentBold } from "../../../helpers/styles/_typos";
-import { fontWhiteColor, placeholderColor } from "../../../helpers/styles/_colors";
+import { greenColor, yellowColor } from "../../helpers/styles/_colors";
+import { headerActionBtn, contentContained, centeredInlineElements, inlineElements } from "../../helpers/styles/_layout";
+import { titleh3, titleMedium, contentS, contentRegular, contentLight, contentBold } from "../../helpers/styles/_typos";
+import { fontWhiteColor, placeholderColor } from "../../helpers/styles/_colors";
 
 
 
 export default StyleSheet.create({
   container: {
-    ...containerComponent,
+    flex: 1,
     backgroundColor: greenColor.dark,
   },
   header: {
-    ...headerComponent,
+    flexDirection: "row",
     justifyContent: "flex-start"
   },
   content: {

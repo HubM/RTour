@@ -3,7 +3,7 @@ import SvgUri from "react-native-svg-uri";
 import { View, ScrollView } from "react-native";
 import { withNavigation } from 'react-navigation';
 
-import styleRRegister from "./_style";
+import styles from "./_style";
 
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
@@ -44,11 +44,11 @@ class RLogin extends React.PureComponent<any, RLoginState> {
     const { navigation } = this.props;
 
     return (
-      <ScrollView style={styleRRegister.container}>
-        <View style={styleRRegister.logo}>
+      <ScrollView style={styles.container}>
+        <View style={styles.logo}>
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoWhite.svg")} />
         </View>
-        <View style={styleRRegister.content}>
+        <View style={styles.content}>
           <RInputText
             placeholder="Email"
             onChangeText={text => this.setState({ email: text })}
