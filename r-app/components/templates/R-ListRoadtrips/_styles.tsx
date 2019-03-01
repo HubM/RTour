@@ -1,16 +1,10 @@
 import { StyleSheet } from "react-native";
 
 import {
-  centerBtnAction,
-  headerActionBtn,
-  contentContained
-} from "../../helpers/styles/_layout";
-
-import {
   blackColor,
   fontWhiteColor,
   fontYellowColor
-} from "../../helpers/styles/_colors";
+} from "../../helpers/styles/colors";
 
 import {
   contentLight,
@@ -19,7 +13,7 @@ import {
   titleRegular,
   titleMedium,
   titleh3,
-} from "../../helpers/styles/_typos";
+} from "../../helpers/styles/typos";
 
 export default StyleSheet.create({
   container: {
@@ -31,13 +25,15 @@ export default StyleSheet.create({
     justifyContent: "space-between"
   },
   profileBtn: {
-    ...headerActionBtn
+    padding: 30,
+    marginTop: 20
   },
   filterBtn: {
     ...fontWhiteColor,
     ...contentXs,
     ...titleRegular,
-    ...headerActionBtn
+    padding: 30,
+    marginTop: 20
   },
   date: {
     ...titleh3,
@@ -47,7 +43,7 @@ export default StyleSheet.create({
     marginBottom: 30
   },
   content: {
-    ...contentContained
+    paddingHorizontal: 30
   },
   roadtripsContainer: {
     flexDirection: "row",
@@ -92,6 +88,7 @@ export default StyleSheet.create({
     ...titleMedium
   },
   addBtn: {
-    ...centerBtnAction
+    marginTop: 35,
+    alignSelf: "center"
   }
 });

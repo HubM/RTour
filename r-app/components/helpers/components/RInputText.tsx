@@ -3,7 +3,7 @@ import { TextInput, View, TouchableOpacity } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
 import styleForm from "../styles/forms";
-import { placeholderColor } from "../styles/_colors";
+import { placeholderColor } from "../styles/colors";
 
 
 interface RInputTextProps {

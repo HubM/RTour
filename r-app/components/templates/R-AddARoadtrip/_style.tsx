@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { greenColor, yellowColor } from "../../helpers/styles/_colors";
-import { headerActionBtn, contentContained, centeredInlineElements, inlineElements } from "../../helpers/styles/_layout";
-import { titleh3, titleMedium, contentS, contentRegular, contentLight, contentBold } from "../../helpers/styles/_typos";
-import { fontWhiteColor, placeholderColor } from "../../helpers/styles/_colors";
+import { greenColor } from "../../helpers/styles/colors";
+import { titleh3, titleMedium, } from "../../helpers/styles/typos";
+import { fontWhiteColor, placeholderColor } from "../../helpers/styles/colors";
 
 
 
@@ -17,7 +16,7 @@ export default StyleSheet.create({
     justifyContent: "flex-start"
   },
   content: {
-    ...contentContained
+    paddingHorizontal: 30
   },
   title: {
     ...titleh3,
@@ -27,8 +26,11 @@ export default StyleSheet.create({
     marginBottom: 30
   },
   roadtripType: {
-    ...inlineElements,
-    ...centeredInlineElements
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   },
   roadtripType__container: {
     flexDirection: "column",

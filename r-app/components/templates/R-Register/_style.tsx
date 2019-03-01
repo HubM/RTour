@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { contentContained } from '../../helpers/styles/_layout';
-import { greenColor } from '../../helpers/styles/_colors';
+import { greenColor } from '../../helpers/styles/colors';
 import logo from "../../helpers/styles/logo";
 
 export default StyleSheet.create({
@@ -13,7 +12,7 @@ export default StyleSheet.create({
     marginBottom: 30
   },
   content: {
-    ...contentContained,
+    paddingHorizontal: 30
     marginTop: 50
   }
 })

@@ -5,7 +5,7 @@ import { withNavigation } from "react-navigation";
 
 import RButton from "../../helpers/components/RButton";
 import styles from "./_style";
-import { grayColor } from '../../helpers/styles/_colors';
+import { grayColor } from '../../helpers/styles/colors';
 
 class RWelcome extends React.PureComponent<any> {
 

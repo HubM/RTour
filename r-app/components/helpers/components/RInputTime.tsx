@@ -5,7 +5,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from "moment";
 
 import styleForm from "../styles/forms";
-import { fontWhiteColor, fontPlaceholderColor } from "../styles/_colors";
+import { fontWhiteColor, fontPlaceholderColor } from "../styles/colors";
 
 interface RInputNumberProps {
   placeholder: string,

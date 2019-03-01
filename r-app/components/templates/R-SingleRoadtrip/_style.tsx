@@ -1,7 +1,6 @@
 import { StyleSheet, PixelRatio, ViewStyle } from "react-native";
 
-import { inlineElements, contentContained } from "../../helpers/styles/_layout";
-import { blackColor, grayColor, yellowColor } from "../../helpers/styles/_colors";
+import { blackColor, grayColor, yellowColor } from "../../helpers/styles/colors";
 import {
   titleh2,
   titleh3,
@@ -11,7 +10,7 @@ import {
   contentS,
   contentLight,
   contentRegular,
-} from "../../helpers/styles/_typos";
+} from "../../helpers/styles/typos";
 
 export default StyleSheet.create({
   container: {
@@ -23,7 +22,7 @@ export default StyleSheet.create({
     justifyContent: "flex-start"
   },
   content: {
-    ...contentContained
+    paddingHorizontal: 30
   },
   roadtripTitle: {
     marginTop: 30,
@@ -42,7 +41,9 @@ export default StyleSheet.create({
     lineHeight: 50
   },
   roadtripCreator: {
-    ...inlineElements,
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
     paddingBottom: 6,
     borderBottomColor: blackColor.light,
     borderBottomWidth: 1 / PixelRatio.get()
@@ -58,7 +59,9 @@ export default StyleSheet.create({
     marginTop: 40,
   },
   roadtripSubInfos__single: {
-    ...inlineElements,
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
     alignItems: "center",
     marginBottom: 25
   } as ViewStyle,

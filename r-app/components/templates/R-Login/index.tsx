@@ -6,7 +6,7 @@ import { observer, inject } from "mobx-react";
 
 import rootStore from "../../../store";
 import styles from "./_style";
-import { greenColor } from '../../helpers/styles/_colors';
+import { greenColor } from '../../helpers/styles/colors';
 
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";

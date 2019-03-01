@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import { contentS, contentBold, contentXs, contentLight } from "./_typos";
-import { grayColor, yellowColor } from "./_colors";
+import { contentS, contentBold, contentXs, contentLight } from "./typos";
+import { grayColor, yellowColor } from "./colors";
 
 export default StyleSheet.create({
   centered: {

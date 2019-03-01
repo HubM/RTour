@@ -7,7 +7,7 @@ import RButton from "../../helpers/components/RButton";
 import BackArrow from "../../helpers/components/BackArrow";
 import styles from "./_style";
 import { withNavigation } from 'react-navigation';
-import { yellowColor } from '../../helpers/styles/_colors';
+import { yellowColor } from '../../helpers/styles/colors';
 
 interface RSingleRoadtripState {
   buttonLabel: string;

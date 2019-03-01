@@ -1,6 +1,5 @@
 import { StyleSheet, ViewStyle } from 'react-native';
-import { contentContained, centeredInlineElements } from '../../helpers/styles/_layout';
-import { grayColor } from '../../helpers/styles/_colors';
+import { grayColor } from '../../helpers/styles/colors';
 import logo from "../../helpers/styles/logo";
 
 
@@ -14,12 +13,13 @@ export default StyleSheet.create({
     marginBottom: 30
   },
   content: {
-    ...contentContained,
+    paddingHorizontal: 30
     marginTop: 50
   },
   multiplesSecondAction: {
     flexDirection: "row",
-    ...centeredInlineElements
+    alignItems: "center",
+    justifyContent: "center"
   } as ViewStyle,
   secondActionSeparator: {
     margin: 0

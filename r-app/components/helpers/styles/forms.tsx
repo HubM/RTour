@@ -1,8 +1,7 @@
 import { StyleSheet, ViewStyle } from 'react-native';
 
-import { inlineElements } from "./_layout";
-import { contentS, contentRegular } from "./_typos";
-import { yellowColor, placeholderColor, fontWhiteColor } from "./_colors";
+import { contentS, contentRegular } from "./typos";
+import { placeholderColor } from "./colors";
 
 
 const inputDefault = {
@@ -15,9 +14,11 @@ export default StyleSheet.create({
     marginBottom: 30,
     borderBottomWidth: 1,
     paddingBottom: 5,
+    flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
-    ...inlineElements
+    width: "100%",
+    flexDirection: "row",
   } as ViewStyle,
   inputText: {
     ...inputDefault,

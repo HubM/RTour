@@ -7,7 +7,7 @@ import styles from "./_style";
 
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
-import { grayColor } from '../../helpers/styles/_colors';
+import { grayColor } from '../../helpers/styles/colors';
 
 interface RLoginState {
   email: string,

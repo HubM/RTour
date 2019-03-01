@@ -5,7 +5,7 @@ import moment from "moment";
 import SvgUri from "react-native-svg-uri";
 
 import styleForm from "../styles/forms";
-import { fontPlaceholderColor, fontWhiteColor } from "../styles/_colors";
+import { fontPlaceholderColor, fontWhiteColor } from "../styles/colors";
 
 interface RInputDateProps {
   placeholder: string,
