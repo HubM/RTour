@@ -6,7 +6,7 @@ import { withNavigation } from "react-navigation";
 import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
 
 import rootStore from '../../../store';
-import styles from "./_styles";
+import styles from "./_style";
 import fakeRoadtrips from "./_data";
 
 import Roadtrip from "./_components/Roadtrip";

@@ -51,11 +51,11 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
     const { seats, calendar, address, roadtripType } = spec;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.header}>
           <BackArrow color="white" />
         </View>
-        <ScrollView style={styles.content}>
+        <View style={styles.content}>
           <View style={styles.roadtripTitle}>
             <Text style={styles.roadtripTitleStartCity}>{startCity}</Text>
             <Text style={styles.roadtripTitleEndCity}>{endCity}</Text>
@@ -120,14 +120,14 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
                 </View>
             }
           </View>
-        </ScrollView>
+        </View>
         <RButton
           text="Join"
           color={yellowColor.light}
           onPressEvent={this._joinRoadtrip}
           type="main"
         />
-      </View>
+      </ScrollView>
     );
   }
 }
