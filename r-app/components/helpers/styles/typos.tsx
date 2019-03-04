@@ -47,6 +47,10 @@ export const titleBold = {
  */
 
 // Size
+export const contentXxs = {
+  fontSize: 10
+}
+
 export const contentXs = {
   fontSize: 13,
   lineHeight: 23

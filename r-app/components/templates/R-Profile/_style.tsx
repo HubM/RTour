@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, ViewStyle } from "react-native";
 
 import {
   blackColor, fontWhiteColor,
 } from "../../helpers/styles/colors";
-import { titleh3, titleMedium, contentXs, contentLight, contentS, contentRegular, contentM } from '../../helpers/styles/typos';
+import { titleh3, titleMedium, contentXxs, contentLight, contentS, contentRegular, contentM } from '../../helpers/styles/typos';
 
 export default StyleSheet.create({
   container: {
@@ -11,9 +11,24 @@ export default StyleSheet.create({
     backgroundColor: blackColor.light
   },
   header: {
+    paddingLeft: 10,
+    flex: 1,
     flexDirection: "row",
-    justifyContent: "flex-end"
+    alignItems: "center",
+    justifyContent: "space-between"
   },
+  titleContainer: {
+    // flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  profilePicture: {
+    width: 70,
+    height: 70,
+    borderRadius: 40,
+    marginBottom: 10
+  } as ViewStyle,
   title: {
     ...titleh3,
     ...titleMedium,
@@ -28,14 +43,15 @@ export default StyleSheet.create({
     marginBottom: 15
   },
   profileInfoType: {
-    ...contentXs,
+    ...contentXxs,
     ...contentLight,
     ...fontWhiteColor
   },
   profileInfoValue: {
-    ...contentM,
+    ...contentS,
     ...contentRegular,
     ...fontWhiteColor,
     lineHeight: 25
-  }
+  },
+
 });

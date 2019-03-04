@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { inject, observer } from 'mobx-react';
 
@@ -7,6 +7,7 @@ import style from "./_style";
 
 import CrossExit from "../../helpers/components/CrossExit";
 import ProfileInfo from "./_components/ProfileInfo";
+import SvgUri from 'react-native-svg-uri';
 
 interface RProfileState {
   isEditable: boolean
@@ -30,11 +31,28 @@ class RProfile extends React.Component<RProfileState, any> {
     return (
       <ScrollView style={style.container}>
         <View style={style.header}>
+          <TouchableOpacity>
+            <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--whitePen.svg")} />
+          </TouchableOpacity>
           <CrossExit color="white" route="ListRoadtrips" />
         </View>
-        <Text style={style.title}>Profile</Text>
+        <View style={style.titleContainer}>
+          {
+            profilePic
+              ?
+              <Image source={require('./tmpProfile.png')} style={style.profilePicture} />
+              :
+              <Image source={require('../../../assets/img/defaultProfile.jpg')} style={style.profilePicture} />
+          }
+          {
+            username
+              ?
+              <Text style={style.title}>{username}</Text>
+              :
+              <Text style={style.title}>Profile</Text>
+          }
+        </View>
         <View style={style.content}>
-          <Image source={require(profilePic)} />
           <ProfileInfo type="firstname" value={firstname} />
           <ProfileInfo type="lastname" value={lastname} />
           <ProfileInfo type="age" value={age} />
