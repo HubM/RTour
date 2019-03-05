@@ -1,5 +1,9 @@
 const api = require("express").Router();
 
-// api.get('/route', controller.method);
+const roadtripsController = require('./controllers/roadtrips');
+
+/* Roadtrips */
+api.get('/roadtrips', roadtripsController.getRoadtrips);
+
 
 module.exports = api;

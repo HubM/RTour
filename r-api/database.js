@@ -1,7 +1,6 @@
 const mongojs = require("mongojs");
 const { mongoConnectionString } = require('./settings');
 
-
 module.exports.connectDb = () =>
   new Promise((resolve, reject) => {
     global.dbRtour = mongojs(mongoConnectionString);
