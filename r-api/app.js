@@ -1,5 +1,9 @@
 const express = require("express");
+const helmet = require('helmet');
+
 const logger = require('./services/logger');
+
+/* Database init */
 const { connectDb } = require("./database");
 
 connectDb()
@@ -11,10 +15,17 @@ connectDb()
   });
 
 
+
+
+
+
+
 const app = express();
 
 
 
+app.use(helmet());
+app.disable('x-powered-by');
 
 const api = require("./api");
 app.use("/api/v1", api);
