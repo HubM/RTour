@@ -9,6 +9,8 @@ import rootStore from '../../../store';
 import styles from "./_style";
 import fakeRoadtrips from "./_data";
 
+import { getAllRoadtrips } from "./_api";
+
 import Roadtrip from "./_components/Roadtrip";
 
 const width = Dimensions.get('window').width;
@@ -33,13 +35,21 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
     this.state = {
       filterBtn: "Filter".toUpperCase(),
-      roadtrips: fakeRoadtrips,
+      roadtrips: [],
     }
   }
 
   static navigationOptions = {
     header: null,
   };
+
+  componentDidMount() {
+
+    getAllRoadtrips().then(roadtrips => {
+      console.log(roadtrips)
+    });
+  }
+
 
   _renderRoadtripsContainer = ({ item }) => {
     const listRoadtripsDate = moment(item.date, "DD/MM/YYYY").format('ddd D MMM');
