@@ -1,50 +1,36 @@
 import { observable, action } from "mobx";
-
-
-const newRoadtrip = observable({
-  newRoadtrip: {
-    startingCity: "",
-    endingCity: "",
-    startingDate: "",
-    endingDate: "",
-    startingHour: 0,
-    seatAvailable: 0,
-    hourStateValue: "",
-    seatStateValue: "",
-    roadtripType: "twoWays",
-    isTwoWaysTrip: false,
-    isOneWayTrip: false,
-  },
-  setNewRoadtrip(roadtrip: object) {
-    const {
-      startingCity,
-      endingCity,
-      startingDate,
-      endingDate,
-      seatAvailable,
-      hourStateValue,
-      seatStateValue,
-      roadtripType,
-      isTwoWaysTrip,
-      isOneWayTrip
-    } = roadtrip;
-
-    this.newRoadtrip.startingCity = startingCity;
-    this.newRoadtrip.endingCity = endingCity;
-    this.newRoadtrip.startingDate = startingDate;
-    this.newRoadtrip.endingDate = endingDate;
-    this.newRoadtrip.seatAvailable = seatAvailable;
-    this.newRoadtrip.hourStateValue = hourStateValue;
-    this.newRoadtrip.seatStateValue = seatStateValue;
-    this.newRoadtrip.roadtripType = roadtripType;
-    this.newRoadtrip.isOneWayTrip = isOneWayTrip;
-    this.newRoadtrip.isTwoWaysTrip = isTwoWaysTrip;
-  }
-}, {
-    setNewRoadtrip: action
-  })
+import { getRoadtripsByDate } from '../../components/templates/R-ListRoadtrips/_api';
 
 export default class RoadtripsStore {
-  @observable newRoadtrip = newRoadtrip
-  @action setNewRoadtrip = newRoadtrip.setNewRoadtrip
+  @observable newRoadtrip = {
+    address: "",
+    startCity: "",
+    endCity: "",
+    calendar: {
+      startingDate: "",
+      duration: 1
+    },
+    hour: 0,
+    seats: 0,
+    roadtripType: "twoWays",
+  }
+
+  @observable roadtrips = []
+
+  @action
+  setNewRoadtrip(roadtrip: object) {
+    const { address, startCity, endCity, calendar, seats, hour, roadtripType } = roadtrip;
+    Object.assign(this.newRoadtrip, { address, startCity, endCity, calendar, seats, hour, roadtripType })
+  }
+
+  @action
+  getRoadtrips(date: string) {
+    getRoadtripsByDate(date)
+      .then(roadtrips => {
+        this.roadtrips.push(roadtrips);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
 }

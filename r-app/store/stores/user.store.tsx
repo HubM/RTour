@@ -1,40 +1,26 @@
 import { observable, action } from "mobx";
 
-const user = observable({
-  user: {
-    id: 0,
+export default class UserStore {
+  @observable isLoggedIn = false
+  @observable user = {
     firstname: "",
     lastname: "",
-    age: 0,
+    age: undefined,
     email: "",
     username: "",
     profilePic: "",
     city: "",
     trips: [],
-  },
-
-  setUser(user: object) {
-    this.user.id = user.id;
-    this.user.firstname = user.firstname;
-    this.user.lastname = user.lastname;
-    this.user.age = user.age;
-    this.user.email = user.email;
-    this.user.username = user.username;
-    this.user.profilePic = user.profilePic;
-    this.user.city = user.city;
-    this.user.trips = user.trips;
   }
-}, {
-    setUser: action
-  })
 
-export default class UserStore {
-  @observable isLoggedIn = false
-  @observable user = user
 
   @action.bound
   setLoggedStatusToTrue() {
     this.isLoggedIn = true;
   }
-  @action setUser = user.setUser
+  @action
+  setUser(user: object) {
+    const { firstname, lastname, age, email, username, profilePic, city, trips } = user;
+    Object.assign(this, { firstname, lastname, age, email, username, profilePic, city, trips })
+  }
 }
