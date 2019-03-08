@@ -5,22 +5,20 @@ import { isIndexEven } from "../../../helpers";
 
 interface RoadtripProps {
   roadtrip: {
-    id: string,
-    startCity: string,
-    endCity: string,
+    _id: string,
+    address: string,
+    calendar: {
+      startingDate: string,
+      duration: number
+    },
     hour: string,
     owner: {
       name: string
     },
-    spec: {
-      seats: number,
-      calendar: {
-        startingDate: string,
-        duration: number
-      },
-      address: string,
-      roadtripType: string
-    }
+    roadtripType: string,
+    seats: number,
+    startCity: string,
+    endCity: string,
   },
   roadtripIndex: number,
   seeRoadtrip(roadtrip: object): void,
@@ -37,14 +35,14 @@ export default class Roadtrip extends React.Component<RoadtripProps> {
   }
 
   render() {
-    const { roadtripIndex, roadtrip } = this.props;
+    const { roadtripIndex,  roadtrip } = this.props;
 
-    const { startCity, endCity, hour, spec } = roadtrip;
+    const { startCity, endCity, hour, calendar } = roadtrip;
 
-    let durationExist;
+      let durationExist;
 
-    if (spec.calendar) {
-      const { duration } = spec.calendar;
+    if (calendar) {
+      const { duration } = calendar;
       durationExist = duration;
     }
 

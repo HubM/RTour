@@ -1,7 +1,9 @@
 const logger = require("../../services/logger");
 
 module.exports.getRoadtrips = (req, res) => {
-  global.dbRtour.collection("roadtrips").find((errorRoadtrips, roadtrips) => {
+  const { date } = req.query;
+
+  global.dbRtour.collection("roadtrips").find({ "calendar.startingDate": date }, (errorRoadtrips, roadtrips) => {
     if (errorRoadtrips) {
       logger.error("Error on GET roadtrips", errorRoadtrips);
       res.send("Error with GET Roadtrips request");

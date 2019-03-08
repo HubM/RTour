@@ -47,8 +47,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
     const { navigation } = this.props;
     const roadtrip = navigation.getParam("roadtrip");
 
-    const { startCity, endCity, hour, owner, spec } = roadtrip;
-    const { seats, calendar, address, roadtripType } = spec;
+    const { startCity, endCity, hour, owner, seats, calendar, address, roadtripType } = roadtrip;
 
     return (
       <ScrollView style={styles.container}>
