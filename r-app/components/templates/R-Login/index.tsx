@@ -21,7 +21,8 @@ interface RLoginProps {
 }
 
 @inject(stores => ({
-  userStore: stores.rootStore.userStore as rootStore
+  setLoggedStatusToTrue: stores.rootStore.userStore.setLoggedStatusToTrue,
+  setUser: stores.rootStore.userStore.setUser,
 }))
 @observer
 class RLogin extends React.Component<RLoginProps, RLoginState> {
@@ -39,8 +40,7 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
   };
 
   _checkAuth() {
-    const { usernameOrEmail, password } = this.state;
-    const { navigation, userStore } = this.props;
+    const { navigation, userStore, setLoggedStatusToTrue, setUser } = this.props;
 
 
     const fakeLoggedUser = {
@@ -55,11 +55,11 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
       trips: [],
     };
 
-    // if (usernameOrEmail === "H" && password === "u") {
-    userStore.setLoggedStatusToTrue();
-    userStore.setUser(fakeLoggedUser);
+
+
+    setLoggedStatusToTrue();
+    setUser(fakeLoggedUser);
     navigation.navigate('ListRoadtrips');
-    // }
   }
 
 

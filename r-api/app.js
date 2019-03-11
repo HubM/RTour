@@ -14,15 +14,7 @@ connectDb()
     logger.error("Database connection fail", err);
   });
 
-
-
-
-
-
-
 const app = express();
-
-
 
 app.use(helmet());
 app.disable('x-powered-by');

@@ -3,12 +3,14 @@ import { StyleSheet } from "react-native";
 import {
   blackColor,
   fontWhiteColor,
-  fontYellowColor
+  fontYellowColor,
+  grayColor
 } from "../../helpers/styles/colors";
 
 import {
   contentLight,
   contentXs,
+  contentS,
   contentBold,
   titleRegular,
   titleMedium,
@@ -86,6 +88,19 @@ export default StyleSheet.create({
     ...contentXs,
     ...fontWhiteColor,
     ...titleMedium
+  },
+  noRoadtripsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  noRoadtrips: {
+    ...contentS,
+    // ...fontWhiteColor,
+    color: grayColor.dark,
+    textAlign: "center",
+    fontStyle: "italic",
+    marginRight: 5
   },
   addBtn: {
     marginTop: 35,

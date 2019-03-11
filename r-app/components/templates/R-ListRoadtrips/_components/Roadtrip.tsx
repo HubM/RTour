@@ -35,11 +35,11 @@ export default class Roadtrip extends React.Component<RoadtripProps> {
   }
 
   render() {
-    const { roadtripIndex,  roadtrip } = this.props;
+    const { roadtripIndex, roadtrip } = this.props;
 
     const { startCity, endCity, hour, calendar } = roadtrip;
 
-      let durationExist;
+    let durationExist;
 
     if (calendar) {
       const { duration } = calendar;

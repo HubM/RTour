@@ -1,17 +1,16 @@
 const axios = require('react-native-axios');
 
-export const getRoadtripsByDate = (date) => 
+export const getRoadtripsByDate = (date: string) =>
   new Promise((resolve, reject) => {
-    axios.get('http://127.0.0.1:3000/api/v1/roadtrips',{
+    axios.get('http://10.18.72.10:3000/api/v1/roadtrips', {
       params: {
         date
-      }
+      },
     })
-    .then((roadtrips: Array<Object>) => {
-      resolve(roadtrips.data);
-    })
-    .catch((error: String) => {
-      reject(error);
-    });
+      .then((roadtrips: Array<Object>) => {
+        resolve(roadtrips.data);
+      })
+      .catch((error: String) => {
+        reject(error);
+      });
   })
-

@@ -19,7 +19,7 @@ const RootNavigator = createStackNavigator(
     AddARoadtrip: RAddARoadtip
   },
   {
-    initialRouteName: "ListRoadtrips"
+    initialRouteName: "Login"
   }
 );
 

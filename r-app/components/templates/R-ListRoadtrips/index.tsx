@@ -6,8 +6,6 @@ import { withNavigation } from "react-navigation";
 import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-import Swipeout from 'react-native-swipeout';
-
 import rootStore from '../../../store';
 import styles from "./_style";
 
@@ -29,14 +27,17 @@ interface RListRoadtripsProps {
 }
 
 @inject(stores => ({
-  isLoggedIn: stores.rootStore.userStore.isLoggedIn as rootStore
+  isLoggedIn: stores.rootStore.userStore.isLoggedIn,
+  roadtrips: stores.rootStore.roadtripsStore.roadtrips,
+  getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips
 }))
 @observer
 class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtripsState> {
   constructor(props: RListRoadtripsProps) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
-    this._swipeToLeftEvent = this._swipeToLeftEvent.bind(this);
+    this._getPreviousRoadtrips = this._getPreviousRoadtrips.bind(this);
+    this._getNextRoadtrips = this._getNextRoadtrips.bind(this);
 
     this.state = {
       filterBtn: "Filter".toUpperCase(),
@@ -46,19 +47,27 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
   }
 
   componentDidMount() {
-    const { date } = this.state; 
+    const { date } = this.state;
+    const { getRoadtrips } = this.props;
 
-    getRoadtripsByDate(date).then(roadtrips => {
-      this.setState({
-        roadtrips
-      })
-    });
+    getRoadtrips(date)
   }
 
   static navigationOptions = {
     header: null,
   };
 
+  // _getRoadtrips(date: string) {
+  //   getRoadtripsByDate(date)
+  //     .then(roadtrips => {
+  //       this.setState({
+  //         roadtrips
+  //       })
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     })
+  // }
 
   _renderRoadtripsContainer = ({ item, index }) => (
     <View style={[styles.roadtripPerDayContainer, { width }]}>
@@ -71,30 +80,47 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     navigation.navigate("SingleRoadtrip", { roadtrip });
   }
 
-  _swipeToLeftEvent() {
-    const { date } = this.state; 
-
-
-    console.log("old date", date)
-    const newDate = moment(date, "MM/DD/YYYY").add(1, 'day');
-    newDate.add(1, 'day');
-    // getRoadtripsByDate
-    console.log(newDate)
+  _getPreviousRoadtrips() {
+    const { date } = this.state;
+    const { getRoadtrips } = this.props;
+    const newDate = moment(date, "DD/MM/YYYY").subtract(1, 'day').format("DD/MM/YYYY");
+    console.log("PRE DATE", date);
+    this.setState({
+      ...this.state,
+      date: newDate
+    })
+    console.log("POST DATE", date);
+    getRoadtrips(date)
   }
 
-  render() {
-    const { filterBtn, roadtrips } = this.state;
-    const { navigation, isLoggedIn } = this.props;
+  _getNextRoadtrips() {
+    const { date } = this.state;
+    const { getRoadtrips } = this.props;
+    const newDate = moment(date, "DD/MM/YYYY").add(1, 'day').format("DD/MM/YYYY");
+    console.log("PRE DATE", date);
+    this.setState({
+      ...this.state,
+      date: newDate
+    })
 
-    const today = moment().format('DD/MM/YYYY');
+
+    console.log("POST DATE", date);
+    getRoadtrips(date);
+  }
+
+
+
+  render() {
+    const { filterBtn, roadtrips, date } = this.state;
+    const { navigation, isLoggedIn } = this.props;
 
     const gestureConfig = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80
     };
-    
+
     return (
-      <GestureRecognizer config={gestureConfig} onSwipeLeft={this._swipeToLeftEvent} style={styles.container}>
+      <GestureRecognizer config={gestureConfig} onSwipeLeft={this._getNextRoadtrips} onSwipeRight={this._getPreviousRoadtrips} style={styles.container}>
         <View>
           <View style={styles.header}>
             {
@@ -114,27 +140,24 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
             </TouchableOpacity>
           </View>
           <View>
-            <Text style={styles.date}>{today}</Text>
-              <View style={[styles.roadtripPerDayContainer, { width }]}>
-                <Swipeout>
+            <Text style={styles.date}>{date}</Text>
+            {
+              roadtrips.length > 0
+                ?
+                <View style={[styles.roadtripPerDayContainer, { width }]}>
                   <FlatList
                     data={roadtrips}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item._id}
                     numColumns={2}
                     renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} />}
-                    onScrollEndDrag={this._swipeToLeftEvent}
                   />
-                </Swipeout>
-              </View>
-            {/* <FlatList
-              data={roadtrips}
-              pagingEnabled={true}
-              showsHorizontalScrollIndicator={true}
-              keyExtractor={item => item._id}
-              horizontal={false}
-              renderItem={this._renderRoadtripsContainer}
-              onScrollEndDrag={this._swipeToLeftEvent}
-            /> */}
+                </View>
+                :
+                <View style={styles.noRoadtripsContainer}>
+                  <Text style={styles.noRoadtrips}>No roadtrips are available for this date</Text>
+                  <Text>😥</Text>
+                </View>
+            }
           </View>
           {
             isLoggedIn &&
