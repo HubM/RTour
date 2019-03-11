@@ -1,5 +1,7 @@
 import { observable, action } from "mobx";
+
 import { getRoadtripsByDate } from '../../components/templates/R-ListRoadtrips/_api';
+
 
 export default class RoadtripsStore {
   @observable newRoadtrip = {
@@ -18,16 +20,18 @@ export default class RoadtripsStore {
   @observable roadtrips = []
 
   @action
-  setNewRoadtrip(roadtrip: object) {
+  setNewRoadtrip = (roadtrip: object) => {
     const { address, startCity, endCity, calendar, seats, hour, roadtripType } = roadtrip;
     Object.assign(this.newRoadtrip, { address, startCity, endCity, calendar, seats, hour, roadtripType })
   }
 
   @action
-  getRoadtrips(date: string) {
+  getRoadtrips = (date: string) => {
+    this.roadtrips = [];
+
     getRoadtripsByDate(date)
-      .then(roadtrips => {
-        this.roadtrips.push(roadtrips);
+      .then(newRoadtrips => {
+        this.roadtrips.push(newRoadtrips);
       })
       .catch(error => {
         console.log(error);

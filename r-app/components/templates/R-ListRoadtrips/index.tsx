@@ -1,15 +1,13 @@
 import * as React from "react";
 import SvgUri from "react-native-svg-uri";
+import { toJS } from "mobx";
 import moment from "moment";
 import { inject, observer } from 'mobx-react';
 import { withNavigation } from "react-navigation";
 import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-import rootStore from '../../../store';
 import styles from "./_style";
-
-import { getRoadtripsByDate } from "./_api";
 
 import Roadtrip from "./_components/Roadtrip";
 
@@ -17,19 +15,19 @@ const width = Dimensions.get('window').width;
 
 interface RListRoadtripsState {
   filterBtn: string,
-  roadtrips: object,
   date: string
 }
 
 interface RListRoadtripsProps {
-  isLoggedIn?: rootStore,
-  appState: object
+  isLoggedIn: boolean,
+  appState: object,
+  getRoadtrips(date: string): void
 }
 
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
-  roadtrips: stores.rootStore.roadtripsStore.roadtrips,
-  getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips
+  roadtrips: toJS(stores.rootStore.roadtripsStore.roadtrips).flat(),
+  getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
 }))
 @observer
 class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtripsState> {
@@ -41,33 +39,32 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
     this.state = {
       filterBtn: "Filter".toUpperCase(),
-      roadtrips: [],
       date: moment().format('DD/MM/YYYY')
     }
-  }
-
-  componentDidMount() {
-    const { date } = this.state;
-    const { getRoadtrips } = this.props;
-
-    getRoadtrips(date)
   }
 
   static navigationOptions = {
     header: null,
   };
 
-  // _getRoadtrips(date: string) {
-  //   getRoadtripsByDate(date)
-  //     .then(roadtrips => {
-  //       this.setState({
-  //         roadtrips
-  //       })
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     })
-  // }
+  componentDidMount() {
+    const { date } = this.state;
+    const { getRoadtrips } = this.props;
+    getRoadtrips(date);
+  }
+
+  _getPreviousRoadtrips() {
+    const { date } = this.state;
+    const { getRoadtrips, } = this.props;
+
+    getRoadtrips(date)
+  }
+
+  _getNextRoadtrips() {
+    const { date } = this.state;
+    const { getRoadtrips } = this.props;
+    getRoadtrips(date);
+  }
 
   _renderRoadtripsContainer = ({ item, index }) => (
     <View style={[styles.roadtripPerDayContainer, { width }]}>
@@ -80,39 +77,10 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     navigation.navigate("SingleRoadtrip", { roadtrip });
   }
 
-  _getPreviousRoadtrips() {
-    const { date } = this.state;
-    const { getRoadtrips } = this.props;
-    const newDate = moment(date, "DD/MM/YYYY").subtract(1, 'day').format("DD/MM/YYYY");
-    console.log("PRE DATE", date);
-    this.setState({
-      ...this.state,
-      date: newDate
-    })
-    console.log("POST DATE", date);
-    getRoadtrips(date)
-  }
-
-  _getNextRoadtrips() {
-    const { date } = this.state;
-    const { getRoadtrips } = this.props;
-    const newDate = moment(date, "DD/MM/YYYY").add(1, 'day').format("DD/MM/YYYY");
-    console.log("PRE DATE", date);
-    this.setState({
-      ...this.state,
-      date: newDate
-    })
-
-
-    console.log("POST DATE", date);
-    getRoadtrips(date);
-  }
-
-
 
   render() {
-    const { filterBtn, roadtrips, date } = this.state;
-    const { navigation, isLoggedIn } = this.props;
+    const { filterBtn, date } = this.state;
+    const { navigation, roadtrips, isLoggedIn } = this.props;
 
     const gestureConfig = {
       velocityThreshold: 0.3,
@@ -142,6 +110,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
           <View>
             <Text style={styles.date}>{date}</Text>
             {
+
               roadtrips.length > 0
                 ?
                 <View style={[styles.roadtripPerDayContainer, { width }]}>
