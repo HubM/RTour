@@ -4,7 +4,9 @@ import {
   blackColor,
   fontWhiteColor,
   fontYellowColor,
-  grayColor
+  grayColor,
+  yellowColor,
+  fontBlackColor
 } from "../../helpers/styles/colors";
 
 import {
@@ -89,6 +91,25 @@ export default StyleSheet.create({
     ...fontWhiteColor,
     ...titleMedium
   },
+  inlineDateBtns: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20
+  },
+  inlineDateBtns__prev: {
+    padding: 10,
+    marginRight: 5,
+    backgroundColor: yellowColor.light
+  },
+  inlineDateBtns__next: {
+    padding: 10,
+    marginLeft: 5,
+    backgroundColor: yellowColor.light
+  },
+  inlineDateBtns__text: {
+    ...fontBlackColor
+  },
   noRoadtripsContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -96,14 +117,14 @@ export default StyleSheet.create({
   },
   noRoadtrips: {
     ...contentS,
-    // ...fontWhiteColor,
     color: grayColor.dark,
     textAlign: "center",
     fontStyle: "italic",
     marginRight: 5
   },
   addBtn: {
-    marginTop: 35,
+    position: "absolute",
+    bottom: 20,
     alignSelf: "center"
   }
 });

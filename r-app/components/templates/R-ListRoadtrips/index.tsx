@@ -5,7 +5,6 @@ import moment from "moment";
 import { inject, observer } from 'mobx-react';
 import { withNavigation } from "react-navigation";
 import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
-import GestureRecognizer from 'react-native-swipe-gestures';
 
 import styles from "./_style";
 
@@ -21,21 +20,24 @@ interface RListRoadtripsState {
 interface RListRoadtripsProps {
   isLoggedIn: boolean,
   appState: object,
-  getRoadtrips(date: string): void
+  getRoadtrips(date: string): void,
+  isFetchingRoadtrips: boolean
 }
 
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   roadtrips: toJS(stores.rootStore.roadtripsStore.roadtrips).flat(),
   getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
+  isFetchingRoadtrips: stores.rootStore.roadtripsStore.isFetchingRoadtrips
 }))
 @observer
 class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtripsState> {
   constructor(props: RListRoadtripsProps) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
-    this._getPreviousRoadtrips = this._getPreviousRoadtrips.bind(this);
+    this._getPrevRoadtrips = this._getPrevRoadtrips.bind(this);
     this._getNextRoadtrips = this._getNextRoadtrips.bind(this);
+
 
     this.state = {
       filterBtn: "Filter".toUpperCase(),
@@ -49,21 +51,34 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   componentDidMount() {
     const { date } = this.state;
-    const { getRoadtrips } = this.props;
-    getRoadtrips(date);
+
+    this.props.getRoadtrips(date);
   }
 
-  _getPreviousRoadtrips() {
+  _getPrevRoadtrips() {
     const { date } = this.state;
-    const { getRoadtrips, } = this.props;
 
-    getRoadtrips(date)
+    const newDate = moment(date, "DD/MM/YYYY").subtract(1, 'day').format("DD/MM/YYYY");
+
+    this.setState({
+      ...this.state,
+      date: newDate
+    }, () => {
+      this.props.getRoadtrips(newDate);
+    })
+
   }
 
   _getNextRoadtrips() {
     const { date } = this.state;
-    const { getRoadtrips } = this.props;
-    getRoadtrips(date);
+    const newDate = moment(date, "DD/MM/YYYY").add(1, 'day').format("DD/MM/YYYY");
+
+    this.setState({
+      ...this.state,
+      date: newDate
+    }, () => {
+      this.props.getRoadtrips(newDate)
+    });
   }
 
   _renderRoadtripsContainer = ({ item, index }) => (
@@ -80,64 +95,69 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   render() {
     const { filterBtn, date } = this.state;
-    const { navigation, roadtrips, isLoggedIn } = this.props;
-
-    const gestureConfig = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80
-    };
+    const { navigation, roadtrips, isLoggedIn, isFetchingRoadtrips } = this.props;
 
     return (
-      <GestureRecognizer config={gestureConfig} onSwipeLeft={this._getNextRoadtrips} onSwipeRight={this._getPreviousRoadtrips} style={styles.container}>
-        <View>
-          <View style={styles.header}>
-            {
-              isLoggedIn
-                ?
-                <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('Profile')}>
-                  <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
-                </TouchableOpacity>
-                :
-                <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('Login')}>
-                  <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
-                </TouchableOpacity>
-            }
-
-            <TouchableOpacity>
-              <Text style={styles.filterBtn}>{filterBtn}</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Text style={styles.date}>{date}</Text>
-            {
-
-              roadtrips.length > 0
-                ?
-                <View style={[styles.roadtripPerDayContainer, { width }]}>
-                  <FlatList
-                    data={roadtrips}
-                    keyExtractor={item => item._id}
-                    numColumns={2}
-                    renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} />}
-                  />
-                </View>
-                :
-                <View style={styles.noRoadtripsContainer}>
-                  <Text style={styles.noRoadtrips}>No roadtrips are available for this date</Text>
-                  <Text>😥</Text>
-                </View>
-            }
-          </View>
+      <View style={styles.container}>
+        <View style={styles.header}>
           {
-            isLoggedIn &&
-            <View style={styles.addBtn}>
-              <TouchableOpacity onPress={() => navigation.navigate('AddARoadtrip')}>
-                <SvgUri width="50" height="50" source={require("../../../assets/icons/icon--addARoadtripBtn.svg")} />
+            isLoggedIn
+              ?
+              <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('Profile')}>
+                <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
+              </TouchableOpacity>
+              :
+              <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('Login')}>
+                <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
+              </TouchableOpacity>
+          }
+
+          <TouchableOpacity>
+            <Text style={styles.filterBtn}>{filterBtn}</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Text style={styles.date}>{date}</Text>
+          {
+
+            roadtrips.length > 0
+              ?
+              <View style={[styles.roadtripPerDayContainer, { width }]}>
+                <FlatList
+                  data={roadtrips}
+                  keyExtractor={item => item._id}
+                  numColumns={2}
+                  renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} />}
+                />
+              </View>
+              :
+              <View style={styles.noRoadtripsContainer}>
+                <Text style={styles.noRoadtrips}>No roadtrips are available for this date</Text>
+                <Text>😥</Text>
+              </View>
+          }
+          {
+            !isFetchingRoadtrips
+            &&
+            <View style={styles.inlineDateBtns}>
+              <TouchableOpacity style={styles.inlineDateBtns__prev} onPress={this._getPrevRoadtrips}>
+                <Text style={styles.inlineDateBtns__text}>Prev Date</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.inlineDateBtns__next} onPress={this._getNextRoadtrips}>
+                <Text style={styles.inlineDateBtns__text}>Next Date</Text>
               </TouchableOpacity>
             </View>
           }
         </View>
-      </GestureRecognizer>
+        {
+          isLoggedIn &&
+          <View style={styles.addBtn}>
+            <TouchableOpacity onPress={() => navigation.navigate('AddARoadtrip')}>
+              <SvgUri width="50" height="50" source={require("../../../assets/icons/icon--addARoadtripBtn.svg")} />
+            </TouchableOpacity>
+          </View>
+        }
+      </View>
     );
   }
 }

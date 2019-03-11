@@ -17,7 +17,10 @@ export default class RoadtripsStore {
     roadtripType: "twoWays",
   }
 
-  @observable roadtrips = []
+  @observable roadtrips = [];
+
+  @observable isFetchingRoadtrips = false;
+
 
   @action
   setNewRoadtrip = (roadtrip: object) => {
@@ -28,10 +31,13 @@ export default class RoadtripsStore {
   @action
   getRoadtrips = (date: string) => {
     this.roadtrips = [];
+    this.isFetchingRoadtrips = true;
 
+    console.log("THE DATE => ", date);
     getRoadtripsByDate(date)
       .then(newRoadtrips => {
         this.roadtrips.push(newRoadtrips);
+        this.isFetchingRoadtrips = false;
       })
       .catch(error => {
         console.log(error);
