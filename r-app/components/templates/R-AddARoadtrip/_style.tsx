@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { greenColor } from "../../helpers/styles/colors";
 import { titleh3, titleMedium, } from "../../helpers/styles/typos";
-import { fontWhiteColor, placeholderColor } from "../../helpers/styles/colors";
+import { fontWhiteColor, placeholderColor, uiErrorColor } from "../../helpers/styles/colors";
 
 
 
@@ -10,10 +10,22 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: greenColor.dark,
+    position: "relative"
   },
   header: {
     flexDirection: "row",
     justifyContent: "flex-start"
+  },
+  errorMessageContainer: {
+    width: "80%",
+    height: 50,
+    marginHorizontal: "10%",
+    backgroundColor: uiErrorColor.dark,
+    ...fontWhiteColor,
+    position: "absolute",
+    top: 100,
+    zIndex: 1,
+    borderRadius: 100
   },
   content: {
     paddingHorizontal: 30

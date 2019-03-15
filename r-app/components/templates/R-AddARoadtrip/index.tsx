@@ -32,7 +32,7 @@ const initialState = {
   durationStateValue: "",
   seatStateValue: "",
   isTwoWaysTrip: true,
-  isOneWayTrip: false
+  isOneWayTrip: false,
 }
 
 interface RAddARoadtripState {
@@ -51,8 +51,10 @@ interface RAddARoadtripState {
   durationStateValue: string,
   seatStateValue: string,
   isTwoWaysTrip: boolean,
-  isOneWayTrip: boolean
+  isOneWayTrip: boolean,
 }
+
+
 
 interface RAddARoadtripProps {
   appState: object
@@ -99,7 +101,6 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
 
     console.log("NEW TRIP", newRoadtrip)
 
-
     // this.setState({
     //   ...initialState
     // })
@@ -116,6 +117,12 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
       <View style={styles.container}>
         <View style={styles.header}>
           <BackArrow color="white" />
+          {/* {
+            error !== "" &&
+            <View style={styles.errorMessageContainer}>
+              <Text>{error}</Text>
+            </View>
+          } */}
         </View>
         <ScrollView style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>
@@ -126,6 +133,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
             crossMode="light"
             textContentType="location"
             isSecureText={false}
+          // onSubmitEditing={this._checkLength(startCity)}
           />
           <RInputText
             placeholder="Ending City..."
@@ -140,7 +148,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
             getDate={startingDate => this.setState({ startingDate })}
           />
           <RInputNumber
-            placeholder="Duration (1 day)..."
+            placeholder="Duration..."
             complementaryStateValue={durationStateValue}
             textColor={grayColor.light}
             onChangeNumber={(duration) => {
