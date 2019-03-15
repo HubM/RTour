@@ -8,7 +8,6 @@ import rootStore from '../../../store';
 import styles from "./_style";
 import { grayColor } from "../../helpers/styles/colors";
 import { yellowColor } from "../../helpers/styles/colors";
-import { convertToUkHour } from "../../helpers/index";
 
 import BackArrow from "../../helpers/components/BackArrow";
 import RInputText from "../../helpers/components/RInputText";
@@ -18,31 +17,47 @@ import RInputNumber from "../../helpers/components/RInputNumber";
 import RButton from '../../helpers/components/RButton';
 
 const initialState = {
-  startingCity: "",
-  endingCity: "",
-  startingDate: "",
-  endingDate: "",
-  startingHour: "",
-  seatAvailable: 0,
+  roadtrip: {
+    address: "",
+    calendar: {
+      startingDate: "",
+      duration: 1
+    },
+    hour: "",
+    owner: {
+      name: ""
+    },
+    roadtripType: "",
+    seats: 0,
+    startCity: "",
+    endCity: "",
+  },
   hourStateValue: "",
   seatStateValue: "",
-  roadtripType: "twoWays",
-  isTwoWaysTrip: false,
-  isOneWayTrip: false,
+  isTwoWaysTrip: true,
+  isOneWayTrip: false
 }
 
 interface RAddARoadtripState {
-  startingCity: string,
-  endingCity: string,
-  startingDate: string,
-  endingDate: string,
-  startingHour: string,
-  seatAvailable: number,
-  roadtripType: string,
+  roadtrip: {
+    address: string,
+    calendar: {
+      startingDate: string,
+      duration: number
+    },
+    hour: string,
+    owner: {
+      name: string
+    },
+    roadtripType: string,
+    seats: number,
+    startCity: string,
+    endCity: string,
+  },
   hourStateValue: string,
   seatStateValue: string,
   isTwoWaysTrip: boolean,
-  isOneWayTrip: boolean,
+  isOneWayTrip: boolean
 }
 
 interface RAddARoadtripProps {
@@ -80,7 +95,11 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
   }
 
   render() {
-    const { hourStateValue, seatStateValue, isTwoWaysTrip, isOneWayTrip } = this.state;
+
+    const { roadtrip, isTwoWaysTrip, isOneWayTrip } = this.state;
+
+    const { address, calendar, hour, owner, roadtripType, seats, startCity } = roadtrip;
+
 
     return (
       <View style={styles.container}>
@@ -91,7 +110,14 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
           <Text style={styles.title}>Your roadtrip</Text>
           <RInputText
             placeholder="Starting City..."
-            onChangeText={text => this.setState({ startingCity: text })}
+            onChangeText={startCity => {
+              this.setState(prevState => ({
+                roadtrip: {
+                  ...prevState.roadtrip,
+                  startCity
+                }
+              }))
+            }}
             textColor={grayColor.light}
             crossMode="light"
             textContentType="location"
@@ -99,7 +125,14 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
           />
           <RInputText
             placeholder="Ending City..."
-            onChangeText={text => this.setState({ endingCity: text })}
+            onChangeText={endCity => {
+              this.setState(prevState => ({
+                roadtrip: {
+                  ...prevState.roadtrip,
+                  endCity
+                }
+              }))
+            }}
             textColor={grayColor.light}
             crossMode="light"
             textContentType="location"
@@ -107,17 +140,31 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
           />
           <RInputDate
             placeholder="Starting Date..."
-            getDate={date => this.setState({ startingDate: date })}
-          />
-          <RInputDate
-            placeholder="Ending Date..."
+            getDate={startingDate => {
+              this.setState(prevState => ({
+                roadtrip: {
+                  ...prevState.roadtrip,
+                  calendar.startingDate: startingDate
+        }
+      }))
+    }}
+  />
+          {/* <RInputDate
+            placeholder="Ending Date..."  
             getDate={date => this.setState({ endingDate: date })}
-          />
+          /> */}
           <RInputTime
             placeholder="Starting hour..."
-            complementaryStateValue={hourStateValue}
+            complementaryStateValue={hour}
             textColor={grayColor.light}
-            onChangeNumber={(hour) => this.setState({ startingHour: hour })}
+            onChangeNumber={hour => {
+              this.setState(prevState => ({
+                roadtrip: {
+                  ...prevState.roadtrip,
+                  hour
+                }
+              }))
+            }}
           />
           <RInputNumber
             placeholder="0 seat available..."
@@ -125,13 +172,20 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
             textColor={grayColor.light}
             onChangeNumber={(seats) => {
               if (Number(seats) === 0) {
-                this.setState({
-                  seatStateValue: "",
-                  seatAvailable: Number(seats)
-                })
+                // this.setState({
+                //   seatStateValue: "",
+                //   seats: Number(seats)
+                // })
+                this.setState(prevState => ({
+                  roadtrip: {
+                    ...prevState.roadtrip,
+                    seats
+                  },
+                  seatStateValue: ""
+                }))
               } else {
                 this.setState({
-                  seatStateValue: Number(seats) > 1 ? `${seats} seats` : `${seats} seat`,
+                  seatStateValue: seats,
                   seatAvailable: Number(seats)
                 })
               }
