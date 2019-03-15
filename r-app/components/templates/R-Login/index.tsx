@@ -40,8 +40,7 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
   };
 
   _checkAuth() {
-    const { navigation, userStore, setLoggedStatusToTrue, setUser } = this.props;
-
+    const { navigation, setLoggedStatusToTrue, setUser } = this.props;
 
     const fakeLoggedUser = {
       id: 10,
@@ -54,8 +53,6 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
       city: "Bordeaux",
       trips: [],
     };
-
-
 
     setLoggedStatusToTrue();
     setUser(fakeLoggedUser);

@@ -28,7 +28,7 @@ interface RListRoadtripsProps {
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   roadtrips: toJS(stores.rootStore.roadtripsStore.roadtrips).flat(),
   getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
-  isFetchingRoadtrips: stores.rootStore.roadtripsStore.isFetchingRoadtrips
+  isFetchingRoadtrips: stores.rootStore.roadtripsStore.isFetchingRoadtrips,
 }))
 @observer
 class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtripsState> {
@@ -37,7 +37,6 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
     this._getPrevRoadtrips = this._getPrevRoadtrips.bind(this);
     this._getNextRoadtrips = this._getNextRoadtrips.bind(this);
-
 
     this.state = {
       filterBtn: "Filter".toUpperCase(),

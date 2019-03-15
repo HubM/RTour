@@ -13,14 +13,14 @@ export default class UserStore {
     trips: [],
   }
 
-
   @action.bound
   setLoggedStatusToTrue() {
     this.isLoggedIn = true;
   }
-  @action
+
+  @action.bound
   setUser(user: object) {
     const { firstname, lastname, age, email, username, profilePic, city, trips } = user;
-    Object.assign(this, { firstname, lastname, age, email, username, profilePic, city, trips })
+    Object.assign(this.user, { firstname, lastname, age, email, username, profilePic, city, trips })
   }
 }
