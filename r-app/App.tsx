@@ -18,29 +18,29 @@ export default class App extends React.Component<{}, State> {
 
   componentDidMount() {
     this._loadFonts();
-    this._registerNotifications();
-    Expo.Notifications.addListener(this._listenNotifications);
+    // this._registerNotifications();
+    // Expo.Notifications.addListener(this._listenNotifications);
   }
 
-  componentWillUnmount() {
-    Expo.Notifications.removeListener(this._listenNotifications);
-  }
+  // componentWillUnmount() {
+  //   Expo.Notifications.removeListener(this._listenNotifications);
+  // }
 
-  _listenNotifications({ origin, data }) {
-    console.log("cool data", origin, data);
-  }
+  // _listenNotifications({ origin, data }) {
+  //   console.log("cool data", origin, data);
+  // }
 
 
-  async _registerNotifications() {
-    const { status } = await Expo.Permissions.askAsync(Expo.Permissions.NOTIFICATIONS);
+  // async _registerNotifications() {
+  //   const { status } = await Expo.Permissions.askAsync(Expo.Permissions.NOTIFICATIONS);
 
-    if (status !== "granted") {
-      alert('You must enable notifications in your application settings');
-      return;
-    }
-    const token = await Expo.Notifications.getExpoPushTokenAsync();
-    console.log(status, token);
-  }
+  //   if (status !== "granted") {
+  //     alert('You must enable notifications in your application settings');
+  //     return;
+  //   }
+  //   const token = await Expo.Notifications.getExpoPushTokenAsync();
+  //   console.log(status, token);
+  // }
 
 
   async _loadFonts() {
