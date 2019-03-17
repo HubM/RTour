@@ -20,6 +20,7 @@ interface RListRoadtripsState {
 interface RListRoadtripsProps {
   isLoggedIn: boolean,
   appState: object,
+  roadtrips: Array<Object>,
   getRoadtrips(date: string): void,
   isFetchingRoadtrips: boolean
 }
@@ -50,13 +51,11 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   componentDidMount() {
     const { date } = this.state;
-
     this.props.getRoadtrips(date);
   }
 
   _getPrevRoadtrips() {
     const { date } = this.state;
-
     const newDate = moment(date, "DD/MM/YYYY").subtract(1, 'day').format("DD/MM/YYYY");
 
     this.setState({
@@ -65,7 +64,6 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     }, () => {
       this.props.getRoadtrips(newDate);
     })
-
   }
 
   _getNextRoadtrips() {
@@ -118,7 +116,6 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
         <View>
           <Text style={styles.date}>{date}</Text>
           {
-
             roadtrips.length > 0
               ?
               <View style={[styles.roadtripPerDayContainer, { width }]}>

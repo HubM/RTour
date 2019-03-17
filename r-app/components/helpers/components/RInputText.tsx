@@ -65,7 +65,6 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
       ? secureContext = true
       : secureContext = false
 
-
     return (
       <View style={[styleForm.inputContainer, emptyInputText ? styleForm.emptyInput : styleForm.busyInput]}>
         <TextInput

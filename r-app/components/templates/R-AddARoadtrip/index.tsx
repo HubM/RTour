@@ -54,8 +54,6 @@ interface RAddARoadtripState {
   isOneWayTrip: boolean,
 }
 
-
-
 interface RAddARoadtripProps {
   appState: object
 }
@@ -99,13 +97,26 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
       endCity
     };
 
-    console.log("NEW TRIP", newRoadtrip)
-
-    // this.setState({
-    //   ...initialState
-    // })
-
-    // navigation.navigate('ListRoadtrips');
+    if (!startCity || !endCity || !startingDate || hour || !seats) {
+      if (!startCity) {
+        console.log("You must specify a start city");
+      }
+      if (!endCity) {
+        console.log("You must specify a end city");
+      }
+      if (!startingDate) {
+        console.log("You must specify a starting date");
+      }
+      if (!hour) {
+        console.log("You must specify a starting hour");
+      }
+    } else {
+      console.log("NEW TRIP", newRoadtrip);
+      this.setState({
+        ...initialState
+      })
+      navigation.navigate('ListRoadtrips');
+    }
   }
 
 
@@ -117,12 +128,6 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
       <View style={styles.container}>
         <View style={styles.header}>
           <BackArrow color="white" />
-          {/* {
-            error !== "" &&
-            <View style={styles.errorMessageContainer}>
-              <Text>{error}</Text>
-            </View>
-          } */}
         </View>
         <ScrollView style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>
