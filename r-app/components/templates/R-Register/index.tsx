@@ -9,6 +9,8 @@ import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
 import { grayColor } from '../../helpers/styles/colors';
 
+import { validateEmail } from "../../helpers/";
+
 interface RLoginState {
   email: string,
   username: string,
@@ -19,6 +21,7 @@ interface RLoginState {
 class RLogin extends React.PureComponent<any, RLoginState> {
   constructor(props: any) {
     super(props);
+    this._checkUserEmail = this._checkUserEmail.bind(this);
     this._checkRegister = this._checkRegister.bind(this);
     this.state = {
       email: "",
@@ -31,6 +34,16 @@ class RLogin extends React.PureComponent<any, RLoginState> {
   static navigationOptions = {
     header: null
   };
+
+  _checkUserEmail(email: string) {
+    if (validateEmail(email)) {
+      this.setState({
+        email
+      })
+    } else {
+      console.log("NOPE")
+    }
+  }
 
   _checkRegister() {
     console.log("New user !", this.state)
@@ -51,7 +64,7 @@ class RLogin extends React.PureComponent<any, RLoginState> {
         <View style={styles.content}>
           <RInputText
             placeholder="Email"
-            onChangeText={text => this.setState({ email: text })}
+            onChangeText={this._checkUserEmail}
             textColor={grayColor.light}
             crossMode="light"
             textContentType="none"

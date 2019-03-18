@@ -12,7 +12,7 @@ interface RInputTextProps {
   textColor: string,
   crossMode: string,
   textContentType: string,
-  isSecureText: boolean
+  isSecureText: boolean,
 };
 
 interface RInputTextState {
