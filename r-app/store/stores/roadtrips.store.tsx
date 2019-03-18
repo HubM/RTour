@@ -1,5 +1,4 @@
 import { observable, action } from "mobx";
-
 import { getRoadtripsByDate } from '../../components/templates/R-ListRoadtrips/_api';
 
 

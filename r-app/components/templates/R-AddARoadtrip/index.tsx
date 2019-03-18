@@ -59,7 +59,8 @@ interface RAddARoadtripProps {
 }
 
 @inject(stores => ({
-  user: toJS(stores.rootStore.userStore.user)
+  user: toJS(stores.rootStore.userStore.user),
+  addRoadtrip: stores.rootStore.newRoadtripStore.addRoadtrip
 }))
 @observer
 class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripState> {
@@ -80,24 +81,26 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
     const { startingDate, hour, roadtripType, seats, startCity, endCity } = this.state;
 
     const newRoadtrip = {
-      address: "20 Place Saint Martial, 33000 Bordeaux",
-      calendar: {
-        startingDate,
-        duration: 1
-      },
-      hour,
-      owner: {
-        firstname,
-        lastname,
-        username
-      },
-      roadtripType,
-      seats,
-      startCity,
-      endCity
+      roadtrip: {
+        address: "20 Place Saint Martial, 33000 Bordeaux",
+        calendar: {
+          startingDate,
+          duration: 1
+        },
+        hour,
+        owner: {
+          firstname,
+          lastname,
+          username
+        },
+        roadtripType,
+        seats,
+        startCity,
+        endCity
+      }
     };
 
-    if (!startCity || !endCity || !startingDate || hour || !seats) {
+    if (!startCity || !endCity || !startingDate || !hour) {
       if (!startCity) {
         console.log("You must specify a start city");
       }
@@ -111,15 +114,15 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         console.log("You must specify a starting hour");
       }
     } else {
-      console.log("NEW TRIP", newRoadtrip);
       this.setState({
         ...initialState
       })
+
+      this.props.addRoadtrip(newRoadtrip);
+
       navigation.navigate('ListRoadtrips');
     }
   }
-
-
 
   render() {
     const { hour, seatStateValue, isTwoWaysTrip, isOneWayTrip, durationStateValue } = this.state;
@@ -138,7 +141,6 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
             crossMode="light"
             textContentType="location"
             isSecureText={false}
-          // onSubmitEditing={this._checkLength(startCity)}
           />
           <RInputText
             placeholder="Ending City..."
