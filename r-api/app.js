@@ -1,5 +1,6 @@
 const express = require("express");
 const helmet = require('helmet');
+const bodyParser = require('body-parser');
 
 const logger = require('./services/logger');
 
@@ -16,7 +17,9 @@ connectDb()
 
 const app = express();
 
+
 app.use(helmet());
+app.use(bodyParser.json());
 app.disable('x-powered-by');
 
 const api = require("./api");
