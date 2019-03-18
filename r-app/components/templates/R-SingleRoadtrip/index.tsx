@@ -13,10 +13,16 @@ interface RSingleRoadtripState {
   buttonLabel: string;
 }
 
-@inject('rootStore')
+interface RSingleRoadtripProps {
+  isLoggedIn: boolean
+}
+
+@inject(stores => ({
+  isLoggedIn: stores.rootStore.userStore.isLoggedIn,
+}))
 @observer
-class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
-  constructor(props: any) {
+class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
+  constructor(props: RSingleRoadtripProps) {
     super(props);
 
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
@@ -31,14 +37,11 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
   };
 
   _joinRoadtrip() {
-    const { navigation, rootStore } = this.props;
-    const { userStore } = rootStore;
+    const { navigation, isLoggedIn } = this.props;
 
-    if (userStore.isLoggedIn) {
-      console.log("Yeah, you can join the trip")
+    if (isLoggedIn) {
       navigation.navigate("ListRoadtrips");
     } else {
-      console.log("You must be connected to join the trip")
       navigation.navigate("Login");
     }
   }
@@ -48,6 +51,12 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
     const roadtrip = navigation.getParam("roadtrip");
 
     const { startCity, endCity, hour, owner, seats, calendar, address, roadtripType } = roadtrip;
+
+    let name;
+
+    owner.firstname && owner.lastname
+      ? name = `${owner.firstname} ${owner.lastname} (${owner.username})`
+      : name = `${owner.username}`
 
     return (
       <ScrollView style={styles.container}>
@@ -61,7 +70,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
           </View>
           <View style={styles.roadtripCreator}>
             <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
-            <Text style={styles.roadtripCreatorName}>{owner.name}</Text>
+            <Text style={styles.roadtripCreatorName}>{name}</Text>
           </View>
           <View style={styles.roadtripSubInfos}>
             {

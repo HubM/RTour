@@ -55,7 +55,12 @@ interface RAddARoadtripState {
 }
 
 interface RAddARoadtripProps {
-  appState: object
+  user: {
+    firstname: string,
+    lastname: string,
+    username: string
+  },
+  addRoadtrip(roadtrip: object): void
 }
 
 @inject(stores => ({
@@ -117,9 +122,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
       this.setState({
         ...initialState
       })
-
       this.props.addRoadtrip(newRoadtrip);
-
       navigation.navigate('ListRoadtrips');
     }
   }
