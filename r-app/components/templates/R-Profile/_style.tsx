@@ -18,7 +18,6 @@ export default StyleSheet.create({
     justifyContent: "space-between"
   },
   titleContainer: {
-    // flex: 1,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center"

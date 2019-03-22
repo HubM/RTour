@@ -1,6 +1,7 @@
 import * as React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { toJS } from "mobx";
 import { inject, observer } from 'mobx-react';
 
 import style from "./_style";
@@ -14,7 +15,7 @@ interface RProfileState {
 }
 
 @inject(stores => ({
-  user: stores.rootStore.userStore.user
+  user: toJS(stores.rootStore.userStore.user)
 }))
 @observer
 class RProfile extends React.Component<RProfileState, any> {
@@ -27,7 +28,7 @@ class RProfile extends React.Component<RProfileState, any> {
   }
 
   render() {
-    const { firstname, lastname, age, email, username, city, profilePic } = this.props.user;
+    const { firstname, lastname, age, email, username, city, profilePic, music } = this.props.user;
     return (
       <ScrollView style={style.container}>
         <View style={style.header}>
@@ -59,6 +60,7 @@ class RProfile extends React.Component<RProfileState, any> {
           <ProfileInfo type="email" value={email} />
           <ProfileInfo type="username" value={username} />
           <ProfileInfo type="city" value={city} />
+          <ProfileInfo type="music" value={music} />
         </View>
       </ScrollView>
     );

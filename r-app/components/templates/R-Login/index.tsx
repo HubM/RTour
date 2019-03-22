@@ -52,6 +52,7 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
       profilePic: './tmpProfile.png',
       city: "Bordeaux",
       trips: [],
+      music: ["Electro", "Rap"]
     };
 
     setLoggedStatusToTrue();

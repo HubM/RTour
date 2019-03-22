@@ -11,6 +11,7 @@ export default class UserStore {
     profilePic: "",
     city: "",
     trips: [],
+    music: []
   }
 
   @action.bound
@@ -20,7 +21,6 @@ export default class UserStore {
 
   @action.bound
   setUser(user: object) {
-    const { firstname, lastname, age, email, username, profilePic, city, trips } = user;
-    Object.assign(this.user, { firstname, lastname, age, email, username, profilePic, city, trips })
+    Object.assign(this.user, { ...user })
   }
 }
