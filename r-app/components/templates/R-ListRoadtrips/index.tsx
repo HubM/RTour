@@ -132,18 +132,14 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
                 <Text>😥</Text>
               </View>
           }
-          {
-            !isFetchingRoadtrips
-            &&
-            <View style={styles.inlineDateBtns}>
-              <TouchableOpacity style={styles.inlineDateBtns__prev} onPress={this._getPrevRoadtrips}>
-                <Text style={styles.inlineDateBtns__text}>Prev Date</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.inlineDateBtns__next} onPress={this._getNextRoadtrips}>
-                <Text style={styles.inlineDateBtns__text}>Next Date</Text>
-              </TouchableOpacity>
-            </View>
-          }
+          <View style={styles.inlineDateBtns}>
+            <TouchableOpacity style={styles.inlineDateBtns__prev} onPress={this._getPrevRoadtrips} disabled={isFetchingRoadtrips}>
+              <Text style={styles.inlineDateBtns__text}>Prev Date</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.inlineDateBtns__next} onPress={this._getNextRoadtrips} disabled={isFetchingRoadtrips}>
+              <Text style={styles.inlineDateBtns__text}>Next Date</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         {
           isLoggedIn &&
