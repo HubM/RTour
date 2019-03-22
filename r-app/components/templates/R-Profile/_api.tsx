@@ -1,7 +1,7 @@
 const axios = require('react-native-axios');
 const settings = require('../../../settings');
 
-const getUserByUserName = (username: string) => {
+const getUserByUserName = (username: string) =>
   new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/user`;
     axios.get(url, {
@@ -10,12 +10,11 @@ const getUserByUserName = (username: string) => {
       },
     })
       .then((user: object) => {
-        resolve(user.data);
+        resolve(user);
       })
       .catch((error: string) => {
         reject(error);
       });
   })
-}
 
 export default getUserByUserName;

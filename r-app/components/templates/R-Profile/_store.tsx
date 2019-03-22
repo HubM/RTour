@@ -22,8 +22,8 @@ export default class UserProfileStore {
   @action.bound
   fetchUserProfileInfos(username: string) {
     getUserByUserName(username)
-      .then(user => {
-        this.setUserProfileInfos(user)
+      .then((user: object) => {
+        this.setUserProfileInfos(user.data)
       })
       .catch(error => {
         throw error;

@@ -44,15 +44,15 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
 
     const fakeLoggedUser = {
       id: 10,
-      firstname: "Hubert",
-      lastname: "Moncenis",
+      firstname: "Manu",
+      lastname: "Patrois",
       age: 24,
-      email: "hubmoncenis@gmail.com",
-      username: "HubM",
+      email: "manupatrois@gmail.com",
+      username: "ManuP",
       profilePic: './tmpProfile.png',
       city: "Bordeaux",
       trips: [],
-      music: ["Electro", "Rap"]
+      music: ["Rap lourd"]
     };
 
     setLoggedStatusToTrue();
