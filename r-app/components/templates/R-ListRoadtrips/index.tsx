@@ -28,6 +28,7 @@ interface RListRoadtripsProps {
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   roadtrips: toJS(stores.rootStore.roadtripsStore.roadtrips).flat(),
+  username: stores.rootStore.userStore.user.username,
   getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
   isFetchingRoadtrips: stores.rootStore.roadtripsStore.isFetchingRoadtrips,
 }))
@@ -92,7 +93,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   render() {
     const { filterBtn, date } = this.state;
-    const { navigation, roadtrips, isLoggedIn, isFetchingRoadtrips } = this.props;
+    const { navigation, roadtrips, isLoggedIn, isFetchingRoadtrips, username } = this.props;
 
     return (
       <View style={styles.container}>
@@ -100,7 +101,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
           {
             isLoggedIn
               ?
-              <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('Profile')}>
+              <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('Profile', { profileUser: username })}>
                 <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
               </TouchableOpacity>
               :
