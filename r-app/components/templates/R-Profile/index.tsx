@@ -11,11 +11,15 @@ import ProfileInfo from "./_components/ProfileInfo";
 import SvgUri from 'react-native-svg-uri';
 
 interface RProfileState {
-  isEditable: boolean
+  isEditable: boolean,
+  ownProfile: boolean
 }
 
 @inject(stores => ({
-  user: toJS(stores.rootStore.userStore.user)
+  user: toJS(stores.rootStore.userStore.user),
+  userProfile: toJS(stores.rootStore.userProfileStore.userProfile),
+  setUserProfileInfos: toJS(stores.rootStore.userProfileStore.setUserProfileInfos),
+  fetchUserProfileInfos: toJS(stores.rootStore.userProfileStore.fetchUserProfileInfos)
 }))
 @observer
 class RProfile extends React.Component<RProfileState, any> {
@@ -24,17 +28,37 @@ class RProfile extends React.Component<RProfileState, any> {
   };
 
   state = {
-    isEditable: false
+    isEditable: false,
+    ownProfile: false
+  }
+
+  componentDidMount() {
+    const { navigation, user, setUserProfileInfos, fetchUserProfileInfos } = this.props;
+    const profileUser = navigation.getParam("profileUser");
+
+    if (profileUser === user.username) {
+      const isOwnProfile = true;
+      this.setState({
+        ownProfile: isOwnProfile
+      })
+      setUserProfileInfos(user);
+    } else {
+      fetchUserProfileInfos(profileUser)
+    }
   }
 
   render() {
-    const { firstname, lastname, age, email, username, city, profilePic, music } = this.props.user;
+    const { ownProfile } = this.state;
+    const { firstname, lastname, age, email, username, city, profilePic, music } = this.props.userProfile;
     return (
       <ScrollView style={style.container}>
         <View style={style.header}>
-          <TouchableOpacity>
-            <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--whitePen.svg")} />
-          </TouchableOpacity>
+          {
+            ownProfile &&
+            <TouchableOpacity>
+              <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--whitePen.svg")} />
+            </TouchableOpacity>
+          }
           <CrossExit color="white" route="ListRoadtrips" />
         </View>
         <View style={style.titleContainer}>
