@@ -1,5 +1,5 @@
 import { action } from 'mobx';
-import { addRoadtripAPI } from "../../components/templates/R-AddARoadtrip/_api";
+import { addRoadtripAPI } from "./_api";
 
 export default class newRoadtripStore {
   @action
