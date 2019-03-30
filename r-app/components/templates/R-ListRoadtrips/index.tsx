@@ -27,7 +27,7 @@ interface RListRoadtripsProps {
 
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
-  roadtrips: toJS(stores.rootStore.roadtripsStore.roadtrips).flat(),
+  roadtrips: toJS(stores.rootStore.roadtripsStore.roadtrips),
   username: stores.rootStore.userStore.user.username,
   getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
   isFetchingRoadtrips: stores.rootStore.roadtripsStore.isFetchingRoadtrips,
@@ -75,7 +75,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
       ...this.state,
       date: newDate
     }, () => {
-      this.props.getRoadtrips(newDate)
+      this.props.getRoadtrips(newDate);
     });
   }
 

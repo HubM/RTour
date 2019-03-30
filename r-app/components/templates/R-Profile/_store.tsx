@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import getUserByUserName from "./_api";
+import { getUserByUserNameAPI, getRoadtripsByUserNameAPI } from "./_api";
 
 
 export default class UserProfileStore {
@@ -14,16 +14,39 @@ export default class UserProfileStore {
     music: []
   }
 
+
   @action.bound
-  setUserProfileInfos(user: object) {
-    Object.assign(this.userProfile, { ...user })
+  setLoggedUserInfos(user: object) {
+    Object.assign(this.userProfile, {
+      ...user
+    })
+  }
+
+  @action.bound
+  setUserProfileInfos(user: object, roadtrips: object) {
+    Object.assign(this.userProfile, {
+      ...user,
+      roadtrips
+    })
   }
 
   @action.bound
   fetchUserProfileInfos(username: string) {
-    getUserByUserName(username)
+    getUserByUserNameAPI(username)
       .then((user: object) => {
-        this.setUserProfileInfos(user.data)
+        getRoadtripsByUserNameAPI(username)
+          .then((roadtrips: object) => {
+            // Object.assign(this.userProfile, {
+            //   ...user,
+            //   roadtrips
+            // })
+            console.log("USER =>", user.data);
+            console.log("HIS ROADTRIPS => ", roadtrips.data)
+            // this.setUserProfileInfos(user.data, roadtrips.data)
+          })
+          .catch(error => {
+            throw error;
+          })
       })
       .catch(error => {
         throw error;

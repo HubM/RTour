@@ -1,7 +1,7 @@
 const axios = require('react-native-axios');
 const settings = require('../../../settings');
 
-const getUserByUserName = (username: string) =>
+export const getUserByUserNameAPI = (username: string) =>
   new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/user`;
     axios.get(url, {
@@ -17,4 +17,19 @@ const getUserByUserName = (username: string) =>
       });
   })
 
-export default getUserByUserName;
+export const getRoadtripsByUserNameAPI = (username: string) =>
+  new Promise((resolve, reject) => {
+
+    const url = `${settings.apiUrl}/roadtrips/byUser`;
+    axios.get(url, {
+      params: {
+        username
+      }
+    })
+      .then((roadtrips: object) => {
+        resolve(roadtrips.data)
+      })
+      .catch((error: string) => {
+        reject(error);
+      })
+  })

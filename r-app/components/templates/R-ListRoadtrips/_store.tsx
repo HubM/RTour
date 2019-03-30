@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { getRoadtripsByDate } from './_api';
+import { getRoadtripsByDateAPI } from './_api';
 
 
 export default class RoadtripsStore {
@@ -11,9 +11,11 @@ export default class RoadtripsStore {
     this.roadtrips = [];
     this.isFetchingRoadtrips = true;
 
-    getRoadtripsByDate(date)
+    getRoadtripsByDateAPI(date)
       .then(newRoadtrips => {
-        this.roadtrips.push(newRoadtrips);
+        if (newRoadtrips[0]) {
+          this.roadtrips.push(newRoadtrips[0]);
+        }
         this.isFetchingRoadtrips = false;
       })
       .catch(error => {

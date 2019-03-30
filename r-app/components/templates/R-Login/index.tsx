@@ -23,6 +23,7 @@ interface RLoginProps {
 @inject(stores => ({
   setLoggedStatusToTrue: stores.rootStore.userStore.setLoggedStatusToTrue,
   setUser: stores.rootStore.userStore.setUser,
+  getRoadtripsByUserName: stores.rootStore.userStore.getRoadtripsByUserName
 }))
 @observer
 class RLogin extends React.Component<RLoginProps, RLoginState> {
@@ -40,23 +41,24 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
   };
 
   _checkAuth() {
-    const { navigation, setLoggedStatusToTrue, setUser } = this.props;
+    const { navigation, setLoggedStatusToTrue, setUser, getRoadtripsByUserName } = this.props;
 
     const fakeLoggedUser = {
       id: 10,
-      firstname: "Manu",
-      lastname: "Patrois",
+      firstname: "Hubert",
+      lastname: "Moncenis",
       age: 24,
-      email: "manupatrois@gmail.com",
-      username: "ManuP",
+      email: "hubmoncenis@gmail.com",
+      username: "HubM",
       profilePic: './tmpProfile.png',
       city: "Bordeaux",
       trips: [],
-      music: ["Rap lourd"]
+      music: ["Rap", "Électro"]
     };
 
     setLoggedStatusToTrue();
     setUser(fakeLoggedUser);
+    getRoadtripsByUserName(fakeLoggedUser.username)
     navigation.navigate('ListRoadtrips');
   }
 
