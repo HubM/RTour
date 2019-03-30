@@ -5,7 +5,8 @@ const singleRoadtripController = require('./controllers/singleRoadtrip');
 const userController = require('./controllers/user');
 
 /* List Roadtrips */
-api.get('/roadtrips', roadtripsController.getRoadtrips);
+api.get('/roadtrips/byDate', roadtripsController.getRoadtripsByDate);
+api.get('/roadtrips/byUser', roadtripsController.getRoadtripsByUserName);
 
 /* SingleRoadtrip */
 api.post('/roadtrip', singleRoadtripController.registerRoadtrip)
