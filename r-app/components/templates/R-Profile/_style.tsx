@@ -51,6 +51,5 @@ export default StyleSheet.create({
     ...contentRegular,
     ...fontWhiteColor,
     lineHeight: 25
-  },
-
+  }
 });

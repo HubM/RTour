@@ -10,6 +10,9 @@ import style from "./_style";
 import CrossExit from "../../helpers/components/CrossExit";
 import ProfileInfo from "./_components/ProfileInfo";
 
+import Roadtrip from "../../helpers/components/Roadtrip";
+
+
 interface RProfileState {
   isEditable: boolean,
   ownProfile: boolean
@@ -102,21 +105,17 @@ class RProfile extends React.Component<RProfileState, any> {
           {
             trips.length > 0
             &&
-            <View style={{ marginBottom: 100, marginTop: 50 }}>
-              <Text style={{ color: "#FFF784", fontSize: 20, lineHeight: 33 }}>Roadtrips</Text>
+            <View style={{ marginBottom: 100, marginTop: 30 }}>
+              <Text style={style.title}>Roadtrips</Text>
               <FlatList
                 data={trips}
                 keyExtractor={i => i._id}
-                renderItem={({ item }) => (
-                  <View key={item._id}>
-                    <Text>{item.startCity}</Text>
-                  </View>
-                )}
+                renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="row" />}
               />
             </View>
           }
         </View>
-      </ScrollView>
+      </ScrollView >
     );
   }
 }

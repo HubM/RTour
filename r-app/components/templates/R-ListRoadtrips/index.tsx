@@ -8,7 +8,7 @@ import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native
 
 import styles from "./_style";
 
-import Roadtrip from "./_components/Roadtrip";
+import Roadtrip from "../../helpers/components/Roadtrip";
 
 const width = Dimensions.get('window').width;
 
@@ -124,7 +124,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
                   data={roadtrips}
                   keyExtractor={item => item._id}
                   numColumns={2}
-                  renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} />}
+                  renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="columns" />}
                 />
               </View>
               :

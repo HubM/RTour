@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import styles from "../_style";
-import { isIndexEven } from "../../../helpers";
+import styles from "../../templates/R-ListRoadtrips/_style";
+import { isIndexEven } from "../index";
 
 interface RoadtripProps {
   roadtrip: {
@@ -22,6 +22,7 @@ interface RoadtripProps {
   },
   roadtripIndex: number,
   seeRoadtrip(roadtrip: object): void,
+  layoutStyle: string
 };
 
 export default class Roadtrip extends React.Component<RoadtripProps> {
@@ -35,7 +36,7 @@ export default class Roadtrip extends React.Component<RoadtripProps> {
   }
 
   render() {
-    const { roadtripIndex, roadtrip } = this.props;
+    const { roadtripIndex, roadtrip, layoutStyle } = this.props;
 
     const { startCity, endCity, hour, calendar } = roadtrip;
 
@@ -46,12 +47,17 @@ export default class Roadtrip extends React.Component<RoadtripProps> {
       durationExist = duration;
     }
 
+    let roadtripLayoutStyle;
+
+    if (layoutStyle === "columns") {
+      roadtripLayoutStyle = [styles.roadtripSingle, isIndexEven(roadtripIndex) ? { marginRight: "2%" } : { marginLeft: "2%" }]
+    } else if ((layoutStyle === "row")) {
+      roadtripLayoutStyle = [styles.roadtripSingle, { width: "100%" }]
+    }
+
     return (
       <TouchableOpacity
-        style={[
-          styles.roadtripSingle,
-          isIndexEven(roadtripIndex) ? { marginRight: "2%" } : { marginLeft: "2%" }
-        ]}
+        style={roadtripLayoutStyle}
         onPress={this.seeRoadtrip}
       >
         <Text style={styles.roadtripSingle__startingCity}>{startCity}</Text>
