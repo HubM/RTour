@@ -4,49 +4,50 @@ import { getUserByUserNameAPI, getRoadtripsByUserNameAPI } from "./_api";
 
 export default class UserProfileStore {
   @observable userProfile = {
-    firstname: "",
-    lastname: "",
-    age: undefined,
-    email: "",
-    username: "",
-    city: "",
-    trips: [],
-    music: []
-  }
-
-
-  @action.bound
-  setLoggedUserInfos(user: object) {
-    Object.assign(this.userProfile, {
-      ...user
-    })
+    user: {
+      firstname: "",
+      lastname: "",
+      age: undefined,
+      email: "",
+      username: "",
+      city: "",
+      music: []
+    },
+    roadtrips: []
   }
 
   @action.bound
-  setUserProfileInfos(user: object, roadtrips: object) {
-    Object.assign(this.userProfile, {
-      ...user,
-      roadtrips
-    })
+  setUserProfileInfos(user: object) {
+    getRoadtripsByUserNameAPI(user.username)
+      .then((roadtrips: any) => {
+        if (roadtrips.length > 0) {
+          Object.assign(this.userProfile, {
+            user,
+            roadtrips
+          })
+        } else {
+          Object.assign(this.userProfile.user, { ...user });
+        }
+      })
+      .catch(error => {
+        throw error
+      })
   }
 
   @action.bound
   fetchUserProfileInfos(username: string) {
+    console.log(username)
     getUserByUserNameAPI(username)
       .then((user: object) => {
-        getRoadtripsByUserNameAPI(username)
-          .then((roadtrips: object) => {
-            // Object.assign(this.userProfile, {
-            //   ...user,
-            //   roadtrips
-            // })
-            console.log("USER =>", user.data);
-            console.log("HIS ROADTRIPS => ", roadtrips.data)
-            // this.setUserProfileInfos(user.data, roadtrips.data)
-          })
-          .catch(error => {
-            throw error;
-          })
+        console.log("Fetched profile user", user);
+        this.setUserProfileInfos(user);
+        // getRoadtripsByUserNameAPI(user.trips)
+        //   .then((roadtrips: object) => {
+        //     this.setUserProfileInfos(user)
+        //   })
+        //   .catch(error => {
+        //     throw error;
+        //   })
       })
       .catch(error => {
         throw error;

@@ -12,7 +12,6 @@ import ProfileInfo from "./_components/ProfileInfo";
 
 import Roadtrip from "../../helpers/components/Roadtrip";
 
-
 interface RProfileState {
   isEditable: boolean,
   ownProfile: boolean
@@ -21,7 +20,6 @@ interface RProfileState {
 @inject(stores => ({
   user: toJS(stores.rootStore.userStore.user),
   userProfile: toJS(stores.rootStore.userProfileStore.userProfile),
-  setLoggedUserInfos: toJS(stores.rootStore.userProfileStore.setLoggedUserInfos),
   setUserProfileInfos: toJS(stores.rootStore.userProfileStore.setUserProfileInfos),
   fetchUserProfileInfos: toJS(stores.rootStore.userProfileStore.fetchUserProfileInfos)
 }))
@@ -42,7 +40,7 @@ class RProfile extends React.Component<RProfileState, any> {
   };
 
   componentDidMount() {
-    const { navigation, user, setLoggedUserInfos, fetchUserProfileInfos } = this.props;
+    const { navigation, user, fetchUserProfileInfos, setUserProfileInfos } = this.props;
     const profileUser = navigation.getParam("profileUser");
 
     if (profileUser === user.username) {
@@ -50,7 +48,7 @@ class RProfile extends React.Component<RProfileState, any> {
       this.setState({
         ownProfile: isOwnProfile
       })
-      setLoggedUserInfos(user);
+      setUserProfileInfos(user);
     } else {
       fetchUserProfileInfos(profileUser)
     }
@@ -62,11 +60,8 @@ class RProfile extends React.Component<RProfileState, any> {
 
   render() {
     const { ownProfile } = this.state;
-    const { firstname, lastname, age, email, username, city, profilePic, music, trips } = this.props.userProfile;
-
-
-
-    console.log(trips);
+    const { user, roadtrips } = this.props.userProfile;
+    const { firstname, lastname, age, email, username, city, profilePic, music } = user;
     return (
       <ScrollView style={style.container}>
         <View style={style.header}>
@@ -103,12 +98,12 @@ class RProfile extends React.Component<RProfileState, any> {
           <ProfileInfo type="city" value={city} />
           <ProfileInfo type="music" value={music} />
           {
-            trips.length > 0
+            (roadtrips && roadtrips.length > 0)
             &&
             <View style={{ marginBottom: 100, marginTop: 30 }}>
               <Text style={style.title}>Roadtrips</Text>
               <FlatList
-                data={trips}
+                data={this.props.userProfile.roadtrips}
                 keyExtractor={i => i._id}
                 renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="row" />}
               />

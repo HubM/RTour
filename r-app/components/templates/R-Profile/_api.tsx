@@ -10,7 +10,7 @@ export const getUserByUserNameAPI = (username: string) =>
       },
     })
       .then((user: object) => {
-        resolve(user);
+        resolve(user.data);
       })
       .catch((error: string) => {
         reject(error);

@@ -19,44 +19,95 @@ interface RSingleRoadtripProps {
 
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
+  user: stores.rootStore.userStore.user
 }))
 @observer
 class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
   constructor(props: RSingleRoadtripProps) {
     super(props);
-
+    this._loginUser = this._loginUser.bind(this);
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
+    this._deleteRoadtrip = this._deleteRoadtrip.bind(this);
     this.state = {
-      buttonLabel: 'Join'.toUpperCase()
+      buttonLabel: ""
     }
-
   }
 
   static navigationOptions = {
     header: null,
   };
 
-  _joinRoadtrip() {
-    const { navigation, isLoggedIn } = this.props;
+  componentDidMount() {
+    const { isLoggedIn, user, navigation } = this.props;
+    const roadtrip = navigation.getParam("roadtrip");
 
+    const { owner } = roadtrip;
     if (isLoggedIn) {
-      navigation.navigate("ListRoadtrips");
+      if (user.username !== owner.username) {
+        this.setState({ buttonLabel: 'Join'.toUpperCase() })
+      } else {
+        this.setState({ buttonLabel: 'Delete'.toUpperCase() })
+      }
     } else {
-      navigation.navigate("Login");
+      this.setState({ buttonLabel: 'Connect'.toUpperCase() })
     }
   }
 
-  render() {
+  _loginUser() {
     const { navigation } = this.props;
+    navigation.navigate("Login");
+  }
+
+  _joinRoadtrip() {
+    const { navigation } = this.props;
+    navigation.navigate("ListRoadtrips");
+  }
+
+  _deleteRoadtrip() {
+    console.log("We are going to delete this roadtrip");
+  }
+
+
+  render() {
+    const { navigation, isLoggedIn, user } = this.props;
+    const { buttonLabel } = this.state;
     const roadtrip = navigation.getParam("roadtrip");
 
     const { startCity, endCity, hour, owner, seats, calendar, address, roadtripType } = roadtrip;
 
     let name;
+    let buttonAction;
+
 
     owner.firstname && owner.lastname
       ? name = `${owner.firstname} ${owner.lastname} (${owner.username})`
       : name = `${owner.username}`
+
+    if (isLoggedIn) {
+      if (user.username !== owner.username) {
+        buttonAction = <RButton
+          text={buttonLabel}
+          color={yellowColor.light}
+          onPressEvent={this._joinRoadtrip}
+          type="main"
+        />
+      } else {
+        buttonAction = <RButton
+          text={buttonLabel}
+          color={yellowColor.light}
+          onPressEvent={this._deleteRoadtrip}
+          type="main"
+        />
+      }
+    } else {
+      buttonAction = <RButton
+        text={buttonLabel}
+        color={yellowColor.light}
+        onPressEvent={this._loginUser}
+        type="main"
+      />
+    }
+
 
     return (
       <ScrollView style={styles.container}>
@@ -129,12 +180,9 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
             }
           </View>
         </View>
-        <RButton
-          text="Join"
-          color={yellowColor.light}
-          onPressEvent={this._joinRoadtrip}
-          type="main"
-        />
+        {
+          buttonAction
+        }
       </ScrollView>
     );
   }
