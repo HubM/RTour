@@ -103,7 +103,7 @@ class RProfile extends React.Component<RProfileState, any> {
             <View style={{ marginBottom: 100, marginTop: 30 }}>
               <Text style={style.title}>Roadtrips</Text>
               <FlatList
-                data={this.props.userProfile.roadtrips}
+                data={roadtrips}
                 keyExtractor={i => i._id}
                 renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="row" />}
               />

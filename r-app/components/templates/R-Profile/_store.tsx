@@ -21,12 +21,17 @@ export default class UserProfileStore {
     getRoadtripsByUserNameAPI(user.username)
       .then((roadtrips: any) => {
         if (roadtrips.length > 0) {
-          Object.assign(this.userProfile, {
+          const loggedUserObjectWithRoadtrips = {
             user,
             roadtrips
-          })
+          }
+          Object.assign(this.userProfile, loggedUserObjectWithRoadtrips)
         } else {
-          Object.assign(this.userProfile.user, { ...user });
+          const loggedUserObjectWithoutRoadtrips = {
+            user,
+            roadtrips: []
+          }
+          Object.assign(this.userProfile, loggedUserObjectWithoutRoadtrips);
         }
       })
       .catch(error => {
@@ -36,18 +41,9 @@ export default class UserProfileStore {
 
   @action.bound
   fetchUserProfileInfos(username: string) {
-    console.log(username)
     getUserByUserNameAPI(username)
       .then((user: object) => {
-        console.log("Fetched profile user", user);
         this.setUserProfileInfos(user);
-        // getRoadtripsByUserNameAPI(user.trips)
-        //   .then((roadtrips: object) => {
-        //     this.setUserProfileInfos(user)
-        //   })
-        //   .catch(error => {
-        //     throw error;
-        //   })
       })
       .catch(error => {
         throw error;
