@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { getUserByUserNameAPI, getRoadtripsByUserNameAPI } from "./_api";
+import { getUserByIdAPI, getRoadtripsByUserAPI } from "./_api";
 
 
 export default class UserProfileStore {
@@ -18,7 +18,7 @@ export default class UserProfileStore {
 
   @action.bound
   setUserProfileInfos(user: object) {
-    getRoadtripsByUserNameAPI(user.username)
+    getRoadtripsByUserAPI(user.id)
       .then((roadtrips: any) => {
         if (roadtrips.length > 0) {
           const loggedUserObjectWithRoadtrips = {
@@ -40,8 +40,8 @@ export default class UserProfileStore {
   }
 
   @action.bound
-  fetchUserProfileInfos(username: string) {
-    getUserByUserNameAPI(username)
+  fetchUserProfileInfos(id: string) {
+    getUserByIdAPI(id)
       .then((user: object) => {
         this.setUserProfileInfos(user);
       })

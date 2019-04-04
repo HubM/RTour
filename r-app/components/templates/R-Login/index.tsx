@@ -44,7 +44,7 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
     const { navigation, setLoggedStatusToTrue, setUser, setUserProfileInfos } = this.props;
 
     const fakeLoggedUser = {
-      id: 10,
+      id: "5ca5f0ef378ea01c5c25a312",
       firstname: "Hubert",
       lastname: "Moncenis",
       age: 24,
@@ -52,7 +52,6 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
       username: "HubM",
       profilePic: './tmpProfile.png',
       city: "Bordeaux",
-      trips: [],
       music: ["Rap", "Électro"]
     };
 

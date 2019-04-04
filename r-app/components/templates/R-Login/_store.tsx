@@ -3,6 +3,7 @@ import { observable, action } from "mobx";
 export default class UserStore {
   @observable isLoggedIn = false
   @observable user = {
+    id: "",
     firstname: "",
     lastname: "",
     age: undefined,

@@ -13,16 +13,15 @@ module.exports.getRoadtripsByDate = (req, res) => {
   });
 };
 
+module.exports.getRoadtripsByUser = (req, res) => {
+  const { id } = req.query;
 
-module.exports.getRoadtripsByUserName = (req, res) => {
-  const { username } = req.query;
-
-  global.dbRtour.collection('roadtrips').find({ "owner.username": username }, (errorRoadtrips, roadtrips) => {
+  global.dbRtour.collection("roadtrips").find({ "owner.id": id }, (errorRoadtrips, roadtrips) => {
     if (errorRoadtrips) {
       logger.error("Error with GET Roadtrips by username request");
-      res.status(400).send(errorRoadtrips)
+      res.status(400).send(errorRoadtrips);
     } else {
-      res.send(roadtrips)
+      res.send(roadtrips);
     }
-  })
-}
+  });
+};

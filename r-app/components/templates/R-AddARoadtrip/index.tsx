@@ -80,8 +80,9 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
   };
 
   _saveRoadtrip() {
-    const { navigation, user } = this.props;
-    const { firstname, lastname, username } = user;
+    const { navigation, user, addRoadtrip } = this.props;
+
+    const { id, firstname, lastname, username } = user;
 
     const { startingDate, hour, roadtripType, seats, startCity, endCity } = this.state;
 
@@ -94,6 +95,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         },
         hour,
         owner: {
+          id,
           firstname,
           lastname,
           username
@@ -119,10 +121,12 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         console.log("You must specify a starting hour");
       }
     } else {
+
       this.setState({
         ...initialState
       })
-      this.props.addRoadtrip(newRoadtrip);
+      
+      addRoadtrip(newRoadtrip);
       navigation.navigate('ListRoadtrips');
     }
   }

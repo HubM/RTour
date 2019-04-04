@@ -4,8 +4,6 @@ import { greenColor } from "../../helpers/styles/colors";
 import { titleh3, titleMedium, } from "../../helpers/styles/typos";
 import { fontWhiteColor, placeholderColor, uiErrorColor } from "../../helpers/styles/colors";
 
-
-
 export default StyleSheet.create({
   container: {
     flex: 1,
