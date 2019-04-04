@@ -18,7 +18,7 @@ export default class UserProfileStore {
 
   @action.bound
   setUserProfileInfos(user: object) {
-    getRoadtripsByUserAPI(user.id)
+    getRoadtripsByUserAPI(user._id)
       .then((roadtrips: any) => {
         if (roadtrips.length > 0) {
           const loggedUserObjectWithRoadtrips = {

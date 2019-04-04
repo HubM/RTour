@@ -44,20 +44,20 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
     const { navigation, setLoggedStatusToTrue, setUser, setUserProfileInfos } = this.props;
 
     const fakeLoggedUser = {
-      id: "5ca5f0ef378ea01c5c25a312",
-      firstname: "Hubert",
-      lastname: "Moncenis",
+      id: "5ca5f515fa8ecb1c5c29085c",
+      firstname: "Clément",
+      lastname: "Ollivier",
       age: 24,
-      email: "hubmoncenis@gmail.com",
-      username: "HubM",
+      email: "clem02p@gmail.com",
+      username: "clem02p",
       profilePic: './tmpProfile.png',
       city: "Bordeaux",
-      music: ["Rap", "Électro"]
+      music: ["Rock", "Électro"]
     };
 
     setLoggedStatusToTrue();
     setUser(fakeLoggedUser);
-    setUserProfileInfos(fakeLoggedUser.username)
+    setUserProfileInfos(fakeLoggedUser.id)
     navigation.navigate('ListRoadtrips');
   }
 

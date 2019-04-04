@@ -119,7 +119,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
             <Text style={styles.roadtripTitleStartCity}>{startCity}</Text>
             <Text style={styles.roadtripTitleEndCity}>{endCity}</Text>
           </View>
-          <TouchableOpacity style={styles.roadtripCreator} onPress={() => navigation.navigate("Profile", { profileUser: owner.username })}>
+          <TouchableOpacity style={styles.roadtripCreator} onPress={() => navigation.navigate("Profile", { userId: owner.id })}>
             <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
             <Text style={styles.roadtripCreatorName}>{name}</Text>
           </TouchableOpacity>
