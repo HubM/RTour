@@ -8,9 +8,9 @@ import SvgUri from 'react-native-svg-uri';
 import style from "./_style";
 
 import CrossExit from "../../helpers/components/CrossExit";
-import ProfileInfo from "./_components/ProfileInfo";
-
 import Roadtrip from "../../helpers/components/Roadtrip";
+import { seeRoadtripHelpers } from "../../helpers/";
+import ProfileInfo from "./_components/ProfileInfo";
 
 interface RProfileState {
   isEditable: boolean,
@@ -54,8 +54,9 @@ class RProfile extends React.Component<RProfileState, any> {
     }
   }
 
-  _seeRoadtrip() {
-
+  _seeRoadtrip(roadtrip: object) {
+    const { navigation } = this.props;
+    seeRoadtripHelpers({roadtrip}, navigation);
   }
 
   render() {

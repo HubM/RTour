@@ -8,6 +8,7 @@ import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native
 
 import styles from "./_style";
 
+import { seeRoadtripHelpers } from "../../helpers/";
 import Roadtrip from "../../helpers/components/Roadtrip";
 
 const width = Dimensions.get('window').width;
@@ -87,7 +88,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   _seeRoadtrip(roadtrip: object) {
     const { navigation } = this.props;
-    navigation.navigate("SingleRoadtrip", { roadtrip });
+    seeRoadtripHelpers({roadtrip}, navigation);
   }
 
 

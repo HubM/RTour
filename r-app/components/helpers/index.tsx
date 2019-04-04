@@ -7,3 +7,7 @@ export const validateEmail = (mail: string) => {
   }
   return false
 }
+
+export const seeRoadtripHelpers = (roadtrip: object, navigation: any) => {
+  navigation.navigate('SingleRoadtrip', roadtrip);
+}
