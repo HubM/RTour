@@ -9,7 +9,7 @@ import style from "./_style";
 
 import CrossExit from "../../helpers/components/CrossExit";
 import Roadtrip from "../../helpers/components/Roadtrip";
-import { seeRoadtripHelpers } from "../../helpers/";
+import { seeRoadtripHelpers } from "../../helpers/";
 import ProfileInfo from "./_components/ProfileInfo";
 
 interface RProfileState {
@@ -42,7 +42,7 @@ class RProfile extends React.Component<RProfileState, any> {
   componentDidMount() {
     const { navigation, user, fetchUserProfileInfos, setUserProfileInfos } = this.props;
     const userId = navigation.getParam("userId");
-    
+
     if (userId === user.id) {
       const isOwnProfile = true;
       this.setState({
@@ -56,7 +56,7 @@ class RProfile extends React.Component<RProfileState, any> {
 
   _seeRoadtrip(roadtrip: object) {
     const { navigation } = this.props;
-    seeRoadtripHelpers({roadtrip}, navigation);
+    seeRoadtripHelpers({ roadtrip }, navigation);
   }
 
   render() {

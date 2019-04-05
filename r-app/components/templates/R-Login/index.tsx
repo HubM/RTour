@@ -11,6 +11,8 @@ import { greenColor } from '../../helpers/styles/colors';
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
 
+import { fakeUser } from "./_fakeData";
+
 interface RLoginState {
   usernameOrEmail: string,
   password: string
@@ -43,21 +45,9 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
   _checkAuth() {
     const { navigation, setLoggedStatusToTrue, setUser, setUserProfileInfos } = this.props;
 
-    const fakeLoggedUser = {
-      id: "5ca5f515fa8ecb1c5c29085c",
-      firstname: "Clément",
-      lastname: "Ollivier",
-      age: 24,
-      email: "clem02p@gmail.com",
-      username: "clem02p",
-      profilePic: './tmpProfile.png',
-      city: "Bordeaux",
-      music: ["Rock", "Électro"]
-    };
-
     setLoggedStatusToTrue();
-    setUser(fakeLoggedUser);
-    setUserProfileInfos(fakeLoggedUser.id)
+    setUser(fakeUser);
+    setUserProfileInfos(fakeUser._id)
     navigation.navigate('ListRoadtrips');
   }
 

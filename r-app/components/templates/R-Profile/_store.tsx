@@ -20,19 +20,15 @@ export default class UserProfileStore {
   setUserProfileInfos(user: object) {
     getRoadtripsByUserAPI(user._id)
       .then((roadtrips: any) => {
-        if (roadtrips.length > 0) {
-          const loggedUserObjectWithRoadtrips = {
-            user,
-            roadtrips
-          }
-          Object.assign(this.userProfile, loggedUserObjectWithRoadtrips)
-        } else {
-          const loggedUserObjectWithoutRoadtrips = {
-            user,
-            roadtrips: []
-          }
-          Object.assign(this.userProfile, loggedUserObjectWithoutRoadtrips);
+        const loggedUserObject = {
+          user,
+          roadtrips: roadtrips.length > 0 ? roadtrips : []
         }
+
+
+        Object.assign(this.userProfile, loggedUserObject)
+
+        console.log("USER PROFILE =>", this.userProfile);
       })
       .catch(error => {
         throw error
