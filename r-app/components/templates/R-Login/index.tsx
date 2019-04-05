@@ -1,35 +1,33 @@
 import * as React from "react";
 import SvgUri from "react-native-svg-uri";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { withNavigation } from 'react-navigation';
+
+import { toJS } from "mobx";
 import { observer, inject } from "mobx-react";
 
-import rootStore from "../../../store";
 import styles from "./_style";
 import { greenColor } from '../../helpers/styles/colors';
 
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
 
-import { fakeUser } from "./_fakeData";
-
 interface RLoginState {
   usernameOrEmail: string,
   password: string
 }
 
-interface RLoginProps {
-  userStore?: rootStore
-}
 
 @inject(stores => ({
   setLoggedStatusToTrue: stores.rootStore.userStore.setLoggedStatusToTrue,
   setUser: stores.rootStore.userStore.setUser,
-  setUserProfileInfos: stores.rootStore.userProfileStore.setUserProfileInfos
+  setUserProfileInfos: stores.rootStore.userProfileStore.setUserProfileInfos,
+  checkUsernameOrEmail: stores.rootStore.userStore.checkUsernameOrEmail,
+  userLoginMessageContainer: toJS(stores.rootStore.userStore.userLoginMessageContainer)
 }))
 @observer
-class RLogin extends React.Component<RLoginProps, RLoginState> {
-  constructor(props: RLoginProps) {
+class RLogin extends React.Component<any, RLoginState> {
+  constructor(props: any) {
     super(props);
     this._checkAuth = this._checkAuth.bind(this);
     this.state = {
@@ -43,23 +41,40 @@ class RLogin extends React.Component<RLoginProps, RLoginState> {
   };
 
   _checkAuth() {
-    const { navigation, setLoggedStatusToTrue, setUser, setUserProfileInfos } = this.props;
+    const { navigation, setLoggedStatusToTrue, setUser, setUserProfileInfos, checkUsernameOrEmail, userLoginMessageContainer } = this.props;
+    const { usernameOrEmail } = this.state;
 
-    setLoggedStatusToTrue();
-    setUser(fakeUser);
-    setUserProfileInfos(fakeUser._id)
-    navigation.navigate('ListRoadtrips');
+    if (usernameOrEmail) {
+      checkUsernameOrEmail(usernameOrEmail);
+      console.log(userLoginMessageContainer);
+      if (userLoginMessageContainer.status === "success") {
+        navigation.navigate('ListRoadtrips');
+      } else {
+        this.setState({
+          usernameOrEmail: ""
+        })
+      }
+    } else {
+      console.log("username must be renseigned")
+    }
   }
 
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, userLoginMessageContainer } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoColored.svg")} />
         </View>
+        {
+          userLoginMessageContainer.length > 0
+          &&
+          <View>
+            <Text>{userLoginMessageContainer.message}</Text>
+          </View>
+        }
         <ScrollView style={styles.content}>
           <RInputText
             placeholder="Username or email"

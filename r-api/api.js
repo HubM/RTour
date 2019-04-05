@@ -13,5 +13,6 @@ api.post("/roadtrip", singleRoadtripController.registerRoadtrip);
 
 /* User */
 api.get("/user", userController.getUserById);
+api.post("/login", userController.getUserByUsernameOrEmail);
 
 module.exports = api;

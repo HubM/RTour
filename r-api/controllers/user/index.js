@@ -12,3 +12,21 @@ module.exports.getUserById = (req, res) => {
     }
   });
 };
+
+module.exports.getUserByUsernameOrEmail = (req, res) => {
+  const { user } = req.body;
+
+  global.dbRtour.collection("users").findOne({
+    $or: [
+      { "username": user },
+      { "email": user },
+    ]
+  }, (errorUser, user) => {
+    if (errorUser) {
+      logger.error("Error on POST get user by username or email", errorUser)
+      res.status(404).send("Error on POST get user by username or email", errorUser)
+    } else {
+      res.status(200).send(user);
+    }
+  })
+}

@@ -1,4 +1,4 @@
-import UserStore from "../components/templates/R-Login/_store";
+import UserStore from "./user.store";
 import UserProfileStore from "../components/templates/R-Profile/_store";
 import RoadtripsStore from "../components/templates/R-ListRoadtrips/_store";
 import newRoadtripStore from "../components/templates/R-AddARoadtrip/_store";

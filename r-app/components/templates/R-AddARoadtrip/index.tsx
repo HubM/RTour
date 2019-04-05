@@ -125,7 +125,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
       this.setState({
         ...initialState
       })
-      
+
       addRoadtrip(newRoadtrip);
       navigation.navigate('ListRoadtrips');
     }

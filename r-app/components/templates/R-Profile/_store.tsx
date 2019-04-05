@@ -25,10 +25,7 @@ export default class UserProfileStore {
           roadtrips: roadtrips.length > 0 ? roadtrips : []
         }
 
-
         Object.assign(this.userProfile, loggedUserObject)
-
-        console.log("USER PROFILE =>", this.userProfile);
       })
       .catch(error => {
         throw error

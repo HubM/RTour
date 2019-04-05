@@ -9,6 +9,8 @@ import style from "./_style";
 
 import CrossExit from "../../helpers/components/CrossExit";
 import Roadtrip from "../../helpers/components/Roadtrip";
+import RButton from "../../helpers/components/RButton";
+
 import { seeRoadtripHelpers } from "../../helpers/";
 import ProfileInfo from "./_components/ProfileInfo";
 
@@ -21,6 +23,7 @@ interface RProfileState {
   user: toJS(stores.rootStore.userStore.user),
   userProfile: toJS(stores.rootStore.userProfileStore.userProfile),
   setUserProfileInfos: toJS(stores.rootStore.userProfileStore.setUserProfileInfos),
+  // disconnectUser: stores.rooStore.userStore.disconnectUser,
   fetchUserProfileInfos: toJS(stores.rootStore.userProfileStore.fetchUserProfileInfos)
 }))
 @observer
@@ -29,6 +32,8 @@ class RProfile extends React.Component<RProfileState, any> {
   constructor(props: any) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
+    this.__deconnectUser = this.__deconnectUser.bind(this);
+
     this.state = {
       isEditable: false,
       ownProfile: false
@@ -57,6 +62,11 @@ class RProfile extends React.Component<RProfileState, any> {
   _seeRoadtrip(roadtrip: object) {
     const { navigation } = this.props;
     seeRoadtripHelpers({ roadtrip }, navigation);
+  }
+
+  __deconnectUser() {
+    const { navigation } = this.props;
+
   }
 
   render() {
@@ -111,6 +121,16 @@ class RProfile extends React.Component<RProfileState, any> {
             </View>
           }
         </View>
+        {/* {
+          ownProfile
+          &&
+          // <RButton
+          //   text="Let's go"
+          //   color={greenColor.light}
+          //   onPressEvent={this._deconnectUser}
+          //   type="main"
+          // />
+        } */}
       </ScrollView >
     );
   }

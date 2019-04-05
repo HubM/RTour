@@ -1,3 +1,3 @@
 module.exports = {
-  apiUrl: "http://192.168.43.121:3000/api/v1"
+  apiUrl: "http://10.18.72.168:3000/api/v1"
 }
