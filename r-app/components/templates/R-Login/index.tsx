@@ -46,9 +46,8 @@ class RLogin extends React.Component<any, RLoginState> {
 
     if (usernameOrEmail) {
       checkUsernameOrEmail(usernameOrEmail);
-      console.log(userLoginMessageContainer);
+      navigation.navigate('ListRoadtrips');
       if (userLoginMessageContainer.status === "success") {
-        navigation.navigate('ListRoadtrips');
       } else {
         this.setState({
           usernameOrEmail: ""

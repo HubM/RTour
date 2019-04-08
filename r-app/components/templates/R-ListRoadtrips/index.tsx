@@ -118,14 +118,16 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
         <View>
           <Text style={styles.date}>{date}</Text>
           {
-            roadtrips.length > 0
+            roadtrips && roadtrips.length > 0
               ?
-              <View style={[styles.roadtripPerDayContainer, { width }]}>
+              <View style={[styles.roadtripPerDayContainer, { width: "100%" }]}>
                 <FlatList
                   data={roadtrips}
                   keyExtractor={item => item._id}
                   numColumns={2}
-                  renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="columns" />}
+                  renderItem={({ item, index }) => (
+                    <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="columns" />
+                  )}
                 />
               </View>
               :

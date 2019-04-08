@@ -82,7 +82,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
   _saveRoadtrip() {
     const { navigation, user, addRoadtrip } = this.props;
 
-    const { id, firstname, lastname, username } = user;
+    const { _id, firstname, lastname, username } = user;
 
     const { startingDate, hour, roadtripType, seats, startCity, endCity } = this.state;
 
@@ -95,7 +95,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         },
         hour,
         owner: {
-          id,
+          _id,
           firstname,
           lastname,
           username

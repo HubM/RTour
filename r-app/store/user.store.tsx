@@ -4,7 +4,7 @@ import { checkUsernameOrEmailAPI } from "../components/templates/R-Login/_api";
 export default class UserStore {
   @observable isLoggedIn = false
   @observable user = {
-    id: "",
+    _id: "",
     firstname: "",
     lastname: "",
     age: undefined,

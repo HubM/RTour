@@ -13,8 +13,10 @@ export default class RoadtripsStore {
 
     getRoadtripsByDateAPI(date)
       .then(newRoadtrips => {
-        if (newRoadtrips[0]) {
-          this.roadtrips.push(newRoadtrips[0]);
+        if (newRoadtrips.length > 0) {
+          newRoadtrips.forEach(roadtrip => {
+            this.roadtrips.push(roadtrip)
+          })
         }
         this.isFetchingRoadtrips = false;
       })

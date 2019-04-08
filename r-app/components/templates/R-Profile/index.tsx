@@ -50,6 +50,7 @@ class RProfile extends React.Component<RProfileState, any> {
 
     if (userId === user.id) {
       const isOwnProfile = true;
+
       this.setState({
         ownProfile: isOwnProfile
       })
@@ -115,7 +116,7 @@ class RProfile extends React.Component<RProfileState, any> {
               <Text style={style.title}>Roadtrips</Text>
               <FlatList
                 data={roadtrips}
-                keyExtractor={i => i._id}
+                keyExtractor={r => r._id}
                 renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="row" />}
               />
             </View>
