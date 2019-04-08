@@ -1,8 +1,10 @@
 import { observable, action, set } from "mobx";
 import { checkUsernameOrEmailAPI } from "../components/templates/R-Login/_api";
+import { getUserByIdAPI, getRoadtripsByUserAPI } from "../components/templates/R-Profile/_api";
 
 export default class UserStore {
   @observable isLoggedIn = false
+  
   @observable user = {
     _id: "",
     firstname: "",
@@ -16,7 +18,47 @@ export default class UserStore {
     music: []
   }
 
+  @observable userProfile = {
+    user: {
+      firstname: "",
+      lastname: "",
+      age: undefined,
+      email: "",
+      username: "",
+      city: "",
+      music: []
+    },
+    roadtrips: []
+  }
+
   @observable userLoginMessageContainer = {}
+
+  @action.bound
+  setUserProfileInfos(user: object) {
+    getRoadtripsByUserAPI(user._id)
+      .then((roadtrips: any) => {
+        const loggedUserObject = {
+          user,
+          roadtrips: roadtrips.length > 0 ? roadtrips : []
+        }
+
+        Object.assign(this.userProfile, loggedUserObject)
+      })
+      .catch(error => {
+        throw error
+      })
+  }
+
+  @action.bound
+  fetchUserProfileInfos(id: string) {
+    getUserByIdAPI(id)
+      .then((user: object) => {
+        this.setUserProfileInfos(user);
+      })
+      .catch(error => {
+        throw error;
+      })
+  }
 
   @action.bound
   checkUsernameOrEmail(usernameOrEmail: string) {

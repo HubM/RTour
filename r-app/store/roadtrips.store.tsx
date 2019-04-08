@@ -1,11 +1,12 @@
-import { observable, action } from "mobx";
-import { getRoadtripsByDateAPI } from './_api';
+import { action, observable } from 'mobx';
+import { addRoadtripAPI } from "../components/templates/R-AddARoadtrip/_api";
+import { getRoadtripsByDateAPI } from "../components/templates/R-ListRoadtrips/_api";
 
-
-export default class RoadtripsStore {
+export default class roadtripStore {
   @observable roadtrips = [];
   @observable isFetchingRoadtrips = false;
 
+  // Get roadtrips by date
   @action
   getRoadtrips = (date: string) => {
     this.roadtrips = [];
@@ -19,6 +20,18 @@ export default class RoadtripsStore {
           })
         }
         this.isFetchingRoadtrips = false;
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+  //Add a new roadtrip
+  @action
+  addANewRoadtrip(roadtrip: object) {
+    addRoadtripAPI(roadtrip)
+      .then(message => {
+        console.log(message);
       })
       .catch(error => {
         console.log(error);

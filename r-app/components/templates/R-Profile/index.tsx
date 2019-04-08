@@ -21,10 +21,10 @@ interface RProfileState {
 
 @inject(stores => ({
   user: toJS(stores.rootStore.userStore.user),
-  userProfile: toJS(stores.rootStore.userProfileStore.userProfile),
-  setUserProfileInfos: toJS(stores.rootStore.userProfileStore.setUserProfileInfos),
+  userProfile: toJS(stores.rootStore.userStore.userProfile),
+  setUserProfileInfos: toJS(stores.rootStore.userStore.setUserProfileInfos),
   // disconnectUser: stores.rooStore.userStore.disconnectUser,
-  fetchUserProfileInfos: toJS(stores.rootStore.userProfileStore.fetchUserProfileInfos)
+  fetchUserProfileInfos: toJS(stores.rootStore.userStore.fetchUserProfileInfos)
 }))
 @observer
 class RProfile extends React.Component<RProfileState, any> {

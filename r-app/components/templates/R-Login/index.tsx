@@ -21,7 +21,7 @@ interface RLoginState {
 @inject(stores => ({
   setLoggedStatusToTrue: stores.rootStore.userStore.setLoggedStatusToTrue,
   setUser: stores.rootStore.userStore.setUser,
-  setUserProfileInfos: stores.rootStore.userProfileStore.setUserProfileInfos,
+  setUserProfileInfos: stores.rootStore.userStore.setUserProfileInfos,
   checkUsernameOrEmail: stores.rootStore.userStore.checkUsernameOrEmail,
   userLoginMessageContainer: toJS(stores.rootStore.userStore.userLoginMessageContainer)
 }))

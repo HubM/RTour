@@ -60,12 +60,12 @@ interface RAddARoadtripProps {
     lastname: string,
     username: string
   },
-  addRoadtrip(roadtrip: object): void
+  addANewRoadtrip(roadtrip: object): void
 }
 
 @inject(stores => ({
   user: toJS(stores.rootStore.userStore.user),
-  addRoadtrip: stores.rootStore.newRoadtripStore.addRoadtrip
+  addANewRoadtrip: stores.rootStore.roadtripsStore.addANewRoadtrip
 }))
 @observer
 class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripState> {
@@ -80,7 +80,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
   };
 
   _saveRoadtrip() {
-    const { navigation, user, addRoadtrip } = this.props;
+    const { navigation, user, addANewRoadtrip } = this.props;
 
     const { _id, firstname, lastname, username } = user;
 
@@ -126,7 +126,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         ...initialState
       })
 
-      addRoadtrip(newRoadtrip);
+      addANewRoadtrip(newRoadtrip);
       navigation.navigate('ListRoadtrips');
     }
   }
