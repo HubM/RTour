@@ -19,7 +19,8 @@ interface RSingleRoadtripProps {
 
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
-  user: stores.rootStore.userStore.user
+  user: stores.rootStore.userStore.user,
+  deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip
 }))
 @observer
 class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
@@ -64,7 +65,11 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   }
 
   _deleteRoadtrip() {
-    console.log("We are going to delete this roadtrip");
+    const { deleteOwnRoadtrip, navigation } = this.props;
+    const roadtrip = navigation.getParam("roadtrip");
+
+    deleteOwnRoadtrip(roadtrip._id);
+    navigation.navigate("ListRoadtrips", { roadtripsHaveChanged: true})
   }
 
 

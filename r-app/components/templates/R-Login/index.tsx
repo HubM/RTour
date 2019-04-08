@@ -41,7 +41,7 @@ class RLogin extends React.Component<any, RLoginState> {
   };
 
   _checkAuth() {
-    const { navigation, setLoggedStatusToTrue, setUser, setUserProfileInfos, checkUsernameOrEmail, userLoginMessageContainer } = this.props;
+    const { navigation, checkUsernameOrEmail, userLoginMessageContainer } = this.props;
     const { usernameOrEmail } = this.state;
 
     if (usernameOrEmail) {

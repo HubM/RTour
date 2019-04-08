@@ -38,6 +38,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
   constructor(props: RListRoadtripsProps) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
+    this._fetchRoadtrips = this._fetchRoadtrips.bind(this);
     this._getPrevRoadtrips = this._getPrevRoadtrips.bind(this);
     this._getNextRoadtrips = this._getNextRoadtrips.bind(this);
 
@@ -52,6 +53,10 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
   };
 
   componentDidMount() {
+    this._fetchRoadtrips();
+  }
+
+  _fetchRoadtrips() {
     const { date } = this.state;
     this.props.getRoadtrips(date);
   }
@@ -90,7 +95,6 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     const { navigation } = this.props;
     seeRoadtripHelpers({roadtrip}, navigation);
   }
-
 
   render() {
     const { filterBtn, date } = this.state;

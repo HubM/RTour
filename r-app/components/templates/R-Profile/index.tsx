@@ -9,7 +9,6 @@ import style from "./_style";
 
 import CrossExit from "../../helpers/components/CrossExit";
 import Roadtrip from "../../helpers/components/Roadtrip";
-import RButton from "../../helpers/components/RButton";
 
 import { seeRoadtripHelpers } from "../../helpers/";
 import ProfileInfo from "./_components/ProfileInfo";

@@ -33,7 +33,7 @@ export default class UserStore {
 
   @observable userLoginMessageContainer = {}
 
-  @action.bound
+   @action.bound
   setUserProfileInfos(user: object) {
     getRoadtripsByUserAPI(user._id)
       .then((roadtrips: any) => {

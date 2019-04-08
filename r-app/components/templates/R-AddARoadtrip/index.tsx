@@ -4,6 +4,7 @@ import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { observer, inject } from "mobx-react";
 import { withNavigation } from 'react-navigation';
 import { toJS } from "mobx";
+import moment from "moment";
 
 import styles from "./_style";
 import { grayColor } from "../../helpers/styles/colors";
@@ -127,7 +128,8 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
       })
 
       addANewRoadtrip(newRoadtrip);
-      navigation.navigate('ListRoadtrips');
+      
+      navigation.navigate('ListRoadtrips', { refreshRoadtrips: true });
     }
   }
 
