@@ -44,7 +44,11 @@ export default class roadtripStore {
   deleteOwnRoadtrip(id: string) {
     deleteOwnRoadtripAPI(id)
       .then(deletedRoadtrip => {
-        Object.assign(this.roadtrips, [...this.roadtrips.filter(roadtrip => roadtrip._id !== deletedRoadtrip._id])
+        this.roadtrips.forEach((roadtrip, index)=> {
+          if (roadtrip._id === id) {
+            this.roadtrips.splice(index, 1);
+          }
+        })
       })
       .catch(error => {
         console.log(error);
