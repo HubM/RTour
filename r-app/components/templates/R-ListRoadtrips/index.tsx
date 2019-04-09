@@ -29,7 +29,7 @@ interface RListRoadtripsProps {
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   roadtrips: toJS(stores.rootStore.roadtripsStore.roadtrips),
-  userId: stores.rootStore.userStore.user.id,
+  userId: stores.rootStore.userStore.user._id,
   getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
   isFetchingRoadtrips: stores.rootStore.roadtripsStore.isFetchingRoadtrips,
 }))
