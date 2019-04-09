@@ -72,7 +72,6 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     navigation.navigate("ListRoadtrips", { roadtripsHaveChanged: true})
   }
 
-
   render() {
     const { navigation, isLoggedIn, user } = this.props;
     const { buttonLabel } = this.state;
