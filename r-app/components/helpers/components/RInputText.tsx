@@ -35,7 +35,6 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
   _sendText() {
     const { textValue } = this.state;
     const { onChangeText } = this.props;
-
     if (textValue.length > 0) {
       onChangeText(textValue)
       this.setState({
@@ -43,15 +42,19 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
       })
     } else {
       this.setState({
-        emptyInputText: true
+        emptyInputText: true,
+        textValue: ""
       })
     }
   }
 
   _clearTextValue() {
+    const { onChangeText } = this.props;
     this.setState({
       textValue: "",
       emptyInputText: true
+    }, () => {
+      onChangeText("")
     })
   }
 
@@ -74,8 +77,13 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
           placeholderTextColor={placeholderColor}
           autoCapitalize="none"
           keyboardAppearance="dark"
-          onChangeText={text => this.setState({ textValue: text })}
-          onEndEditing={this._sendText}
+          onChangeText={text => {
+            this.setState(
+              { textValue: text },
+            () => {
+              this._sendText()
+            })}
+          }
           value={textValue}
           textContentType={textContentType}
           secureTextEntry={secureContext}

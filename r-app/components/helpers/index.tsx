@@ -1,3 +1,5 @@
+import { object } from 'prop-types';
+
 export const isIndexEven = (index: number) => index % 2 == 0;
 
 export const validateEmail = (mail: string) => {
@@ -7,6 +9,16 @@ export const validateEmail = (mail: string) => {
   }
   return false
 }
+
+export const isEmptyObject = (obj: object) => {
+  for(let key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 
 export const seeRoadtripHelpers = (roadtrip: object, navigation: any) => {
   navigation.navigate('SingleRoadtrip', roadtrip);

@@ -62,25 +62,20 @@ export default class UserStore {
 
   @action.bound
   checkUsernameOrEmail(usernameOrEmail: string) {
-    checkUsernameOrEmailAPI(usernameOrEmail)
-      .then((user: object) => {
-        if (user) {
-          this.setUser(user);
-          this.setLoggedStatusToTrue(true);
-          this.setErrorMessage({
-            status: "success",
-            message: `Hello back ${user.username} 😎`
-          })
-        }
-
-        this.setErrorMessage({
-          status: "error",
-          message: `No ${usernameOrEmail} are register in RTour app`
+    return new Promise(resolve => {
+      checkUsernameOrEmailAPI(usernameOrEmail)
+        .then((response: object) => {
+          if (response.user) {
+            this.setUser(response.user);
+            this.setLoggedStatusToTrue(true);
+          } 
+          
+          resolve(response)
         })
-      })
-      .catch((error: string) => {
-        throw error;
-      })
+        .catch((error: string) => {
+          throw error;
+        })
+    })
   }
 
   @action.bound

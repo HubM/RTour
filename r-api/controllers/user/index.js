@@ -14,19 +14,30 @@ module.exports.getUserById = (req, res) => {
 };
 
 module.exports.getUserByUsernameOrEmail = (req, res) => {
-  const { user } = req.body;
+  const { usernameOrEmail } = req.body;
 
-  global.dbRtour.collection("users").findOne({
-    $or: [
-      { "username": user },
-      { "email": user },
-    ]
-  }, (errorUser, user) => {
-    if (errorUser) {
-      logger.error("Error on POST get user by username or email", errorUser)
-      res.status(404).send("Error on POST get user by username or email", errorUser)
-    } else {
-      res.status(200).send(user);
+  global.dbRtour.collection("users").findOne(
+    {
+      $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }]
+    },
+    (errorUser, user) => {
+      if (errorUser) {
+        logger.error("Error on POST get user by username or email", errorUser);
+        res.status(404).send("Error on POST get user by username or email", errorUser);
+      } else {
+        if (user) {
+          res.status(200).send({
+            type: "success",
+            message: `Hello back ${user.firstname}`,
+            user
+          });
+        } else {
+          res.status(200).send({
+            type: "error",
+            message: `Patient ${usernameOrEmail} not found`
+          });
+        }
+      }
     }
-  })
-}
+  );
+};

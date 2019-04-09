@@ -5,7 +5,7 @@ export const checkUsernameOrEmailAPI = (usernameOrEmail: string) => {
   return new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/login`;
     axios.post(url, {
-      user: usernameOrEmail
+      usernameOrEmail
     })
       .then(response => {
         resolve(response.data);
