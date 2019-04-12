@@ -1,17 +1,21 @@
 import * as React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, NavigationActions, StackActions } from 'react-navigation';
 import { toJS } from "mobx";
 import { inject, observer } from 'mobx-react';
 import SvgUri from 'react-native-svg-uri';
 
 import style from "./_style";
 
+import { seeRoadtripHelpers } from "../../helpers/";
 import CrossExit from "../../helpers/components/CrossExit";
 import Roadtrip from "../../helpers/components/Roadtrip";
+import { yellowColor } from "../../helpers/styles/colors";
 
-import { seeRoadtripHelpers } from "../../helpers/";
+
 import ProfileInfo from "./_components/ProfileInfo";
+import RButton from "../../helpers/components/RButton";
+
 
 interface RProfileState {
   isEditable: boolean,
@@ -22,7 +26,7 @@ interface RProfileState {
   user: toJS(stores.rootStore.userStore.user),
   userProfile: toJS(stores.rootStore.userStore.userProfile),
   setUserProfileInfos: toJS(stores.rootStore.userStore.setUserProfileInfos),
-  // disconnectUser: stores.rooStore.userStore.disconnectUser,
+  disconnectUser: toJS(stores.rootStore.userStore.disconnectUser),
   fetchUserProfileInfos: toJS(stores.rootStore.userStore.fetchUserProfileInfos)
 }))
 @observer
@@ -31,7 +35,7 @@ class RProfile extends React.Component<RProfileState, any> {
   constructor(props: any) {
     super(props);
     this._seeRoadtrip = this._seeRoadtrip.bind(this);
-    this.__deconnectUser = this.__deconnectUser.bind(this);
+    this.__disconnectUser = this.__disconnectUser.bind(this);
 
     this.state = {
       isEditable: false,
@@ -64,9 +68,14 @@ class RProfile extends React.Component<RProfileState, any> {
     seeRoadtripHelpers({ roadtrip }, navigation);
   }
 
-  __deconnectUser() {
-    const { navigation } = this.props;
-
+  __disconnectUser() {
+    const { navigation, disconnectUser } = this.props;
+    disconnectUser();
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    });
+    navigation.dispatch(resetAction);
   }
 
   render() {
@@ -111,7 +120,7 @@ class RProfile extends React.Component<RProfileState, any> {
           {
             (roadtrips && roadtrips.length > 0)
             &&
-            <View style={{ marginBottom: 100, marginTop: 30 }}>
+            <View style={{ marginBottom: 20, marginTop: 30 }}>
               <Text style={style.title}>Roadtrips</Text>
               <FlatList
                 data={roadtrips}
@@ -121,16 +130,16 @@ class RProfile extends React.Component<RProfileState, any> {
             </View>
           }
         </View>
-        {/* {
+        {
           ownProfile
           &&
-          // <RButton
-          //   text="Let's go"
-          //   color={greenColor.light}
-          //   onPressEvent={this._deconnectUser}
-          //   type="main"
-          // />
-        } */}
+          <RButton
+            text="Disconnect"
+            color={yellowColor.light}
+            onPressEvent={this.__disconnectUser}
+            type="main"
+          />
+        }
       </ScrollView >
     );
   }

@@ -4,7 +4,7 @@ import { getUserByIdAPI, getRoadtripsByUserAPI } from "../components/templates/R
 
 export default class UserStore {
   @observable isLoggedIn = false
-  
+
   @observable user = {
     _id: "",
     firstname: "",
@@ -33,7 +33,7 @@ export default class UserStore {
 
   @observable userLoginMessageContainer = {}
 
-   @action.bound
+  @action.bound
   setUserProfileInfos(user: object) {
     getRoadtripsByUserAPI(user._id)
       .then((roadtrips: any) => {
@@ -68,8 +68,8 @@ export default class UserStore {
           if (response.user) {
             this.setUser(response.user);
             this.setLoggedStatusToTrue(true);
-          } 
-          
+          }
+
           resolve(response)
         })
         .catch((error: string) => {
@@ -91,5 +91,23 @@ export default class UserStore {
   @action.bound
   setErrorMessage(message: object) {
     Object.assign(this.userLoginMessageContainer, { ...message })
+  }
+
+  @action.bound
+  disconnectUser() {
+    const initialUser = {
+      _id: "",
+      firstname: "",
+      lastname: "",
+      age: undefined,
+      email: "",
+      username: "",
+      profilePic: "",
+      city: "",
+      trips: [],
+      music: []
+    }
+
+    Object.assign(this.user, { ...initialUser });
   }
 }

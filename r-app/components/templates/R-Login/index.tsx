@@ -1,9 +1,7 @@
 import * as React from "react";
 import SvgUri from "react-native-svg-uri";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView, InteractionManager } from "react-native";
 import { withNavigation } from 'react-navigation';
-
-import { toJS } from "mobx";
 import { observer, inject } from "mobx-react";
 
 import styles from "./_style";
@@ -13,106 +11,111 @@ import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
 import { isEmptyObject } from "../../helpers"
 
+
+const initialState = {
+  usernameOrEmail: "",
+  password: "",
+  notif: {}
+}
+
 interface RLoginState {
   usernameOrEmail: string,
   password: string,
-  notif: object
+  notif: {}
 }
 @inject(stores => ({
   setLoggedStatusToTrue: stores.rootStore.userStore.setLoggedStatusToTrue,
   setUser: stores.rootStore.userStore.setUser,
   setUserProfileInfos: stores.rootStore.userStore.setUserProfileInfos,
-  checkUsernameOrEmail: stores.rootStore.userStore.checkUsernameOrEmail,
-  userLoginMessageContainer: toJS(stores.rootStore.userStore.userLoginMessageContainer)
+  checkUsernameOrEmail: stores.rootStore.userStore.checkUsernameOrEmail
 }))
 @observer
 class RLogin extends React.Component<any, RLoginState> {
   constructor(props: any) {
     super(props);
     this._checkAuth = this._checkAuth.bind(this);
-    this.state = {
-      usernameOrEmail: "",
-      password: "",
-      notif: {}
-    }
+    this.state = initialState
   }
 
   static navigationOptions = {
     header: null,
   };
 
+  componentDidUpdate() {
+    const { navigation } = this.props;
+    if (navigation.getParam('resetState')) {
+      InteractionManager.runAfterInteractions(() => {
+        this.setState(initialState);
+        navigation.setParams({ resetState: false });
+      })
+    }
+  }
+
   _checkAuth() {
-    const { navigation, checkUsernameOrEmail, userLoginMessageContainer } = this.props;
+    const { navigation, checkUsernameOrEmail } = this.props;
     const { usernameOrEmail } = this.state;
 
 
     if (usernameOrEmail) {
       checkUsernameOrEmail(usernameOrEmail)
         .then((response: object) => {
-          console.log(response);
           if (response.user) {
             navigation.navigate('ListRoadtrips');
           } else {
-            const {type, message} = response;
-            this.setState({
-              notif: {
-                type,
-                message
-              }
-            })
+            // const { type, message } = response;
+            // this.setState({
+            //   notif: {
+            //     type,
+            //     message
+            //   }
+            // })
           }
-        }) 
-    } else {
-      this.setState({
-        notif: {
-          type: "error",
-          message: "Username or Email must be renseigned"
-        }
-      })
+        })
     }
+    // else {
+    //   this.setState({
+    //     notif: {
+    //       type: "error",
+    //       message: "Username or Email must be renseigned"
+    //     }
+    //   })
+    // }
   }
 
 
   render() {
-    const { navigation, userLoginMessageContainer } = this.props;
+    const { navigation } = this.props;
     const { notif } = this.state;
 
-    let notifContainer;
+    // let notifContainer = "";
 
-    if (!isEmptyObject(notif)) {
-      notifContainer = 
-        <View style={{
-          position: "absolute", 
-          top: 80, 
-          width: "80%", 
-          left: "10%",
-          justifyContent: "center", 
-          zIndex: 1, 
-          flex: 1, 
-          alignItems: "center",
-          backgroundColor: "#ff6b6b",
-          paddingVertical: 10,
-          borderRadius: 15
-        }}>
-          <Text style={{ color: "white" }}>{notif.message}</Text>
-        </View>
-    } else {
-      notifContainer = ""
-    }
+    // if (!isEmptyObject(notif)) {
+    //   notifContainer =
+    //     <View style={{
+    //       position: "absolute",
+    //       top: 80,
+    //       width: "80%",
+    //       left: "10%",
+    //       justifyContent: "center",
+    //       zIndex: 1,
+    //       flex: 1,
+    //       alignItems: "center",
+    //       backgroundColor: "#ff6b6b",
+    //       paddingVertical: 10,
+    //       borderRadius: 15
+    //     }}>
+    //       <Text style={{ color: "white" }}>
+    //         {notif.message}
+    //       </Text>
+    //     </View>
+    // }
 
     return (
       <View style={styles.container}>
-        {notifContainer}
+        {/* {notifContainer} */}
         <View style={styles.logo}>
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoColored.svg")} />
         </View>
-        {
-          userLoginMessageContainer.length > 0
-          &&
-          <View>
-            <Text>{userLoginMessageContainer.message}</Text>
-          </View>
-        }
         <ScrollView style={styles.content}>
           <RInputText
             placeholder="Username or email"

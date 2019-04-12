@@ -12,10 +12,10 @@ interface CrossExitProps {
 
 class CrossExit extends React.PureComponent<CrossExitProps> {
   render() {
-    const { color, route, navigation } = this.props;
+    const { color, navigation } = this.props;
 
     return (
-      <TouchableOpacity onPress={() => navigation.navigate(route)} style={stylesButton.backArrow}>
+      <TouchableOpacity onPress={() => navigation.pop()} style={stylesButton.backArrow}>
         {
           color === "white"
             ? <SvgUri width="20" height="30" source={require("../../../assets/icons/icon--crossExitWhite.svg")} />
