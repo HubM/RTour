@@ -5,6 +5,7 @@ import moment from "moment";
 import { inject, observer } from 'mobx-react';
 import { withNavigation } from "react-navigation";
 import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import styles from "./_style";
 
@@ -15,7 +16,8 @@ const width = Dimensions.get('window').width;
 
 interface RListRoadtripsState {
   filterBtn: string,
-  date: string
+  date: string,
+  isDateTimePickerVisible: boolean
 }
 
 interface RListRoadtripsProps {
@@ -42,9 +44,15 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     this._getPrevRoadtrips = this._getPrevRoadtrips.bind(this);
     this._getNextRoadtrips = this._getNextRoadtrips.bind(this);
 
+
+    this._showDateTimePicker = this._showDateTimePicker.bind(this);
+    this._hideDateTimePicker = this._hideDateTimePicker.bind(this);
+    this._handleDatePicked = this._handleDatePicked.bind(this);
+
     this.state = {
       filterBtn: "Filter".toUpperCase(),
-      date: moment().format('DD/MM/YYYY')
+      date: moment().format('DD/MM/YYYY'),
+      isDateTimePickerVisible: false
     }
   }
 
@@ -93,11 +101,30 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   _seeRoadtrip(roadtrip: object) {
     const { navigation } = this.props;
-    seeRoadtripHelpers({roadtrip}, navigation);
+    seeRoadtripHelpers({ roadtrip }, navigation);
+  }
+
+  _showDateTimePicker() {
+    this.setState({ isDateTimePickerVisible: true });
+  }
+
+  _handleDatePicked(date: object) {
+    const dateStringified = moment(date).format('DD/MM/YYYY');
+
+    this.setState({
+      date: dateStringified,
+    }, () => {
+      this.props.getRoadtrips(dateStringified);
+      this._hideDateTimePicker();
+    })
+  }
+
+  _hideDateTimePicker() {
+    this.setState({ isDateTimePickerVisible: false });
   }
 
   render() {
-    const { filterBtn, date } = this.state;
+    const { filterBtn, date, isDateTimePickerVisible } = this.state;
     const { navigation, roadtrips, isLoggedIn, isFetchingRoadtrips, userId } = this.props;
 
     return (
@@ -120,7 +147,14 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={styles.date}>{date}</Text>
+          <TouchableOpacity onPress={this._showDateTimePicker}>
+            <Text style={styles.date}>{date}</Text>
+            <DateTimePicker
+              isVisible={isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </TouchableOpacity>
           {
             roadtrips && roadtrips.length > 0
               ?
