@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { addRoadtripAPI } from "../components/templates/R-AddARoadtrip/_api";
 import { getRoadtripsByDateAPI } from "../components/templates/R-ListRoadtrips/_api";
-import { deleteOwnRoadtripAPI } from "../components/templates/R-SingleRoadtrip/_api";
+import { deleteOwnRoadtripAPI, addRiderToRoadtripAPI } from "../components/templates/R-SingleRoadtrip/_api";
 
 export default class roadtripStore {
   @observable roadtrips = [];
@@ -9,7 +9,7 @@ export default class roadtripStore {
 
   // Get roadtrips by date
   @action
-  getRoadtrips = (date: string) => {
+  getRoadtrips(date: string) {
     this.roadtrips = [];
     this.isFetchingRoadtrips = true;
 
@@ -36,7 +36,14 @@ export default class roadtripStore {
       })
       .catch(error => {
         console.log(error);
-      })  
+      })
+  }
+
+  //Add a rider to a roadtrip
+  @action.bound
+  addRiderToRoadtrip(roadtripId: string, rider: object) {
+    console.log("OK I WILL ADD", rider, "TO THE TRIP => ", roadtripId);
+    addRiderToRoadtripAPI(roadtripId, rider)
   }
 
   // Delete roadtrip
@@ -44,7 +51,7 @@ export default class roadtripStore {
   deleteOwnRoadtrip(id: string) {
     deleteOwnRoadtripAPI(id)
       .then(deletedRoadtrip => {
-        this.roadtrips.forEach((roadtrip, index)=> {
+        this.roadtrips.forEach((roadtrip, index) => {
           if (roadtrip._id === id) {
             this.roadtrips.splice(index, 1);
           }

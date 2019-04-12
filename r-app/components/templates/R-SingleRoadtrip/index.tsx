@@ -14,13 +14,16 @@ interface RSingleRoadtripState {
 }
 
 interface RSingleRoadtripProps {
-  isLoggedIn: boolean
+  user: object,
+  isLoggedIn: boolean,
+  deleteOwnRoadtrip(): void
 }
 
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   user: stores.rootStore.userStore.user,
-  deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip
+  deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip,
+  addRiderToRoadtrip: stores.rootStore.roadtripsStore.addRiderToRoadtrip
 }))
 @observer
 class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
@@ -60,8 +63,15 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   }
 
   _joinRoadtrip() {
-    const { navigation } = this.props;
-    navigation.navigate("ListRoadtrips");
+    const { navigation, user, addRiderToRoadtrip } = this.props;
+    const { _id, username } = user;
+    const roadtrip = navigation.getParam("roadtrip");
+
+    addRiderToRoadtrip(roadtrip._id, {
+      _id,
+      username
+    })
+    // navigation.navigate("ListRoadtrips");
   }
 
   _deleteRoadtrip() {
@@ -69,7 +79,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     const roadtrip = navigation.getParam("roadtrip");
 
     deleteOwnRoadtrip(roadtrip._id);
-    navigation.navigate("ListRoadtrips", { roadtripsHaveChanged: true})
+    navigation.navigate("ListRoadtrips", { roadtripsHaveChanged: true })
   }
 
   render() {
