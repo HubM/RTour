@@ -22,10 +22,32 @@ module.exports.deleteRoadtrip = (req, res) => {
   global.dbRtour.collection("roadtrips").remove({ _id: ObjectId(id) }, (errorDeleteRoadtrip, deleteRoadtrip) => {
     if (errorDeleteRoadtrip) {
       logger.error("Error on POST roadtrip", errorDeleteRoadtrip);
-      res.send("Error with POST Roadtrip request");
+      res.send("Error on POST Roadtrip request");
     } else {
       logger.info(`I've delete the roadtrip ${id} (${deleteRoadtrip})`);
       res.send(deleteRoadtrip);
     }
   });
 };
+
+
+module.exports.addRiderToRoadtrip = (req, res) => {
+  const { roadtripId, rider } = req.body;
+  
+  global.dbRtour.collection("roadtrips").update({ _id: ObjectId(roadtripId)}, {
+    $addToSet: {
+      riders: {
+        ...rider,
+        isValidated: false
+      }
+    }
+  }, (errorAddingRiderToRoadtrip, addingRiderToRoadtrip) => {
+    if (errorAddingRiderToRoadtrip) {
+      logger.error('Error on PUT Roadtrip (adding rider)', errorAddingRiderToRoadtrip);
+      res.send('Error on PUT Roadtrip (adding rider)', errorAddingRiderToRoadtrip);
+    } else {
+      logger.info(`I have added the rider ${rider.username} to the trip ${roadtripId}`);
+      res.send(addingRiderToRoadtrip);
+    }
+  })
+}

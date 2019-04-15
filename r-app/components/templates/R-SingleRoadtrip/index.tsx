@@ -71,7 +71,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
       _id,
       username
     })
-    // navigation.navigate("ListRoadtrips");
+    navigation.pop();
   }
 
   _deleteRoadtrip() {

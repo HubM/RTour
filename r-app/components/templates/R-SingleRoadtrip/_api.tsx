@@ -17,7 +17,20 @@ export const deleteOwnRoadtripAPI = (id: string) =>
 
 export const addRiderToRoadtripAPI = (roadtripId: string, rider: object) =>
   new Promise((resolve, reject) => {
-    console.log("CONTINUE HERE WITH PUT ??")
     const url = `${settings.apiUrl}/roadtrip`;
-    // CONTINUE HERE WITH PUT ??
+    const {_id, username } = rider;
+
+    axios.put(url, {
+      roadtripId,
+      rider: {
+        _id,
+        username
+      }
+    })
+    .then(response => {
+      resolve(response.data)
+    })
+    .catch(error => {
+      reject(error);
+    })
   })
