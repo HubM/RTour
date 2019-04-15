@@ -82,15 +82,32 @@ class RProfile extends React.Component<RProfileState, any> {
     const { ownProfile } = this.state;
     const { user, roadtrips } = this.props.userProfile;
     const { firstname, lastname, age, email, username, city, profilePic, music } = user;
+
+
+    let roadtripsSection;
+
+    if (roadtrips && roadtrips.length > 0) {
+      roadtripsSection =
+        <View style={{ marginBottom: 20, marginTop: 30 }}>
+          <Text style={style.title}>Roadtrips 📍</Text>
+          <FlatList
+            data={roadtrips}
+            keyExtractor={r => r._id}
+            renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="row" />}
+          />
+        </View>
+    }
+
+
     return (
       <ScrollView style={style.container}>
         <View style={style.header}>
-          {
+          {/* {
             ownProfile &&
             <TouchableOpacity>
               <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--whitePen.svg")} />
             </TouchableOpacity>
-          }
+          } */}
           <CrossExit color="white" route="ListRoadtrips" />
         </View>
         <View style={style.titleContainer}>
@@ -117,18 +134,7 @@ class RProfile extends React.Component<RProfileState, any> {
           <ProfileInfo type="username" value={username} />
           <ProfileInfo type="city" value={city} />
           <ProfileInfo type="music" value={music} />
-          {
-            (roadtrips && roadtrips.length > 0)
-            &&
-            <View style={{ marginBottom: 20, marginTop: 30 }}>
-              <Text style={style.title}>Roadtrips</Text>
-              <FlatList
-                data={roadtrips}
-                keyExtractor={r => r._id}
-                renderItem={({ item, index }) => <Roadtrip roadtrip={item} roadtripIndex={index} seeRoadtrip={this._seeRoadtrip} layoutStyle="row" />}
-              />
-            </View>
-          }
+          {roadtripsSection}
         </View>
         {
           ownProfile

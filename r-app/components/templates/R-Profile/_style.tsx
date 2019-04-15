@@ -15,7 +15,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "flex-end"
   },
   titleContainer: {
     flexDirection: "column",

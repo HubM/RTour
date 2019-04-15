@@ -1,6 +1,6 @@
 import { StyleSheet, PixelRatio, ViewStyle } from "react-native";
 
-import { blackColor, grayColor, yellowColor } from "../../helpers/styles/colors";
+import { blackColor, grayColor, yellowColor, fontWhiteColor } from "../../helpers/styles/colors";
 import {
   titleh2,
   titleh3,
@@ -73,4 +73,18 @@ export default StyleSheet.create({
     marginRight: 0,
     padding: 0
   },
+  sectionTitle: {
+    ...titleh3,
+    ...titleMedium,
+    ...fontWhiteColor,
+    textAlign: "center",
+    marginBottom: 30
+  },
+  singleRider: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
+    paddingBottom: 6,
+    marginBottom: 20
+  }
 });

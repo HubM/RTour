@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, FlatList } from "react-native";
 import SvgUri from 'react-native-svg-uri';
 import { inject, observer } from "mobx-react";
 import RButton from "../../helpers/components/RButton";
@@ -10,7 +10,8 @@ import { withNavigation } from 'react-navigation';
 import { yellowColor } from '../../helpers/styles/colors';
 
 interface RSingleRoadtripState {
-  buttonLabel: string;
+  buttonLabel: string,
+  isOwner: boolean
 }
 
 interface RSingleRoadtripProps {
@@ -33,6 +34,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
     this._deleteRoadtrip = this._deleteRoadtrip.bind(this);
     this.state = {
+      isOwner: false,
       buttonLabel: ""
     }
   }
@@ -41,21 +43,49 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     header: null,
   };
 
-  componentDidMount() {
-    const { isLoggedIn, user, navigation } = this.props;
+  static getDerivedStateFromProps(props, state) {
+    const { isLoggedIn, user, navigation } = props;
     const roadtrip = navigation.getParam("roadtrip");
-
     const { owner } = roadtrip;
+    
     if (isLoggedIn) {
-      if (user.username !== owner.username) {
-        this.setState({ buttonLabel: 'Join'.toUpperCase() })
+      if (user.username === owner.username) {
+        return Object.assign(state, { 
+          isOwner: true,
+          buttonLabel: 'Delete'.toUpperCase() 
+        })
       } else {
-        this.setState({ buttonLabel: 'Delete'.toUpperCase() })
+        return Object.assign(state, { 
+          isOwner: false,
+          buttonLabel: 'Join'.toUpperCase() 
+        })
       }
     } else {
-      this.setState({ buttonLabel: 'Connect'.toUpperCase() })
+      return Object.assign(state, { 
+        isOwner: false,
+        buttonLabel: 'Connect'.toUpperCase() 
+      })
     }
   }
+
+  // componentDidMount() {
+  //   const { isLoggedIn, user, navigation } = this.props;
+  //   const roadtrip = navigation.getParam("roadtrip");
+
+  //   const { owner } = roadtrip;
+  //   if (isLoggedIn) {
+  //     if (user.username !== owner.username) {
+  //       this.setState({ 
+  //         isOwner: true,
+  //         buttonLabel: 'Join'.toUpperCase() 
+  //       })
+  //     } else {
+  //       this.setState({ buttonLabel: 'Delete'.toUpperCase() })
+  //     }
+  //   } else {
+  //     this.setState({ buttonLabel: 'Connect'.toUpperCase() })
+  //   }
+  // }
 
   _loginUser() {
     const { navigation } = this.props;
@@ -84,14 +114,15 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
   render() {
     const { navigation, isLoggedIn, user } = this.props;
-    const { buttonLabel } = this.state;
+    const { isOwner, buttonLabel } = this.state;
     const roadtrip = navigation.getParam("roadtrip");
 
-    const { startCity, endCity, hour, owner, seats, calendar, address, roadtripType } = roadtrip;
+    const { startCity, endCity, hour, owner, seats, calendar, address, roadtripType, riders } = roadtrip;
 
     let name;
     let buttonAction;
-
+    let ridersSection;
+    let ridersDisplayed = [];
 
     owner.firstname && owner.lastname
       ? name = `${owner.firstname} ${owner.lastname} (${owner.username})`
@@ -121,6 +152,41 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
         type="main"
       />
     }
+    
+    
+    if(riders && riders.length > 0) {
+      if (isOwner) {
+        ridersDisplayed = riders;
+      } else {
+        ridersDisplayed = riders.filter((rider:object) => rider.isValidated);
+      }
+
+      if (ridersDisplayed.length > 0) {
+        ridersSection =
+          <View>
+            <Text style={styles.sectionTitle}>Riders 🍻</Text>
+            <View>
+              <FlatList
+                data={ridersDisplayed}
+                keyExtractor={(item) => item._id}
+                renderItem={({item}) =>
+                (
+                  <View>
+                    <TouchableOpacity style={styles.singleRider} onPress={() => navigation.navigate("Profile", { userId: item._id })}>
+                      <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
+                      <Text style={styles.roadtripCreatorName}>{item.username}</Text>
+                    </TouchableOpacity>
+                  </View>
+                )
+              }
+              />
+            </View>
+          </View>
+      }
+
+    }
+
+
 
 
     return (
@@ -193,6 +259,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
                 </View>
             }
           </View>
+          {ridersSection}
         </View>
         {
           buttonAction
