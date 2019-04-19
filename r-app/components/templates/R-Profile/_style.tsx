@@ -11,11 +11,12 @@ export default StyleSheet.create({
     backgroundColor: blackColor.light
   },
   header: {
-    paddingLeft: 10,
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    marginTop: 35,
+    padding: 15
   },
   titleContainer: {
     flexDirection: "column",

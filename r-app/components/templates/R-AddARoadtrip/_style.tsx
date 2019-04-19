@@ -12,7 +12,9 @@ export default StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    marginTop: 35,
+    padding: 30
   },
   errorMessageContainer: {
     width: "80%",

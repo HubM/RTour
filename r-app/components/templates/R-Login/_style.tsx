@@ -2,7 +2,6 @@ import { StyleSheet, ViewStyle } from 'react-native';
 import { grayColor } from '../../helpers/styles/colors';
 import logo from "../../helpers/styles/logo";
 
-
 export default StyleSheet.create({
   container: {
     flex: 1,

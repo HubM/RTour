@@ -38,8 +38,4 @@ export default StyleSheet.create({
   secondYellow: {
     color: yellowColor.light
   },
-  backArrow: {
-    marginTop: 35,
-    padding: 15,
-  }
 });

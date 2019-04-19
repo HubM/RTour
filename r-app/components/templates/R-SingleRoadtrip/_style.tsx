@@ -19,7 +19,17 @@ export default StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    marginTop: 35,
+    padding: 30
+  },
+  headerOwner: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 35,
+    padding: 30
   },
   content: {
     paddingHorizontal: 30
@@ -86,5 +96,9 @@ export default StyleSheet.create({
     flexDirection: "row",
     paddingBottom: 6,
     marginBottom: 20
+  },
+  deleteRoadtripBtn: {
+    color: yellowColor.light,
+    fontWeight: "500"
   }
 });
