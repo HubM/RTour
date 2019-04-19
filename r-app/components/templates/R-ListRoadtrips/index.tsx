@@ -18,19 +18,18 @@ interface RListRoadtripsState {
   filterBtn: string,
   date: string,
   isDateTimePickerVisible: boolean
+  roadtrips: Array<Object>
 }
 
 interface RListRoadtripsProps {
   isLoggedIn: boolean,
   appState: object,
-  roadtrips: Array<Object>,
   getRoadtrips(date: string): void,
   isFetchingRoadtrips: boolean
 }
 
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
-  roadtrips: toJS(stores.rootStore.roadtripsStore.roadtrips),
   userId: stores.rootStore.userStore.user._id,
   getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
   isFetchingRoadtrips: stores.rootStore.roadtripsStore.isFetchingRoadtrips,
@@ -52,45 +51,38 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     this.state = {
       filterBtn: "Filter".toUpperCase(),
       date: moment().format('DD/MM/YYYY'),
-      isDateTimePickerVisible: false
+      isDateTimePickerVisible: false,
+      roadtrips: []
     }
+
+    this._fetchRoadtrips(this.state.date);
   }
 
   static navigationOptions = {
     header: null,
   };
 
-  componentDidMount() {
-    this._fetchRoadtrips();
-  }
-
-  _fetchRoadtrips() {
-    const { date } = this.state;
-    this.props.getRoadtrips(date);
+  _fetchRoadtrips(date: string) {
+    this.props.getRoadtrips(date).then(roadtrips => {
+      this.setState({
+        date,
+        roadtrips
+      })
+    })
   }
 
   _getPrevRoadtrips() {
     const { date } = this.state;
     const newDate = moment(date, "DD/MM/YYYY").subtract(1, 'day').format("DD/MM/YYYY");
 
-    this.setState({
-      ...this.state,
-      date: newDate
-    }, () => {
-      this.props.getRoadtrips(newDate);
-    })
+    this._fetchRoadtrips(newDate);
   }
 
   _getNextRoadtrips() {
     const { date } = this.state;
     const newDate = moment(date, "DD/MM/YYYY").add(1, 'day').format("DD/MM/YYYY");
 
-    this.setState({
-      ...this.state,
-      date: newDate
-    }, () => {
-      this.props.getRoadtrips(newDate);
-    });
+    this._fetchRoadtrips(newDate);
   }
 
   _renderRoadtripsContainer = ({ item, index }) => (
@@ -111,12 +103,8 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
   _handleDatePicked(date: object) {
     const dateStringified = moment(date).format('DD/MM/YYYY');
 
-    this.setState({
-      date: dateStringified,
-    }, () => {
-      this.props.getRoadtrips(dateStringified);
-      this._hideDateTimePicker();
-    })
+    this._fetchRoadtrips(dateStringified);
+    this._hideDateTimePicker();
   }
 
   _hideDateTimePicker() {
@@ -124,8 +112,9 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
   }
 
   render() {
-    const { filterBtn, date, isDateTimePickerVisible } = this.state;
-    const { navigation, roadtrips, isLoggedIn, isFetchingRoadtrips, userId } = this.props;
+    const { filterBtn, date, isDateTimePickerVisible, roadtrips } = this.state;
+    const { navigation, isLoggedIn, isFetchingRoadtrips, userId } = this.props;
+
 
     return (
       <View style={styles.container}>

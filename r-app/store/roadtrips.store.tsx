@@ -10,21 +10,18 @@ export default class roadtripStore {
   // Get roadtrips by date
   @action
   getRoadtrips(date: string) {
-    this.roadtrips = [];
-    this.isFetchingRoadtrips = true;
+    return new Promise((resolve, reject) => {
+      this.isFetchingRoadtrips = true;
 
-    getRoadtripsByDateAPI(date)
-      .then(newRoadtrips => {
-        if (newRoadtrips.length > 0) {
-          newRoadtrips.forEach(roadtrip => {
-            this.roadtrips.push(roadtrip)
-          })
-        }
-        this.isFetchingRoadtrips = false;
-      })
-      .catch(error => {
-        console.log(error);
-      })
+      getRoadtripsByDateAPI(date)
+        .then(newRoadtrips => {
+          this.isFetchingRoadtrips = false;
+          resolve(newRoadtrips);
+        })
+        .catch(error => {
+          reject(error);
+        })
+    })
   }
 
   //Add a new roadtrip
