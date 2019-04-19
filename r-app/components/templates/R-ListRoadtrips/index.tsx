@@ -3,7 +3,7 @@ import SvgUri from "react-native-svg-uri";
 import { toJS } from "mobx";
 import moment from "moment";
 import { inject, observer } from 'mobx-react';
-import { withNavigation } from "react-navigation";
+import { withNavigationFocus } from "react-navigation";
 import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
@@ -113,8 +113,11 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   render() {
     const { filterBtn, date, isDateTimePickerVisible, roadtrips } = this.state;
-    const { navigation, isLoggedIn, isFetchingRoadtrips, userId } = this.props;
+    const { navigation, isLoggedIn, isFetchingRoadtrips, userId, isFocused } = this.props;
 
+    if (isFocused) {
+      this._fetchRoadtrips(date);
+    }
 
     return (
       <View style={styles.container}>
@@ -185,4 +188,4 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
   }
 }
 
-export default withNavigation(RListRoadtrips);
+export default withNavigationFocus(RListRoadtrips);

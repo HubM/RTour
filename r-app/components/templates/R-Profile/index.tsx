@@ -102,12 +102,6 @@ class RProfile extends React.Component<RProfileState, any> {
     return (
       <ScrollView style={style.container}>
         <View style={style.header}>
-          {/* {
-            ownProfile &&
-            <TouchableOpacity>
-              <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--whitePen.svg")} />
-            </TouchableOpacity>
-          } */}
           <CrossExit color="white" route="ListRoadtrips" />
         </View>
         <View style={style.titleContainer}>

@@ -128,8 +128,8 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
       })
 
       addANewRoadtrip(newRoadtrip);
-      
-      navigation.navigate('ListRoadtrips', { refreshRoadtrips: true });
+
+      navigation.pop();
     }
   }
 
