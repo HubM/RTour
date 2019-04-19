@@ -39,12 +39,19 @@ export default StyleSheet.create({
     padding: 30,
     marginTop: 20
   },
+
+  buttonDateContainer: {
+    marginBottom: 30,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
   date: {
     ...titleh3,
     ...titleMedium,
     ...fontWhiteColor,
     textAlign: "center",
-    marginBottom: 30
+    marginRight: 10
   },
   content: {
     paddingHorizontal: 30

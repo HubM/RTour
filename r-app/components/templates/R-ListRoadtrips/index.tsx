@@ -111,13 +111,15 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     this.setState({ isDateTimePickerVisible: false });
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.isFocused !== this.props.isFocused) {
+      this._fetchRoadtrips(this.state.date);
+    }
+  }
+
   render() {
     const { filterBtn, date, isDateTimePickerVisible, roadtrips } = this.state;
     const { navigation, isLoggedIn, isFetchingRoadtrips, userId, isFocused } = this.props;
-
-    if (isFocused) {
-      this._fetchRoadtrips(date);
-    }
 
     return (
       <View style={styles.container}>
@@ -140,7 +142,10 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
         </View>
         <View>
           <TouchableOpacity onPress={this._showDateTimePicker}>
-            <Text style={styles.date}>{date}</Text>
+            <View style={styles.buttonDateContainer}>
+              <Text style={styles.date}>{date}</Text>
+              <SvgUri width="25" height="25" source={require("../../../assets/icons/icon--calendarYellow.svg")} />
+            </View>
             <DateTimePicker
               isVisible={isDateTimePickerVisible}
               onConfirm={this._handleDatePicked}
