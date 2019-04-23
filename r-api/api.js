@@ -17,4 +17,9 @@ api.delete("/roadtrip", singleRoadtripController.deleteRoadtrip);
 api.get("/user", userController.getUserById);
 api.post("/login", userController.getUserByUsernameOrEmail);
 
+/* Root */
+api.get("/", (req, res) => {
+  res.send("Hi, welcome on the rtour api ! :)");
+})
+
 module.exports = api;
