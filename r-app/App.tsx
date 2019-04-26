@@ -9,6 +9,8 @@ import RootStore from "./store";
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Remote debugger']);
 
+import registerForPushNotificationsAsync from "./services/notifications";
+
 interface State {
   isReady: Boolean;
 }
@@ -18,6 +20,7 @@ export default class App extends React.Component<{}, State> {
 
   componentDidMount() {
     this._loadFonts();
+    // registerForPushNotificationsAsync();
     // this._registerNotifications();
     // Expo.Notifications.addListener(this._listenNotifications);
   }
