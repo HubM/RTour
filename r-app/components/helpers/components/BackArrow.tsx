@@ -4,10 +4,27 @@ import SvgUri from "react-native-svg-uri";
 import { withNavigation } from "react-navigation";
 
 interface RoadtripProps {
-  color: string
+  color: string,
+  navigationRoute: string
 };
 
 class BackArrow extends React.PureComponent<RoadtripProps> {
+  constructor(props: RoadtripProps) {
+    super(props);
+    this._generateNavigation = this._generateNavigation.bind(this);
+  }
+
+  _generateNavigation() {
+    const { navigation, navigationRoute } = this.props;
+
+    if(navigationRoute === "back") {
+      return navigation.pop()
+    }
+
+    return navigation.navigate(navigationRoute);
+    
+  }
+
   render() {
     const { color, navigation } = this.props;
     return (

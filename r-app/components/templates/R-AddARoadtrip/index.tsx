@@ -139,7 +139,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <BackArrow color="white" />
+          <BackArrow color="white" navigationRoute="back" />
         </View>
         <ScrollView style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>

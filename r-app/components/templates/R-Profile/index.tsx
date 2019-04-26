@@ -50,7 +50,6 @@ class RProfile extends React.Component<RProfileState, any> {
   componentDidMount() {
     const { navigation, user, fetchUserProfileInfos, setUserProfileInfos } = this.props;
     const userId = navigation.getParam("userId");
-
     if (userId === user._id) {
       const isOwnProfile = true;
 

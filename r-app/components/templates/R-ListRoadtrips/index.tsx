@@ -119,7 +119,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
   render() {
     const { filterBtn, date, isDateTimePickerVisible, roadtrips } = this.state;
-    const { navigation, isLoggedIn, isFetchingRoadtrips, userId, isFocused } = this.props;
+    const { navigation, isLoggedIn, isFetchingRoadtrips, userId } = this.props;
 
     return (
       <View style={styles.container}>

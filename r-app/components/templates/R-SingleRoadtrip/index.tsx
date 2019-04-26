@@ -8,6 +8,7 @@ import BackArrow from "../../helpers/components/BackArrow";
 import styles from "./_style";
 import { withNavigation } from 'react-navigation';
 import { yellowColor } from '../../helpers/styles/colors';
+import { toJS } from 'mobx';
 
 interface RSingleRoadtripState {
   buttonLabel: string,
@@ -22,7 +23,7 @@ interface RSingleRoadtripProps {
 
 @inject(stores => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
-  user: stores.rootStore.userStore.user,
+  user: toJS(stores.rootStore.userStore.user),
   deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip,
   addRiderToRoadtrip: stores.rootStore.roadtripsStore.addRiderToRoadtrip
 }))
@@ -32,6 +33,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     super(props);
     this._loginUser = this._loginUser.bind(this);
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
+    this._goToProfileSection = this._goToProfileSection.bind(this);
     this._deleteRoadtrip = this._deleteRoadtrip.bind(this);
     this.state = {
       isOwner: false,
@@ -93,6 +95,11 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     navigation.navigate("ListRoadtrips", { roadtripsHaveChanged: true })
   }
 
+  _goToProfileSection(userId: string) {
+    const { navigation } = this.props;
+    navigation.navigate({ key: Math.random () * 10000, routeName: "Profile", params: { userId } })
+  }
+
   render() {
     const { isOwner, buttonLabel } = this.state;
     const { navigation, isLoggedIn, user } = this.props;
@@ -142,7 +149,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
                 renderItem={({ item }) =>
                   (
                     <View>
-                      <TouchableOpacity style={styles.singleRider} onPress={() => navigation.navigate("Profile", { userId: item._id })}>
+                      <TouchableOpacity style={styles.singleRider} onPress={() => this._goToProfileSection(item._id)}>
                         <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
                         <Text style={styles.roadtripCreatorName}>{item.username}</Text>
                       </TouchableOpacity>
@@ -155,11 +162,10 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
       }
     }
 
-
     if (isOwner) {
       headerSection =
         <View style={styles.headerOwner}>
-          <BackArrow color="white" />
+          <BackArrow color="white" navigationRoute="ListRoadtrips" />
           <TouchableOpacity onPress={this._deleteRoadtrip}>
             <Text style={styles.deleteRoadtripBtn}>{"Delete".toUpperCase()}</Text>
           </TouchableOpacity>
@@ -167,7 +173,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     } else {
       headerSection =
         <View style={styles.header}>
-          <BackArrow color="white" />
+          <BackArrow color="white" navigationRoute="ListRoadtrips" />
         </View>
     }
 
@@ -179,7 +185,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
             <Text style={styles.roadtripTitleStartCity}>{startCity}</Text>
             <Text style={styles.roadtripTitleEndCity}>{endCity}</Text>
           </View>
-          <TouchableOpacity style={styles.roadtripCreator} onPress={() => navigation.navigate("Profile", { userId: owner._id })}>
+          <TouchableOpacity style={styles.roadtripCreator} onPress={() => this._goToProfileSection(owner._id)}>
             <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />
             <Text style={styles.roadtripCreatorName}>{name}</Text>
           </TouchableOpacity>
