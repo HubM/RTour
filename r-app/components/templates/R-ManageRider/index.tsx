@@ -37,7 +37,6 @@ class RManageRider extends React.Component<RProfileState, any> {
     header: null,
   };
 
-
   componentDidMount() {
     const { fetchRiderProfileInfos, navigation } = this.props;
     const userId = navigation.getParam("userId");
@@ -51,7 +50,6 @@ class RManageRider extends React.Component<RProfileState, any> {
     const roadtripId = navigation.getParam("roadtripId");
 
     refuseRiderToRoadtrip(userId, roadtripId);
-
     navigation.pop();
   }
 

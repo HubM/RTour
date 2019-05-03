@@ -17,3 +17,20 @@ export const refuseRiderToRoadtripAPI = (userId: string, roadtripId: string) =>
         reject(error);
       });
   })
+
+export const getRoadtripById = (roadtripId: string) =>
+  new Promise((resolve, reject) => {
+    const url = `${settings.apiUrl}/roadtrip`;
+
+    axios.get(url, {
+      params: {
+        roadtripId
+      },
+    })
+      .then((roadtrip: object) => {
+        resolve(roadtrip.data);
+      })
+      .catch((error: String) => {
+        reject(error);
+      });
+  })

@@ -13,6 +13,7 @@ api.get("/roadtrips/byDate", roadtripsController.getRoadtripsByDate);
 api.get("/roadtrips/byUser", roadtripsController.getRoadtripsByUser);
 
 /* SingleRoadtrip */
+api.get("/roadtrip", singleRoadtripController.getRoadtripById);
 api.post("/roadtrip", singleRoadtripController.registerRoadtrip);
 api.put("/roadtrip", singleRoadtripController.addRiderToRoadtrip);
 api.delete("/roadtrip", singleRoadtripController.deleteRoadtrip);

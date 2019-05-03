@@ -1,6 +1,23 @@
 const logger = require("../../services/logger");
 const ObjectId = require("mongojs").ObjectID;
 
+
+module.exports.getRoadtripById = (req, res) => {
+  const { roadtripId } = req.query;
+
+  global.dbRtour.collection("roadtrips").findOne({ _id: ObjectId(roadtripId) }, (errorRoadtrip, roadtrip) => {
+    if (errorRoadtrip) {
+      logger.error("Error on GET roadtrip by id", errorRoadtrip)
+      res.send("Error with GET roadtrip by id request");
+    } else {
+      logger.info(`I've get the roadtrip with the id (${roadtripId})`)
+      res.send(roadtrip);
+    }
+  })
+
+}
+
+
 module.exports.registerRoadtrip = (req, res) => {
   const { roadtrip } = req.body;
   const { owner } = roadtrip;
