@@ -34,6 +34,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     this._loginUser = this._loginUser.bind(this);
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
     this._goToProfileSection = this._goToProfileSection.bind(this);
+    this._manageRiderRequest = this._manageRiderRequest.bind(this);
     this._deleteRoadtrip = this._deleteRoadtrip.bind(this);
     this.state = {
       isOwner: false,
@@ -97,7 +98,12 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
   _goToProfileSection(userId: string) {
     const { navigation } = this.props;
-    navigation.navigate({ key: Math.random () * 10000, routeName: "Profile", params: { userId } })
+    navigation.navigate({ key: Math.random() * 10000, routeName: "Profile", params: { userId } })
+  }
+
+  _manageRiderRequest(userId: string) {
+    const { navigation } = this.props;
+    navigation.navigate({ key: Math.random() * 10000, routeName: "ManageRider", params: { userId } })
   }
 
   render() {
@@ -149,7 +155,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
                 renderItem={({ item }) =>
                   (
                     <View>
-                      <TouchableOpacity style={styles.singleRider} onPress={() => this._goToProfileSection(item._id)}>
+                      <TouchableOpacity style={styles.singleRider} onPress={() => this._manageRiderRequest(item._id)}>
                         <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
                         <Text style={styles.roadtripCreatorName}>{item.username}</Text>
                       </TouchableOpacity>
