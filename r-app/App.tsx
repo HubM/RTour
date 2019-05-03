@@ -7,6 +7,10 @@ import AppContainer from "./router";
 import RootStore from "./store";
 
 import { YellowBox } from 'react-native';
+
+
+
+
 YellowBox.ignoreWarnings(['Remote debugger']);
 
 import registerForPushNotificationsAsync from "./services/notifications";
@@ -20,30 +24,12 @@ export default class App extends React.Component<{}, State> {
 
   componentDidMount() {
     this._loadFonts();
-    // registerForPushNotificationsAsync();
-    // this._registerNotifications();
-    // Expo.Notifications.addListener(this._listenNotifications);
   }
 
-  // componentWillUnmount() {
-  //   Expo.Notifications.removeListener(this._listenNotifications);
-  // }
-
-  // _listenNotifications({ origin, data }) {
-  //   console.log("cool data", origin, data);
-  // }
 
 
-  // async _registerNotifications() {
-  //   const { status } = await Expo.Permissions.askAsync(Expo.Permissions.NOTIFICATIONS);
 
-  //   if (status !== "granted") {
-  //     alert('You must enable notifications in your application settings');
-  //     return;
-  //   }
-  //   const token = await Expo.Notifications.getExpoPushTokenAsync();
-  //   console.log(status, token);
-  // }
+
 
 
   async _loadFonts() {

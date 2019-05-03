@@ -1,9 +1,13 @@
 const api = require("express").Router();
 
+const notificationsController = require("./controllers/notifications");
 const roadtripsController = require("./controllers/roadtrips");
 const singleRoadtripController = require("./controllers/singleRoadtrip");
 const userController = require("./controllers/user");
 
+/* Notifications */
+api.post("/registerPushs", notificationsController.getDeviceToken);
+api.get("/test", notificationsController.testConnection)
 /* List Roadtrips */
 api.get("/roadtrips/byDate", roadtripsController.getRoadtripsByDate);
 api.get("/roadtrips/byUser", roadtripsController.getRoadtripsByUser);

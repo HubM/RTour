@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as Expo from "expo";
 import SvgUri from "react-native-svg-uri";
 import { View, ScrollView, InteractionManager } from "react-native";
 import { withNavigation } from 'react-navigation';
@@ -10,6 +11,9 @@ import { greenColor } from '../../helpers/styles/colors';
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
 import { isEmptyObject } from "../../helpers"
+
+const axios = require('react-native-axios');
+const settings = require('../../../settings');
 
 
 const initialState = {
@@ -51,6 +55,23 @@ class RLogin extends React.Component<any, RLoginState> {
     }
   }
 
+  async _registerNotifications(user: object) {
+    const { status } = await Expo.Permissions.askAsync(Expo.Permissions.NOTIFICATIONS);
+
+    if (status !== "granted") {
+      alert('You must enable notifications in your application settings');
+      return;
+    }
+    const token = await Expo.Notifications.getExpoPushTokenAsync();
+    const url = `${settings.apiUrl}/registerPushs`;
+    const { _id } = user;
+
+    axios.post(url, {
+      token,
+      user: _id
+    })
+  }
+
   _checkAuth() {
     const { navigation, checkUsernameOrEmail } = this.props;
     const { usernameOrEmail } = this.state;
@@ -61,6 +82,8 @@ class RLogin extends React.Component<any, RLoginState> {
         .then((response: object) => {
           if (response.user) {
             navigation.navigate('ListRoadtrips');
+            this._registerNotifications(response.user);
+
           } else {
             // const { type, message } = response;
             // this.setState({
