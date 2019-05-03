@@ -7,7 +7,7 @@ const userController = require("./controllers/user");
 
 /* Notifications */
 api.post("/registerPushs", notificationsController.getDeviceToken);
-api.get("/test", notificationsController.testConnection)
+
 /* List Roadtrips */
 api.get("/roadtrips/byDate", roadtripsController.getRoadtripsByDate);
 api.get("/roadtrips/byUser", roadtripsController.getRoadtripsByUser);

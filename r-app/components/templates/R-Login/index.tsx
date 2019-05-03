@@ -64,11 +64,14 @@ class RLogin extends React.Component<any, RLoginState> {
     }
     const token = await Expo.Notifications.getExpoPushTokenAsync();
     const url = `${settings.apiUrl}/registerPushs`;
-    const { _id } = user;
+    const { _id, username } = user;
 
     axios.post(url, {
       token,
-      user: _id
+      user: {
+        id: _id,
+        username
+      }
     })
   }
 
@@ -83,7 +86,6 @@ class RLogin extends React.Component<any, RLoginState> {
           if (response.user) {
             navigation.navigate('ListRoadtrips');
             this._registerNotifications(response.user);
-
           } else {
             // const { type, message } = response;
             // this.setState({
@@ -135,7 +137,6 @@ class RLogin extends React.Component<any, RLoginState> {
 
     return (
       <View style={styles.container}>
-        {/* {notifContainer} */}
         <View style={styles.logo}>
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoColored.svg")} />
         </View>
