@@ -34,7 +34,6 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   constructor(props: RSingleRoadtripProps) {
     super(props);
     this._loginUser = this._loginUser.bind(this);
-    this._setSingleRoadtrip = this._setSingleRoadtrip.bind(this);
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
     this._goToProfileSection = this._goToProfileSection.bind(this);
     this._manageRiderRequest = this._manageRiderRequest.bind(this);
@@ -49,20 +48,9 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     header: null,
   };
 
-  _setSingleRoadtrip() {
-    const { setSingleRoadtrip, navigation } = this.props;
-    const roadtrip = navigation.getParam("roadtrip");
-    setSingleRoadtrip(roadtrip);
-  }
-
-  componentDidMount() {
-    this._setSingleRoadtrip();
-  }
-
   static getDerivedStateFromProps(props, state) {
-    const { isLoggedIn, user, navigation } = props;
-    const roadtrip = navigation.getParam("roadtrip");
-    const { owner } = roadtrip;
+    const { isLoggedIn, user, singleRoadtrip } = props;
+    const { owner } = singleRoadtrip;
 
     if (isLoggedIn) {
       if (user.username === owner.username) {
@@ -90,11 +78,10 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   }
 
   _joinRoadtrip() {
-    const { navigation, user, addRiderToRoadtrip } = this.props;
+    const { navigation, user, addRiderToRoadtrip, singleRoadtrip } = this.props;
     const { _id, username } = user;
-    const roadtrip = navigation.getParam("roadtrip");
 
-    addRiderToRoadtrip(roadtrip._id, {
+    addRiderToRoadtrip(singleRoadtrip._id, {
       _id,
       username
     })
@@ -102,11 +89,10 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   }
 
   _deleteRoadtrip() {
-    const { deleteOwnRoadtrip, navigation } = this.props;
-    const roadtrip = navigation.getParam("roadtrip");
+    const { deleteOwnRoadtrip, navigation, singleRoadtrip } = this.props;
 
-    deleteOwnRoadtrip(roadtrip._id);
-    navigation.navigate("ListRoadtrips", { roadtripsHaveChanged: true })
+    deleteOwnRoadtrip(singleRoadtrip._id);
+    navigation.navigate("ListRoadtrips")
   }
 
   _goToProfileSection(userId: string) {
@@ -115,15 +101,14 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   }
 
   _manageRiderRequest(userId: string) {
-    const { navigation } = this.props;
-    const roadtrip = navigation.getParam("roadtrip");
+    const { navigation, singleRoadtrip } = this.props;
 
     navigation.navigate({
       key: Math.random() * 10000,
       routeName: "ManageRider",
       params: {
         userId,
-        roadtripId: roadtrip._id,
+        roadtripId: singleRoadtrip._id,
       }
     })
   }
@@ -208,9 +193,6 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
     return (
       <ScrollView style={styles.container}>
-        <NavigationEvents
-          onWillFocus={() => this._setSingleRoadtrip()}
-        />
         {headerSection}
         <View style={styles.content}>
           <View style={styles.roadtripTitle}>

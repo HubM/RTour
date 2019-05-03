@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import { addRoadtripAPI } from "../components/templates/R-AddARoadtrip/_api";
 import { getRoadtripsByDateAPI } from "../components/templates/R-ListRoadtrips/_api";
 import { deleteOwnRoadtripAPI, addRiderToRoadtripAPI } from "../components/templates/R-SingleRoadtrip/_api";
-import { refuseRiderToRoadtripAPI } from "../components/templates/R-ManageRider/_api";
+
 
 export default class roadtripStore {
   @observable roadtrips = [];
@@ -59,14 +59,5 @@ export default class roadtripStore {
       })
   }
 
-  @action.bound
-  refuseRiderToRoadtrip(userId: string, roadtripId: string) {
-    refuseRiderToRoadtripAPI(userId, roadtripId)
-      .then(deletedUser => {
-        console.log(deletedUser);
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
+
 }

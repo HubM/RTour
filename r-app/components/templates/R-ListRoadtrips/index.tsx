@@ -33,6 +33,7 @@ interface RListRoadtripsProps {
   userId: stores.rootStore.userStore.user._id,
   getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
   isFetchingRoadtrips: stores.rootStore.roadtripsStore.isFetchingRoadtrips,
+  setSingleRoadtrip: stores.rootStore.singleRoadtripStore.setSingleRoadtrip
 }))
 @observer
 class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtripsState> {
@@ -92,8 +93,10 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
   )
 
   _seeRoadtrip(roadtrip: object) {
-    const { navigation } = this.props;
-    seeRoadtripHelpers({ roadtrip }, navigation);
+    const { navigation, setSingleRoadtrip } = this.props;
+
+    setSingleRoadtrip(roadtrip);
+    navigation.navigate('SingleRoadtrip');
   }
 
   _showDateTimePicker() {

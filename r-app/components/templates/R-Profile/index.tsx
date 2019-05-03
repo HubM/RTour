@@ -27,7 +27,8 @@ interface RProfileState {
   userProfile: toJS(stores.rootStore.userStore.userProfile),
   setUserProfileInfos: toJS(stores.rootStore.userStore.setUserProfileInfos),
   disconnectUser: toJS(stores.rootStore.userStore.disconnectUser),
-  fetchUserProfileInfos: toJS(stores.rootStore.userStore.fetchUserProfileInfos)
+  fetchUserProfileInfos: toJS(stores.rootStore.userStore.fetchUserProfileInfos),
+  setSingleRoadtrip: stores.rootStore.singleRoadtripStore.setSingleRoadtrip
 }))
 @observer
 class RProfile extends React.Component<RProfileState, any> {
@@ -63,8 +64,9 @@ class RProfile extends React.Component<RProfileState, any> {
   }
 
   _seeRoadtrip(roadtrip: object) {
-    const { navigation } = this.props;
-    seeRoadtripHelpers({ roadtrip }, navigation);
+    const { navigation, setSingleRoadtrip } = this.props;
+    setSingleRoadtrip(roadtrip);
+    navigation.navigate('SingleRoadtrip');
   }
 
   __disconnectUser() {

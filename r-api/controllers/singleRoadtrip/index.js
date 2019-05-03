@@ -55,8 +55,6 @@ module.exports.addRiderToRoadtrip = (req, res) => {
 module.exports.refuseRiderToRoadtrip = (req, res) => {
   const { userId, roadtripId } = req.body;
 
-  console.log(req.body);
-
   global.dbRtour.collection('roadtrips').update(
     { _id: ObjectId(roadtripId) },
     {

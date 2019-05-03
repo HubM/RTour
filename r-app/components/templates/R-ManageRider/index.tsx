@@ -22,7 +22,7 @@ interface RProfileState {
 @inject(stores => ({
   riderProfile: toJS(stores.rootStore.userStore.riderProfile),
   fetchRiderProfileInfos: stores.rootStore.userStore.fetchRiderProfileInfos,
-  refuseRiderToRoadtrip: stores.rootStore.roadtripsStore.refuseRiderToRoadtrip
+  refuseRiderToRoadtrip: stores.rootStore.singleRoadtripStore.refuseRiderToRoadtrip
 }))
 @observer
 class RManageRider extends React.Component<RProfileState, any> {
