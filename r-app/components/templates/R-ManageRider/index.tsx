@@ -6,14 +6,11 @@ import { inject, observer } from 'mobx-react';
 
 import style from "./_style";
 
-import { seeRoadtripHelpers } from "../../helpers/";
 import CrossExit from "../../helpers/components/CrossExit";
-import Roadtrip from "../../helpers/components/Roadtrip";
 
 
-// import ProfileInfo from "./_components/ProfileInfo";
 import RButton from "../../helpers/components/RButton";
-import ProfileInfo from '../R-Profile/_components/ProfileInfo';
+import { yellowColor } from '../../helpers/styles/colors';
 
 
 interface RProfileState {
@@ -24,13 +21,16 @@ interface RProfileState {
 
 @inject(stores => ({
   riderProfile: toJS(stores.rootStore.userStore.riderProfile),
-  fetchRiderProfileInfos: stores.rootStore.userStore.fetchRiderProfileInfos
+  fetchRiderProfileInfos: stores.rootStore.userStore.fetchRiderProfileInfos,
+  refuseRiderToRoadtrip: stores.rootStore.roadtripsStore.refuseRiderToRoadtrip
 }))
 @observer
 class RManageRider extends React.Component<RProfileState, any> {
 
   constructor(props: any) {
     super(props);
+    this._addRiderToRoadtrip = this._addRiderToRoadtrip.bind(this);
+    this._refuseRiderToRoadtrip = this._refuseRiderToRoadtrip.bind(this);
   }
 
   static navigationOptions = {
@@ -39,13 +39,24 @@ class RManageRider extends React.Component<RProfileState, any> {
 
 
   componentDidMount() {
-
     const { fetchRiderProfileInfos, navigation } = this.props;
     const userId = navigation.getParam("userId");
 
     fetchRiderProfileInfos(userId)
   }
 
+  _refuseRiderToRoadtrip() {
+    const { refuseRiderToRoadtrip, navigation } = this.props;
+    const userId = navigation.getParam("userId");
+    const roadtripId = navigation.getParam("roadtripId");
+
+    refuseRiderToRoadtrip(userId, roadtripId);
+
+    navigation.pop();
+  }
+
+  _addRiderToRoadtrip() {
+  }
 
   render() {
     const { username, firstname, lastname, city } = this.props.riderProfile;
@@ -71,7 +82,18 @@ class RManageRider extends React.Component<RProfileState, any> {
           <Text style={style.city}>{city}</Text>
         </View>
         <View style={style.actionsButtonContainer}>
-
+          <RButton
+            text="Refuse"
+            color={yellowColor.light}
+            onPressEvent={this._refuseRiderToRoadtrip}
+            type="main"
+          />
+          {/* <RButton
+            text="Accept"
+            color={yellowColor.light}
+            onPressEvent={this._saveRoadtrip}
+            type="main"
+          /> */}
         </View>
       </ScrollView>
       // <ScrollView style={style.container}>

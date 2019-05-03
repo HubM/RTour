@@ -6,7 +6,7 @@ import RButton from "../../helpers/components/RButton";
 
 import BackArrow from "../../helpers/components/BackArrow";
 import styles from "./_style";
-import { withNavigation } from 'react-navigation';
+import { withNavigation, NavigationEvents } from 'react-navigation';
 import { yellowColor } from '../../helpers/styles/colors';
 import { toJS } from 'mobx';
 
@@ -25,13 +25,16 @@ interface RSingleRoadtripProps {
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   user: toJS(stores.rootStore.userStore.user),
   deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip,
-  addRiderToRoadtrip: stores.rootStore.roadtripsStore.addRiderToRoadtrip
+  addRiderToRoadtrip: stores.rootStore.roadtripsStore.addRiderToRoadtrip,
+  setSingleRoadtrip: stores.rootStore.singleRoadtripStore.setSingleRoadtrip,
+  singleRoadtrip: stores.rootStore.singleRoadtripStore.singleRoadtrip
 }))
 @observer
 class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
   constructor(props: RSingleRoadtripProps) {
     super(props);
     this._loginUser = this._loginUser.bind(this);
+    this._setSingleRoadtrip = this._setSingleRoadtrip.bind(this);
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
     this._goToProfileSection = this._goToProfileSection.bind(this);
     this._manageRiderRequest = this._manageRiderRequest.bind(this);
@@ -45,6 +48,16 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   static navigationOptions = {
     header: null,
   };
+
+  _setSingleRoadtrip() {
+    const { setSingleRoadtrip, navigation } = this.props;
+    const roadtrip = navigation.getParam("roadtrip");
+    setSingleRoadtrip(roadtrip);
+  }
+
+  componentDidMount() {
+    this._setSingleRoadtrip();
+  }
 
   static getDerivedStateFromProps(props, state) {
     const { isLoggedIn, user, navigation } = props;
@@ -103,21 +116,31 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
   _manageRiderRequest(userId: string) {
     const { navigation } = this.props;
-    navigation.navigate({ key: Math.random() * 10000, routeName: "ManageRider", params: { userId } })
+    const roadtrip = navigation.getParam("roadtrip");
+
+    navigation.navigate({
+      key: Math.random() * 10000,
+      routeName: "ManageRider",
+      params: {
+        userId,
+        roadtripId: roadtrip._id,
+      }
+    })
   }
 
   render() {
     const { isOwner, buttonLabel } = this.state;
-    const { navigation, isLoggedIn, user } = this.props;
+    const { isLoggedIn, user } = this.props;
 
-    const roadtrip = navigation.getParam("roadtrip");
-    const { startCity, endCity, hour, owner, seats, calendar, address, roadtripType, riders } = roadtrip;
+    const { startCity, endCity, owner, seats, calendar, address, roadtripType, hour, riders } = this.props.singleRoadtrip;
 
-    let name, buttonAction, headerSection, ridersSection, ridersDisplayed = [];
+    let name, buttonAction, headerSection, ridersDisplayed, ridersSection;
 
-    owner.firstname && owner.lastname
-      ? name = `${owner.firstname} ${owner.lastname} (${owner.username})`
-      : name = `${owner.username}`
+    if (owner) {
+      owner.firstname && owner.lastname
+        ? name = `${owner.firstname} ${owner.lastname} (${owner.username})`
+        : name = `${owner.username}`
+    }
 
     if (isLoggedIn) {
       if (user.username !== owner.username) {
@@ -135,6 +158,21 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
         onPressEvent={this._loginUser}
         type="main"
       />
+    }
+
+    if (isOwner) {
+      headerSection =
+        <View style={styles.headerOwner}>
+          <BackArrow color="white" navigationRoute="ListRoadtrips" />
+          <TouchableOpacity onPress={this._deleteRoadtrip}>
+            <Text style={styles.deleteRoadtripBtn}>{"Delete".toUpperCase()}</Text>
+          </TouchableOpacity>
+        </View>
+    } else {
+      headerSection =
+        <View style={styles.header}>
+          <BackArrow color="white" navigationRoute="ListRoadtrips" />
+        </View>
     }
 
     if (riders && riders.length > 0) {
@@ -168,26 +206,17 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
       }
     }
 
-    if (isOwner) {
-      headerSection =
-        <View style={styles.headerOwner}>
-          <BackArrow color="white" navigationRoute="ListRoadtrips" />
-          <TouchableOpacity onPress={this._deleteRoadtrip}>
-            <Text style={styles.deleteRoadtripBtn}>{"Delete".toUpperCase()}</Text>
-          </TouchableOpacity>
-        </View>
-    } else {
-      headerSection =
-        <View style={styles.header}>
-          <BackArrow color="white" navigationRoute="ListRoadtrips" />
-        </View>
-    }
-
     return (
       <ScrollView style={styles.container}>
+        <NavigationEvents
+          onWillFocus={() => this._setSingleRoadtrip()}
+        />
         {headerSection}
         <View style={styles.content}>
           <View style={styles.roadtripTitle}>
+            {
+
+            }
             <Text style={styles.roadtripTitleStartCity}>{startCity}</Text>
             <Text style={styles.roadtripTitleEndCity}>{endCity}</Text>
           </View>
@@ -253,9 +282,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
           </View>
           {ridersSection}
         </View>
-        {
-          buttonAction
-        }
+        {buttonAction}
       </ScrollView>
     );
   }

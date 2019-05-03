@@ -33,8 +33,8 @@ module.exports.deleteRoadtrip = (req, res) => {
 
 module.exports.addRiderToRoadtrip = (req, res) => {
   const { roadtripId, rider } = req.body;
-  
-  global.dbRtour.collection("roadtrips").update({ _id: ObjectId(roadtripId)}, {
+
+  global.dbRtour.collection("roadtrips").update({ _id: ObjectId(roadtripId) }, {
     $addToSet: {
       riders: {
         ...rider,
@@ -50,4 +50,30 @@ module.exports.addRiderToRoadtrip = (req, res) => {
       res.send(addingRiderToRoadtrip);
     }
   })
+}
+
+module.exports.refuseRiderToRoadtrip = (req, res) => {
+  const { userId, roadtripId } = req.body;
+
+  console.log(req.body);
+
+  global.dbRtour.collection('roadtrips').update(
+    { _id: ObjectId(roadtripId) },
+    {
+      $unset: {
+        riders: {
+          _id: userId
+        }
+      }
+    },
+    { multi: true },
+    (errorFindRoadtrip, roadtrip) => {
+      if (errorFindRoadtrip) {
+        logger.error("Error on REFUSE rider to roadtrip");
+        res.send("Error on REFUSE rider to roadtrip");
+      } else {
+        logger.info(`The rider ${userId} has been refused for the trip ${roadtripId}`);
+        res.send(roadtrip);
+      }
+    })
 }
