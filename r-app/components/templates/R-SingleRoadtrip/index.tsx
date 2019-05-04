@@ -64,11 +64,10 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
         })
 
       } else {
-
-        //if the roadtrip has riders in his list
+        //if the roadtrip has riders in his team
         if (singleRoadtrip.riders) {
 
-          //if the connected user is already in list
+          //if the connected user is already in team
           const ridersInList = singleRoadtrip.riders.filter(rider => rider.username === user.username);
 
           if (ridersInList.length > 0) {
@@ -76,19 +75,24 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
               isOwner: false,
               buttonLabel: 'Cancel'.toUpperCase()
             })
+          } else {
+            //else the connected user can join the team
+            return Object.assign(state, {
+              isOwner: false,
+              buttonLabel: 'Join'.toUpperCase()
+            })
           }
 
-          //else the connected user can join the list
+        } else {
+          //if the connected user is the first rider and want to join the team
           return Object.assign(state, {
             isOwner: false,
             buttonLabel: 'Join'.toUpperCase()
           })
-
         }
-
-
       }
     } else {
+      // if user is not connected
       return Object.assign(state, {
         isOwner: false,
         buttonLabel: 'Connect'.toUpperCase()
