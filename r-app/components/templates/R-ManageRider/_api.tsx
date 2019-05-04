@@ -1,13 +1,14 @@
 const axios = require('react-native-axios');
 const settings = require('../../../settings');
 
-export const refuseRiderToRoadtripAPI = (userId: string, roadtripId: string) =>
+export const refusedOrCanceledRiderToRoadtripAPI = (userId: string, roadtripId: string, type: string) =>
   new Promise((resolve, reject) => {
-    const url = `${settings.apiUrl}/riders`;
+    const url = `${settings.apiUrl}/rider`;
     axios.delete(url, {
       data: {
         userId,
-        roadtripId
+        roadtripId,
+        type
       }
     })
       .then((response: object) => {

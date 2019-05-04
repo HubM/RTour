@@ -49,7 +49,7 @@ class RManageRider extends React.Component<RProfileState, any> {
     const userId = navigation.getParam("userId");
     const roadtripId = navigation.getParam("roadtripId");
 
-    refuseRiderToRoadtrip(userId, roadtripId);
+    refuseRiderToRoadtrip(userId, roadtripId, "refused");
     navigation.navigate('ListRoadtrips');
   }
 

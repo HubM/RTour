@@ -27,7 +27,8 @@ interface RSingleRoadtripProps {
   deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip,
   addRiderToRoadtrip: stores.rootStore.roadtripsStore.addRiderToRoadtrip,
   setSingleRoadtrip: stores.rootStore.singleRoadtripStore.setSingleRoadtrip,
-  singleRoadtrip: toJS(stores.rootStore.singleRoadtripStore.singleRoadtrip)
+  singleRoadtrip: toJS(stores.rootStore.singleRoadtripStore.singleRoadtrip),
+  cancelRiderToRoadtrip: stores.rootStore.singleRoadtripStore.cancelRiderToRoadtrip
 }))
 @observer
 class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
@@ -117,7 +118,9 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   }
 
   _cancelJoiningRoadtrip() {
-    console.log('I will cancel the team of this roadtrip')
+    const { cancelRiderToRoadtrip, singleRoadtrip, user, navigation } = this.props;
+    cancelRiderToRoadtrip(user._id, singleRoadtrip._id, "canceled");
+    navigation.pop();
   }
 
   _deleteRoadtrip() {

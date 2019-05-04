@@ -47,7 +47,6 @@ module.exports.deleteRoadtrip = (req, res) => {
   });
 };
 
-
 module.exports.addRiderToRoadtrip = (req, res) => {
   const { roadtripId, rider } = req.body;
 
@@ -69,8 +68,8 @@ module.exports.addRiderToRoadtrip = (req, res) => {
   })
 }
 
-module.exports.refuseRiderToRoadtrip = (req, res) => {
-  const { userId, roadtripId } = req.body;
+module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
+  const { userId, roadtripId, type } = req.body;
 
   global.dbRtour.collection('roadtrips').update(
     { _id: ObjectId(roadtripId) },
@@ -84,11 +83,21 @@ module.exports.refuseRiderToRoadtrip = (req, res) => {
     { multi: true },
     (errorFindRoadtrip, roadtrip) => {
       if (errorFindRoadtrip) {
-        logger.error("Error on REFUSE rider to roadtrip");
-        res.send("Error on REFUSE rider to roadtrip");
+        if (type === "refused") {
+          logger.error("Error on REFUSE rider to roadtrip");
+          res.send("Error on REFUSE rider to roadtrip");
+        } else {
+          logger.error("Error on CANCELED rider to roadtrip");
+          res.send("Error on CANCELED rider to roadtrip");
+        }
       } else {
-        logger.info(`The rider ${userId} has been refused for the trip ${roadtripId}`);
-        res.send(roadtrip);
+        if (type === "refused") {
+          logger.info(`The rider ${userId} has been refused for the trip ${roadtripId}`);
+          res.send(roadtrip);
+        } else {
+          logger.info(`The rider ${userId} has canceled the trip ${roadtripId}`);
+          res.send(roadtrip);
+        }
       }
     })
 }

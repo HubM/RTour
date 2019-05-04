@@ -33,3 +33,22 @@ export const addRiderToRoadtripAPI = (roadtripId: string, rider: object) =>
         reject(error);
       })
   })
+
+export const cancelRiderToRoadtripAPI = (roadtripId: string, userId: string, type: string) =>
+  new Promise((resolve, reject) => {
+    const url = `${settings.apiUrl}/rider`;
+
+    axios.delete(url, {
+      data: {
+        userId,
+        roadtripId,
+        type
+      }
+    })
+      .then(reponse => {
+        resolve(response.data)
+      })
+      .Catch(error => {
+        reject(error);
+      })
+  })

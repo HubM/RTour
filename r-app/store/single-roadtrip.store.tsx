@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { refuseRiderToRoadtripAPI, getRoadtripById } from "../components/templates/R-ManageRider/_api";
+import { refusedOrCanceledRiderToRoadtripAPI, getRoadtripById } from "../components/templates/R-ManageRider/_api";
 
 export default class SingleRoadtripStore {
   /**
@@ -29,9 +29,9 @@ export default class SingleRoadtripStore {
   }
 
   @action.bound
-  refuseRiderToRoadtrip(userId: string, roadtripId: string) {
-    refuseRiderToRoadtripAPI(userId, roadtripId)
-      .then(deletedUser => {
+  refuseRiderToRoadtrip(userId: string, roadtripId: string, type: string) {
+    refusedOrCanceledRiderToRoadtripAPI(userId, roadtripId, type)
+      .then(refusedUser => {
         getRoadtripById(roadtripId)
           .then(roadtrip => {
             this.setSingleRoadtrip(roadtrip)
@@ -42,6 +42,17 @@ export default class SingleRoadtripStore {
       })
       .catch(error => {
         console.log(error)
+      })
+  }
+
+  @action.bound
+  cancelRiderToRoadtrip(userId: string, roadtripId: string, type: string) {
+    refusedOrCanceledRiderToRoadtripAPI(userId, roadtripId, type)
+      .then(canceledUser => {
+        console.log("CANCELED USER", canceledUser)
+      })
+      .catch(errorCanceledUser => {
+        console.log(errorCanceledUser);
       })
   }
 }
