@@ -19,6 +19,22 @@ export const refusedOrCanceledRiderToRoadtripAPI = (userId: string, roadtripId: 
       });
   })
 
+export const acceptRiderToRoadtripAPI = (userId: string, roadtripId: string) =>
+  new Promise((resolve, reject) => {
+    const url = `${settings.apiUrl}/rider`;
+
+    axios.post(url, {
+      userId,
+      roadtripId
+    })
+      .then((response: object) => (
+        resolve(response.data)
+      ))
+      .catch((error: object) => {
+        reject(error);
+      })
+  })
+
 export const getRoadtripById = (roadtripId: string) =>
   new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/roadtrip`;

@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { refusedOrCanceledRiderToRoadtripAPI, getRoadtripById } from "../components/templates/R-ManageRider/_api";
+import { refusedOrCanceledRiderToRoadtripAPI, acceptRiderToRoadtripAPI, getRoadtripById } from "../components/templates/R-ManageRider/_api";
 
 export default class SingleRoadtripStore {
   /**
@@ -45,14 +45,25 @@ export default class SingleRoadtripStore {
       })
   }
 
-  @action.bound
+  @action
   cancelRiderToRoadtrip(userId: string, roadtripId: string, type: string) {
     refusedOrCanceledRiderToRoadtripAPI(userId, roadtripId, type)
-      .then(canceledUser => {
-        console.log("CANCELED USER", canceledUser)
+      .then(canceledRider => {
+        console.log("CANCELED RIDER", canceledRider)
       })
-      .catch(errorCanceledUser => {
-        console.log(errorCanceledUser);
+      .catch(errorCanceledRider => {
+        console.log(errorCanceledRider);
+      })
+  }
+
+  @action
+  acceptRiderToRoadtrip(userId: string, roadtripId: string) {
+    acceptRiderToRoadtripAPI(userId, roadtripId)
+      .then(acceptedRider => {
+        console.log("ACCEPTED RIDER", acceptedRider)
+      })
+      .catch(errorAcceptedRider => {
+        console.log(errorAcceptedRider)
       })
   }
 }

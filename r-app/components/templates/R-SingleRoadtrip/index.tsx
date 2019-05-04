@@ -150,7 +150,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
   render() {
     const { isOwner, buttonLabel } = this.state;
-    const { isLoggedIn, user } = this.props;
+    const { isLoggedIn, user, navigation } = this.props;
 
     const { startCity, endCity, owner, seats, calendar, address, roadtripType, hour, riders } = this.props.singleRoadtrip;
 
@@ -219,11 +219,20 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
                 renderItem={({ item }) =>
                   (
                     <View>
-                      <TouchableOpacity style={styles.singleRider} onPress={() => this._manageRiderRequest(item._id)}>
-                        <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
-                        <Text style={styles.roadtripCreatorName}>{item.username} - </Text>
-                        <Text style={styles.singleRiderStatus}>STATUS : {item.isValidated ? "VALIDATED" : "WAITING"}</Text>
-                      </TouchableOpacity>
+                      {
+                        isOwner
+                          ?
+                          <TouchableOpacity style={styles.singleRider} onPress={() => this._manageRiderRequest(item._id)}>
+                            <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
+                            <Text style={styles.roadtripCreatorName}>{item.username} - </Text>
+                            <Text style={styles.singleRiderStatus}>STATUS : {item.isValidated ? "VALIDATED" : "WAITING"}</Text>
+                          </TouchableOpacity>
+                          :
+                          <TouchableOpacity style={styles.singleRider} onPress={() => navigation.navigate('Profile', { userId: item._id })}>
+                            <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
+                            <Text style={styles.roadtripCreatorName}>{item.username}</Text>
+                          </TouchableOpacity>
+                      }
                     </View>
                   )
                 }

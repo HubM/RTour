@@ -72,23 +72,24 @@ module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
   const { userId, roadtripId, type } = req.body;
 
   global.dbRtour.collection('roadtrips').update(
-    { _id: ObjectId(roadtripId) },
     {
-      $unset: {
-        riders: {
-          _id: userId
+      "_id": ObjectId(roadtripId),
+    },
+    {
+      $pull: {
+        "riders": {
+          "_id": userId
         }
       }
     },
-    { multi: true },
     (errorFindRoadtrip, roadtrip) => {
       if (errorFindRoadtrip) {
         if (type === "refused") {
-          logger.error("Error on REFUSE rider to roadtrip");
-          res.send("Error on REFUSE rider to roadtrip");
+          logger.error("Error on REFUSE rider to roadtrip", errorFindRoadtrip);
+          res.send("Error on REFUSE rider to roadtrip", errorFindRoadtrip);
         } else {
           logger.error("Error on CANCELED rider to roadtrip");
-          res.send("Error on CANCELED rider to roadtrip");
+          res.send("Error on CANCELED rider to roadtrip", errorFindRoadtrip);
         }
       } else {
         if (type === "refused") {
@@ -100,4 +101,32 @@ module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
         }
       }
     })
+}
+
+
+module.exports.acceptedRiderToRoadtrip = (req, res) => {
+  const { userId, roadtripId } = req.body;
+
+  logger.debug(`IM GOING TO UPDATE THE TRIP ${roadtripId} AND VALIDATE THE RIDER ${userId}`)
+
+  global.dbRtour.collection('roadtrips').update(
+    {
+      "_id": ObjectId(roadtripId),
+      "riders._id": userId
+    },
+    {
+      $set: {
+        "riders.$.isValidated": true
+      }
+    },
+    (errorAcceptRider, acceptRider) => {
+      if (errorAcceptRider) {
+        logger.error("Error on ACCEPT rider to roadtrip");
+        res.send("Error on ACCEPT rider to roadtrip", errorAcceptRider);
+      } else {
+        logger.info(`The rider ${userId} has been accepted for the trip ${roadtripId}`);
+        res.send(acceptRider);
+      }
+    }
+  )
 }

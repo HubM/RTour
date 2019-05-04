@@ -23,6 +23,7 @@ api.get("/user", userController.getUserById);
 api.post("/login", userController.getUserByUsernameOrEmail);
 
 /* Riders Request delete (canceled or refused) */
+api.post("/rider", singleRoadtripController.acceptedRiderToRoadtrip);
 api.delete("/rider", singleRoadtripController.refusedOrCanceledRiderToRoadtrip);
 
 /* Root */

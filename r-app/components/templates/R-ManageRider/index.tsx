@@ -10,7 +10,7 @@ import CrossExit from "../../helpers/components/CrossExit";
 
 
 import RButton from "../../helpers/components/RButton";
-import { yellowColor } from '../../helpers/styles/colors';
+import { yellowColor, uiErrorColor } from '../../helpers/styles/colors';
 
 
 interface RProfileState {
@@ -22,15 +22,16 @@ interface RProfileState {
 @inject(stores => ({
   riderProfile: toJS(stores.rootStore.userStore.riderProfile),
   fetchRiderProfileInfos: stores.rootStore.userStore.fetchRiderProfileInfos,
-  refuseRiderToRoadtrip: stores.rootStore.singleRoadtripStore.refuseRiderToRoadtrip
+  refuseRiderToRoadtrip: stores.rootStore.singleRoadtripStore.refuseRiderToRoadtrip,
+  acceptRiderToRoadtrip: stores.rootStore.singleRoadtripStore.acceptRiderToRoadtrip
 }))
 @observer
 class RManageRider extends React.Component<RProfileState, any> {
 
   constructor(props: any) {
     super(props);
-    this._addRiderToRoadtrip = this._addRiderToRoadtrip.bind(this);
     this._refuseRiderToRoadtrip = this._refuseRiderToRoadtrip.bind(this);
+    this._acceptRiderToRoadtrip = this._acceptRiderToRoadtrip.bind(this);
   }
 
   static navigationOptions = {
@@ -45,19 +46,25 @@ class RManageRider extends React.Component<RProfileState, any> {
   }
 
   _refuseRiderToRoadtrip() {
-    const { refuseRiderToRoadtrip, navigation } = this.props;
-    const userId = navigation.getParam("userId");
+    const { refuseRiderToRoadtrip, navigation, riderProfile } = this.props;
     const roadtripId = navigation.getParam("roadtripId");
 
-    refuseRiderToRoadtrip(userId, roadtripId, "refused");
+    refuseRiderToRoadtrip(riderProfile._id, roadtripId, "refused");
     navigation.navigate('ListRoadtrips');
   }
 
-  _addRiderToRoadtrip() {
+  _acceptRiderToRoadtrip() {
+    const { acceptRiderToRoadtrip, navigation, riderProfile } = this.props;
+    const roadtripId = navigation.getParam("roadtripId");
+
+    acceptRiderToRoadtrip(riderProfile._id, roadtripId);
+    navigation.navigate('ListRoadtrips');
   }
 
   render() {
-    const { username, firstname, lastname, city } = this.props.riderProfile;
+
+    const { navigation, riderProfile } = this.props;
+    const { _id, firstname, lastname, city } = riderProfile;
 
     let name = "";
 
@@ -74,24 +81,24 @@ class RManageRider extends React.Component<RProfileState, any> {
         <View style={style.header}>
           <CrossExit color="white" />
         </View>
-        <View style={style.riderContainer}>
+        <TouchableOpacity style={style.riderContainer} onPress={() => navigation.navigate('Profile', { userId: _id })}>
           <Image source={require('../../../assets/img/defaultProfile.jpg')} style={style.profilePicture} />
           <Text style={style.title}>{name}</Text>
           <Text style={style.city}>{city}</Text>
-        </View>
+        </TouchableOpacity>
         <View style={style.actionsButtonContainer}>
           <RButton
             text="Refuse"
-            color={yellowColor.light}
+            color={uiErrorColor.light}
             onPressEvent={this._refuseRiderToRoadtrip}
             type="main"
           />
-          {/* <RButton
+          <RButton
             text="Accept"
             color={yellowColor.light}
-            onPressEvent={this._saveRoadtrip}
+            onPressEvent={this._acceptRiderToRoadtrip}
             type="main"
-          /> */}
+          />
         </View>
       </ScrollView>
       // <ScrollView style={style.container}>
