@@ -1,6 +1,6 @@
 import { StyleSheet, PixelRatio, ViewStyle } from "react-native";
 
-import { blackColor, grayColor, yellowColor, fontWhiteColor } from "../../helpers/styles/colors";
+import { blackColor, grayColor, yellowColor, fontWhiteColor, fontYellowColor } from "../../helpers/styles/colors";
 import {
   titleh2,
   titleh3,
@@ -10,6 +10,7 @@ import {
   contentS,
   contentLight,
   contentRegular,
+  contentBold,
 } from "../../helpers/styles/typos";
 
 export default StyleSheet.create({
@@ -94,8 +95,14 @@ export default StyleSheet.create({
     flex: 1,
     width: "100%",
     flexDirection: "row",
+    alignItems: "center",
     paddingBottom: 6,
     marginBottom: 20
+  },
+  singleRiderStatus: {
+    ...contentXs,
+    ...contentBold,
+    ...fontYellowColor
   },
   deleteRoadtripBtn: {
     color: yellowColor.light,

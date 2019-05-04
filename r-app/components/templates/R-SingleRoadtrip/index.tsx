@@ -6,8 +6,8 @@ import RButton from "../../helpers/components/RButton";
 
 import BackArrow from "../../helpers/components/BackArrow";
 import styles from "./_style";
-import { withNavigation, NavigationEvents } from 'react-navigation';
-import { yellowColor } from '../../helpers/styles/colors';
+import { withNavigation } from 'react-navigation';
+import { yellowColor, uiErrorColor } from '../../helpers/styles/colors';
 import { toJS } from 'mobx';
 
 interface RSingleRoadtripState {
@@ -27,7 +27,7 @@ interface RSingleRoadtripProps {
   deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip,
   addRiderToRoadtrip: stores.rootStore.roadtripsStore.addRiderToRoadtrip,
   setSingleRoadtrip: stores.rootStore.singleRoadtripStore.setSingleRoadtrip,
-  singleRoadtrip: stores.rootStore.singleRoadtripStore.singleRoadtrip
+  singleRoadtrip: toJS(stores.rootStore.singleRoadtripStore.singleRoadtrip)
 }))
 @observer
 class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
@@ -35,6 +35,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     super(props);
     this._loginUser = this._loginUser.bind(this);
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
+    this._cancelJoiningRoadtrip = this._cancelJoiningRoadtrip.bind(this);
     this._goToProfileSection = this._goToProfileSection.bind(this);
     this._manageRiderRequest = this._manageRiderRequest.bind(this);
     this._deleteRoadtrip = this._deleteRoadtrip.bind(this);
@@ -52,17 +53,40 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     const { isLoggedIn, user, singleRoadtrip } = props;
     const { owner } = singleRoadtrip;
 
+    // if user is connected
     if (isLoggedIn) {
+
+      //if the user connected is the owner
       if (user.username === owner.username) {
         return Object.assign(state, {
           isOwner: true,
           buttonLabel: 'Delete'.toUpperCase()
         })
+
       } else {
-        return Object.assign(state, {
-          isOwner: false,
-          buttonLabel: 'Join'.toUpperCase()
-        })
+
+        //if the roadtrip has riders in his list
+        if (singleRoadtrip.riders) {
+
+          //if the connected user is already in list
+          const ridersInList = singleRoadtrip.riders.filter(rider => rider.username === user.username);
+
+          if (ridersInList.length > 0) {
+            return Object.assign(state, {
+              isOwner: false,
+              buttonLabel: 'Cancel'.toUpperCase()
+            })
+          }
+
+          //else the connected user can join the list
+          return Object.assign(state, {
+            isOwner: false,
+            buttonLabel: 'Join'.toUpperCase()
+          })
+
+        }
+
+
       }
     } else {
       return Object.assign(state, {
@@ -86,6 +110,10 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
       username
     })
     navigation.pop();
+  }
+
+  _cancelJoiningRoadtrip() {
+    console.log('I will cancel the team of this roadtrip')
   }
 
   _deleteRoadtrip() {
@@ -127,38 +155,44 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
         : name = `${owner.username}`
     }
 
-    if (isLoggedIn) {
-      if (user.username !== owner.username) {
+    switch (buttonLabel) {
+      case "DELETE":
+        buttonAction = <RButton
+          text={buttonLabel}
+          color={yellowColor.light}
+          onPressEvent={this._deleteRoadtrip}
+          type="main"
+        />
+        break;
+      case "CANCEL":
+        buttonAction = <RButton
+          text={buttonLabel}
+          color={uiErrorColor.light}
+          onPressEvent={this._cancelJoiningRoadtrip}
+          type="main"
+        />
+        break;
+      case "JOIN":
         buttonAction = <RButton
           text={buttonLabel}
           color={yellowColor.light}
           onPressEvent={this._joinRoadtrip}
           type="main"
         />
-      }
-    } else {
-      buttonAction = <RButton
-        text={buttonLabel}
-        color={yellowColor.light}
-        onPressEvent={this._loginUser}
-        type="main"
-      />
+        break;
+      case "CONNECT":
+        buttonAction = <RButton
+          text={buttonLabel}
+          color={yellowColor.light}
+          onPressEvent={this._loginUser}
+          type="main"
+        />
+        break;
+      default:
+        buttonAction = ""
+        break;
     }
 
-    if (isOwner) {
-      headerSection =
-        <View style={styles.headerOwner}>
-          <BackArrow color="white" navigationRoute="ListRoadtrips" />
-          <TouchableOpacity onPress={this._deleteRoadtrip}>
-            <Text style={styles.deleteRoadtripBtn}>{"Delete".toUpperCase()}</Text>
-          </TouchableOpacity>
-        </View>
-    } else {
-      headerSection =
-        <View style={styles.header}>
-          <BackArrow color="white" navigationRoute="ListRoadtrips" />
-        </View>
-    }
 
     if (riders && riders.length > 0) {
       if (isOwner) {
@@ -180,7 +214,8 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
                     <View>
                       <TouchableOpacity style={styles.singleRider} onPress={() => this._manageRiderRequest(item._id)}>
                         <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
-                        <Text style={styles.roadtripCreatorName}>{item.username}</Text>
+                        <Text style={styles.roadtripCreatorName}>{item.username} - </Text>
+                        <Text style={styles.singleRiderStatus}>STATUS : {item.isValidated ? "VALIDATED" : "WAITING"}</Text>
                       </TouchableOpacity>
                     </View>
                   )
@@ -193,7 +228,9 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
     return (
       <ScrollView style={styles.container}>
-        {headerSection}
+        <View style={styles.headerOwner}>
+          <BackArrow color="white" navigationRoute="ListRoadtrips" />
+        </View>
         <View style={styles.content}>
           <View style={styles.roadtripTitle}>
             {
