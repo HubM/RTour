@@ -1,6 +1,7 @@
 const logger = require("../../services/logger");
 const ObjectId = require("mongojs").ObjectID;
 
+const { sendNotification } = require('../../services/notifications');
 
 module.exports.getRoadtripById = (req, res) => {
   const { roadtripId } = req.query;
@@ -63,6 +64,14 @@ module.exports.addRiderToRoadtrip = (req, res) => {
       res.send('Error on PUT Roadtrip (adding rider)', errorAddingRiderToRoadtrip);
     } else {
       logger.info(`I have added the rider ${rider.username} to the trip ${roadtripId}`);
+
+      // global.dbRtour.collection("roadtrips").findOne({ _id: ObjectId(roadtripId) }, (errorGetRoadtripInfos, getRoadtripInfos) => {
+      //   if (errorGetRoadtripInfos) {
+      //     logger.error('Error while getting info roadtrip')
+      //   }
+      // })
+      // sendNotification()
+
       res.send(addingRiderToRoadtrip);
     }
   })

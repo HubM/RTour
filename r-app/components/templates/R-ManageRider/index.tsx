@@ -10,7 +10,7 @@ import CrossExit from "../../helpers/components/CrossExit";
 
 
 import RButton from "../../helpers/components/RButton";
-import { yellowColor, uiErrorColor } from '../../helpers/styles/colors';
+import { yellowColor, uiErrorColor, greenColor } from '../../helpers/styles/colors';
 
 
 interface RProfileState {
@@ -64,7 +64,7 @@ class RManageRider extends React.Component<RProfileState, any> {
   render() {
 
     const { navigation, riderProfile } = this.props;
-    const { _id, firstname, lastname, city } = riderProfile;
+    const { firstname, lastname, city } = riderProfile;
 
     let name = "";
 
@@ -76,70 +76,37 @@ class RManageRider extends React.Component<RProfileState, any> {
       name += ` ${lastname}`
     }
 
+    console.log("rider profile => ", riderProfile)
+
     return (
       <ScrollView style={style.container}>
         <View style={style.header}>
-          <CrossExit color="white" />
+          <CrossExit color="black" />
         </View>
-        <TouchableOpacity style={style.riderContainer} onPress={() => navigation.navigate('Profile', { userId: _id })}>
+        <TouchableOpacity style={style.riderContainer} onPress={() => navigation.navigate('Profile', { userId: riderProfile._id })}>
           <Image source={require('../../../assets/img/defaultProfile.jpg')} style={style.profilePicture} />
           <Text style={style.title}>{name}</Text>
           <Text style={style.city}>{city}</Text>
         </TouchableOpacity>
         <View style={style.actionsButtonContainer}>
-          <RButton
-            text="Refuse"
-            color={uiErrorColor.light}
-            onPressEvent={this._refuseRiderToRoadtrip}
-            type="main"
-          />
-          <RButton
-            text="Accept"
-            color={yellowColor.light}
-            onPressEvent={this._acceptRiderToRoadtrip}
-            type="main"
-          />
+          <View style={{ marginRight: 10 }}>
+            <RButton
+              text="Refuse"
+              color={uiErrorColor.light}
+              onPressEvent={this._refuseRiderToRoadtrip}
+              type="main"
+            />
+          </View>
+          <View style={{ marginLeft: 10 }}>
+            <RButton
+              text="Accept"
+              color={greenColor.light}
+              onPressEvent={this._acceptRiderToRoadtrip}
+              type="main"
+            />
+          </View>
         </View>
       </ScrollView>
-      // <ScrollView style={style.container}>
-
-      //   <View style={style.titleContainer}>
-      //     {
-      //       profilePic
-      //         ?
-      //         <Image source={require('./tmpProfile.png')} style={style.profilePicture} />
-      //         :
-      //         <Image source={require('../../../assets/img/defaultProfile.jpg')} style={style.profilePicture} />
-      //     }
-      //     {
-      //       username
-      //         ?
-      //         <Text style={style.title}>{username}</Text>
-      //         :
-      //         <Text style={style.title}>Profile</Text>
-      //     }
-      //   </View>
-      //   <View style={style.content}>
-      //     <ProfileInfo type="firstname" value={firstname} />
-      //     <ProfileInfo type="lastname" value={lastname} />
-      //     <ProfileInfo type="age" value={age} />
-      //     <ProfileInfo type="email" value={email} />
-      //     <ProfileInfo type="username" value={username} />
-      //     <ProfileInfo type="city" value={city} />
-      //     <ProfileInfo type="music" value={music} />
-      //     {roadtripsSection}
-      //   </View>
-      //   {
-      //     ownProfile
-      //     &&
-      // <RButton
-      //   text="Disconnect"
-      //   color={yellowColor.light}
-      //   onPressEvent={this.__disconnectUser}
-      //   type="main"
-      // />
-      //   }
-      // </ScrollView >
     );
   }
 }

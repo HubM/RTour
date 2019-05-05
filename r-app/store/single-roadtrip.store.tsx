@@ -1,5 +1,6 @@
 import { observable, action } from "mobx";
 import { refusedOrCanceledRiderToRoadtripAPI, acceptRiderToRoadtripAPI, getRoadtripById } from "../components/templates/R-ManageRider/_api";
+import { addRiderToRoadtripAPI } from '../components/templates/R-SingleRoadtrip/_api';
 
 export default class SingleRoadtripStore {
   /**
@@ -26,6 +27,12 @@ export default class SingleRoadtripStore {
   @action.bound
   setSingleRoadtrip(roadtrip: object) {
     this.singleRoadtrip = roadtrip;
+  }
+
+  //Add a rider to a roadtrip
+  @action.bound
+  addRiderToRoadtrip(roadtripId: string, rider: object) {
+    addRiderToRoadtripAPI(roadtripId, rider)
   }
 
   @action.bound

@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { addRoadtripAPI } from "../components/templates/R-AddARoadtrip/_api";
 import { getRoadtripsByDateAPI } from "../components/templates/R-ListRoadtrips/_api";
-import { deleteOwnRoadtripAPI, addRiderToRoadtripAPI } from "../components/templates/R-SingleRoadtrip/_api";
+import { deleteOwnRoadtripAPI } from "../components/templates/R-SingleRoadtrip/_api";
 
 
 export default class roadtripStore {
@@ -35,12 +35,6 @@ export default class roadtripStore {
       .catch(error => {
         console.log(error);
       })
-  }
-
-  //Add a rider to a roadtrip
-  @action.bound
-  addRiderToRoadtrip(roadtripId: string, rider: object) {
-    addRiderToRoadtripAPI(roadtripId, rider)
   }
 
   // Delete roadtrip

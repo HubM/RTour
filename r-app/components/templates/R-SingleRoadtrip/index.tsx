@@ -25,7 +25,7 @@ interface RSingleRoadtripProps {
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   user: toJS(stores.rootStore.userStore.user),
   deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip,
-  addRiderToRoadtrip: stores.rootStore.roadtripsStore.addRiderToRoadtrip,
+  addRiderToRoadtrip: stores.rootStore.singleRoadtripStore.addRiderToRoadtrip,
   setSingleRoadtrip: stores.rootStore.singleRoadtripStore.setSingleRoadtrip,
   singleRoadtrip: toJS(stores.rootStore.singleRoadtripStore.singleRoadtrip),
   cancelRiderToRoadtrip: stores.rootStore.singleRoadtripStore.cancelRiderToRoadtrip

@@ -1,14 +1,11 @@
 import { StyleSheet, ViewStyle } from "react-native";
-
-import {
-  blackColor, fontWhiteColor,
-} from "../../helpers/styles/colors";
-import { titleh3, titleMedium, contentXxs, contentLight, contentS, contentRegular, contentM } from '../../helpers/styles/typos';
+import { grayColor, fontBlackColor } from "../../helpers/styles/colors";
+import { titleh3, titleMedium } from '../../helpers/styles/typos';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: blackColor.light
+    backgroundColor: grayColor.light
   },
   header: {
     flex: 1,
@@ -34,19 +31,18 @@ export default StyleSheet.create({
   title: {
     ...titleh3,
     ...titleMedium,
-    ...fontWhiteColor,
+    ...fontBlackColor,
     textAlign: "center",
     marginBottom: 0
   },
   city: {
-    ...fontWhiteColor,
+    ...fontBlackColor,
     textAlign: "center",
-  },
-  content: {
-    paddingHorizontal: 30
   },
   actionsButtonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 30
   }
 });

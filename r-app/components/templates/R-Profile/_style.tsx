@@ -1,14 +1,12 @@
 import { StyleSheet, ViewStyle } from "react-native";
 
-import {
-  blackColor, fontWhiteColor,
-} from "../../helpers/styles/colors";
+import { fontWhiteColor, greenColor } from "../../helpers/styles/colors";
 import { titleh3, titleMedium, contentXxs, contentLight, contentS, contentRegular, contentM } from '../../helpers/styles/typos';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: blackColor.light
+    backgroundColor: greenColor.dark
   },
   header: {
     flex: 1,
