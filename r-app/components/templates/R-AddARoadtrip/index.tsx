@@ -110,18 +110,10 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
     };
 
     if (!startCity || !endCity || !startingDate || !hour) {
-      if (!startCity) {
-        console.log("You must specify a start city");
-      }
-      if (!endCity) {
-        console.log("You must specify a end city");
-      }
-      if (!startingDate) {
-        console.log("You must specify a starting date");
-      }
-      if (!hour) {
-        console.log("You must specify a starting hour");
-      }
+      setMessage({
+        status: "error",
+        text: "You must complete required fields 🙏"
+      })
     } else {
       
       setMessage({
@@ -150,8 +142,9 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         </View>
         <ScrollView style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>
+          <Text style={styles.requiredFieldsDesc}>⚠️ Fields with (*) are required</Text>
           <RInputText
-            placeholder="Starting City..."
+            placeholder="*Starting City..."
             onChangeText={startCity => this.setState({ startCity })}
             textColor={grayColor.light}
             crossMode="light"
@@ -159,7 +152,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
             isSecureText={false}
           />
           <RInputText
-            placeholder="Ending City..."
+            placeholder="*Ending City..."
             onChangeText={endCity => this.setState({ endCity })}
             textColor={grayColor.light}
             crossMode="light"
@@ -167,11 +160,11 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
             isSecureText={false}
           />
           <RInputDate
-            placeholder="Starting Date..."
+            placeholder="*Starting Date..."
             getDate={startingDate => this.setState({ startingDate })}
           />
           <RInputNumber
-            placeholder="Duration... (1 day)"
+            placeholder="*Duration... (1 day)"
             complementaryStateValue={durationStateValue}
             textColor={grayColor.light}
             onChangeNumber={(duration) => {
@@ -189,13 +182,13 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
             }}
           />
           <RInputTime
-            placeholder="Starting hour..."
+            placeholder="*Starting hour..."
             complementaryStateValue={hour}
             textColor={grayColor.light}
             onChangeNumber={hour => this.setState({ hour })}
           />
           <RInputNumber
-            placeholder="1 seat available..."
+            placeholder="*1 seat available..."
             complementaryStateValue={seatStateValue}
             textColor={grayColor.light}
             onChangeNumber={(seats) => {

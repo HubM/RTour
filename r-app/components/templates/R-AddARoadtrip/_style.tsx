@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { greenColor } from "../../helpers/styles/colors";
+import { greenColor, yellowColor, grayColor } from "../../helpers/styles/colors";
 import { titleh3, titleMedium, } from "../../helpers/styles/typos";
 import { fontWhiteColor, placeholderColor, uiErrorColor } from "../../helpers/styles/colors";
 
@@ -52,5 +52,9 @@ export default StyleSheet.create({
   roadtripType__text: {
     marginTop: 5,
     color: placeholderColor
+  },
+  requiredFieldsDesc: {
+    color: grayColor.light,
+    marginBottom: 30
   }
 })
