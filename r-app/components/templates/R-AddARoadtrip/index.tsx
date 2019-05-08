@@ -4,7 +4,6 @@ import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { observer, inject } from "mobx-react";
 import { withNavigation } from 'react-navigation';
 import { toJS } from "mobx";
-import moment from "moment";
 
 import styles from "./_style";
 import { grayColor } from "../../helpers/styles/colors";
@@ -16,6 +15,7 @@ import RInputDate from "../../helpers/components/RInputDate";
 import RInputTime from "../../helpers/components/RInputTime";
 import RInputNumber from "../../helpers/components/RInputNumber";
 import RButton from '../../helpers/components/RButton';
+import MessageManager from "../../helpers/components/MessageManager";
 
 const initialState = {
   address: "",
@@ -66,7 +66,8 @@ interface RAddARoadtripProps {
 
 @inject(stores => ({
   user: toJS(stores.rootStore.userStore.user),
-  addANewRoadtrip: stores.rootStore.roadtripsStore.addANewRoadtrip
+  addANewRoadtrip: stores.rootStore.roadtripsStore.addANewRoadtrip,
+  setMessage: stores.rootStore.messageManagerStore.setMessage,
 }))
 @observer
 class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripState> {
@@ -81,7 +82,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
   };
 
   _saveRoadtrip() {
-    const { navigation, user, addANewRoadtrip } = this.props;
+    const { navigation, user, addANewRoadtrip, setMessage } = this.props;
 
     const { _id, firstname, lastname, username } = user;
 
@@ -122,13 +123,18 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         console.log("You must specify a starting hour");
       }
     } else {
-
+      
+      setMessage({
+        status: "info-positive",
+        text: "Your roadtrip has created 🎉"
+      })
+      
       this.setState({
         ...initialState
       })
 
-      addANewRoadtrip(newRoadtrip);
 
+      addANewRoadtrip(newRoadtrip);
       navigation.pop();
     }
   }
@@ -138,6 +144,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
 
     return (
       <View style={styles.container}>
+        <MessageManager />
         <View style={styles.header}>
           <BackArrow color="white" navigationRoute="back" />
         </View>

@@ -28,7 +28,8 @@ interface RSingleRoadtripProps {
   addRiderToRoadtrip: stores.rootStore.singleRoadtripStore.addRiderToRoadtrip,
   setSingleRoadtrip: stores.rootStore.singleRoadtripStore.setSingleRoadtrip,
   singleRoadtrip: toJS(stores.rootStore.singleRoadtripStore.singleRoadtrip),
-  cancelRiderToRoadtrip: stores.rootStore.singleRoadtripStore.cancelRiderToRoadtrip
+  cancelRiderToRoadtrip: stores.rootStore.singleRoadtripStore.cancelRiderToRoadtrip,
+  setMessage: stores.rootStore.messageManagerStore.setMessage,
 }))
 @observer
 class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
@@ -124,10 +125,15 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   }
 
   _deleteRoadtrip() {
-    const { deleteOwnRoadtrip, navigation, singleRoadtrip } = this.props;
+    const { deleteOwnRoadtrip, navigation, singleRoadtrip, setMessage } = this.props;
+    
+    setMessage({
+      status: "info-positive",
+      text: "Your roadtrip has been deleted ⛪"
+    })
 
     deleteOwnRoadtrip(singleRoadtrip._id);
-    navigation.navigate("ListRoadtrips")
+    navigation.navigate("ListRoadtrips");
   }
 
   _goToProfileSection(userId: string) {

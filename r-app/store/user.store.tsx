@@ -1,4 +1,4 @@
-import { observable, action, set } from "mobx";
+import { observable, action } from "mobx";
 import { checkUsernameOrEmailAPI } from "../components/templates/R-Login/_api";
 import { getUserByIdAPI, getRoadtripsByUserAPI } from "../components/templates/R-Profile/_api";
 

@@ -10,11 +10,10 @@ import styles from "./_style";
 import { greenColor } from '../../helpers/styles/colors';
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
-import { isEmptyObject } from "../../helpers"
+import MessageManager from "../../helpers/components/MessageManager";
 
 const axios = require('react-native-axios');
 const settings = require('../../../settings');
-
 
 const initialState = {
   usernameOrEmail: "",
@@ -31,7 +30,8 @@ interface RLoginState {
   setLoggedStatusToTrue: stores.rootStore.userStore.setLoggedStatusToTrue,
   setUser: stores.rootStore.userStore.setUser,
   setUserProfileInfos: stores.rootStore.userStore.setUserProfileInfos,
-  checkUsernameOrEmail: stores.rootStore.userStore.checkUsernameOrEmail
+  checkUsernameOrEmail: stores.rootStore.userStore.checkUsernameOrEmail,
+  setMessage: stores.rootStore.messageManagerStore.setMessage,
 }))
 @observer
 class RLogin extends React.Component<any, RLoginState> {
@@ -76,7 +76,7 @@ class RLogin extends React.Component<any, RLoginState> {
   }
 
   _checkAuth() {
-    const { navigation, checkUsernameOrEmail } = this.props;
+    const { navigation, checkUsernameOrEmail, setMessage, clearMessageManager } = this.props;
     const { usernameOrEmail } = this.state;
 
 
@@ -87,24 +87,18 @@ class RLogin extends React.Component<any, RLoginState> {
             navigation.navigate('ListRoadtrips');
             this._registerNotifications(response.user);
           } else {
-            // const { type, message } = response;
-            // this.setState({
-            //   notif: {
-            //     type,
-            //     message
-            //   }
-            // })
+            setMessage({
+              status: "error",
+              text: `${usernameOrEmail} is not registred in rtour 😔`
+            })
           }
         })
+    } else {
+      setMessage({
+        status: "info-negative",
+        text: `You must give your identity 🕵🏻`
+      })
     }
-    // else {
-    //   this.setState({
-    //     notif: {
-    //       type: "error",
-    //       message: "Username or Email must be renseigned"
-    //     }
-    //   })
-    // }
   }
 
 
@@ -137,6 +131,7 @@ class RLogin extends React.Component<any, RLoginState> {
 
     return (
       <View style={styles.container}>
+        <MessageManager />
         <View style={styles.logo}>
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoColored.svg")} />
         </View>
@@ -149,14 +144,14 @@ class RLogin extends React.Component<any, RLoginState> {
             textContentType="emailAddress"
             isSecureText={false}
           />
-          <RInputText
+          {/* <RInputText
             placeholder="Password"
             onChangeText={password => this.setState({ password })}
             textColor={greenColor.light}
             crossMode="dark"
             textContentType="password"
             isSecureText={true}
-          />
+          /> */}
           <RButton
             text="Let's go"
             color={greenColor.light}
@@ -164,14 +159,14 @@ class RLogin extends React.Component<any, RLoginState> {
             type="main"
           />
           <View style={styles.multiplesSecondAction}>
-            <View style={{ marginRight: 5 }}>
+            {/* <View style={{ marginRight: 5 }}>
               <RButton
                 text="Password forget ?"
                 color={greenColor.light}
                 onPressEvent={() => navigation.navigate('PasswordForget')}
                 type="second"
               />
-            </View>
+            </View> */}
             <View style={{ marginLeft: 5 }}>
               <RButton
                 text="Register"

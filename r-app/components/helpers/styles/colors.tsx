@@ -18,6 +18,11 @@ export const grayColor = {
   dark: "#F8F8F8"
 }
 
+export const uiValidColor = {
+  light: "#2ecc71",
+  dark:  "#27ae60"
+}
+
 export const uiErrorColor = {
   light: "#ff6b6b",
   dark: "#ee5253"

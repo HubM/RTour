@@ -9,8 +9,9 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import styles from "./_style";
 
-import { seeRoadtripHelpers } from "../../helpers/";
 import Roadtrip from "../../helpers/components/Roadtrip";
+import MessageManager from "../../helpers/components/MessageManager";
+
 
 const width = Dimensions.get('window').width;
 
@@ -126,6 +127,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
 
     return (
       <View style={styles.container}>
+        <MessageManager />
         <View style={styles.header}>
           {
             isLoggedIn
