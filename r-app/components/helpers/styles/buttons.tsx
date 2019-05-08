@@ -38,4 +38,18 @@ export default StyleSheet.create({
   secondYellow: {
     color: yellowColor.light
   },
+  closeScreen: {
+    padding: 15,
+    transform: [
+      { translateX: 10 },
+      { translateY: -15 },
+    ]
+  },
+  backArrow: {
+    padding: 15,
+    transform: [
+      { translateX: -10 },
+      { translateY: -15 },
+    ]
+  }
 });

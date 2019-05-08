@@ -93,7 +93,7 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
             ?
             <SvgUri width="25" height="13" source={require("../../../assets/icons/icon--textInputWhite.svg")} />
             :
-            <TouchableOpacity onPress={this._clearTextValue}>
+            <TouchableOpacity onPress={this._clearTextValue} style={{ padding: 10, transform: [{translateX:5},{translateX:5}]}}>
               {
                 crossMode === "light"
                   ?

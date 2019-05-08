@@ -15,7 +15,7 @@ class CrossExit extends React.PureComponent<CrossExitProps> {
     const { color, navigation } = this.props;
 
     return (
-      <TouchableOpacity onPress={() => navigation.pop()} style={stylesButton.backArrow}>
+      <TouchableOpacity onPress={() => navigation.pop()} style={stylesButton.closeScreen}>
         {
           color === "white"
             ? <SvgUri width="20" height="30" source={require("../../../assets/icons/icon--crossExitWhite.svg")} />

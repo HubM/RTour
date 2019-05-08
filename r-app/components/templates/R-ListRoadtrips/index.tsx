@@ -175,11 +175,17 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
               </View>
           }
           <View style={styles.inlineDateBtns}>
-            <TouchableOpacity style={styles.inlineDateBtns__prev} onPress={this._getPrevRoadtrips} disabled={isFetchingRoadtrips}>
-              <Text style={styles.inlineDateBtns__text}>Prev Date</Text>
+            <TouchableOpacity onPress={this._getPrevRoadtrips} disabled={isFetchingRoadtrips} style={[styles.buttonManuallyChangeDate, styles.prev]}>
+              <View style={styles.buttonManuallyChangeDate__icon}>
+                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--goToBackWhite.svg")} />
+              </View>
+              <Text style={styles.buttonManuallyChangeDate__text}>{"Prev Date".toUpperCase()}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.inlineDateBtns__next} onPress={this._getNextRoadtrips} disabled={isFetchingRoadtrips}>
-              <Text style={styles.inlineDateBtns__text}>Next Date</Text>
+            <TouchableOpacity onPress={this._getNextRoadtrips} disabled={isFetchingRoadtrips} style={[styles.buttonManuallyChangeDate, styles.next]}>
+              <View style={[styles.buttonManuallyChangeDate__icon, { transform: [{ rotate: "180deg" }] }] }>
+                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--goToBackWhite.svg")} />
+              </View>
+              <Text style={styles.buttonManuallyChangeDate__text}>{"Next Date".toUpperCase()}</Text>
             </TouchableOpacity>
           </View>
         </View>

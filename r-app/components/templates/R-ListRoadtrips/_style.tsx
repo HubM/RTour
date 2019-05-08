@@ -104,18 +104,24 @@ export default StyleSheet.create({
     alignItems: "center",
     marginTop: 20
   },
-  inlineDateBtns__prev: {
+  buttonManuallyChangeDate: {
+    alignItems: "center",
+    padding: 15 
+  },
+  buttonManuallyChangeDate__icon: {
+    marginBottom: 5
+  },
+  buttonManuallyChangeDate__text: {
+    ...fontYellowColor,
+    fontSize: 12
+  },
+  prev: {
     padding: 10,
     marginRight: 5,
-    backgroundColor: yellowColor.light
   },
-  inlineDateBtns__next: {
+  next: {
     padding: 10,
     marginLeft: 5,
-    backgroundColor: yellowColor.light
-  },
-  inlineDateBtns__text: {
-    ...fontBlackColor
   },
   noRoadtripsContainer: {
     flexDirection: "row",
@@ -131,7 +137,7 @@ export default StyleSheet.create({
   },
   addBtn: {
     position: "absolute",
-    bottom: 20,
+    bottom: "10%",
     alignSelf: "center"
   }
 });

@@ -154,7 +154,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
     const { startCity, endCity, owner, seats, calendar, address, roadtripType, hour, riders } = this.props.singleRoadtrip;
 
-    let name, buttonAction, headerSection, ridersDisplayed, ridersSection;
+    let name, buttonAction, headerSection, ridersSection, ridersValidated, ridersNotValidated;
 
     if (owner) {
       owner.firstname && owner.lastname
@@ -203,18 +203,40 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
     if (riders && riders.length > 0) {
       if (isOwner) {
-        ridersDisplayed = riders;
-      } else {
-        ridersDisplayed = riders.filter((rider: object) => rider.isValidated);
-      }
+        ridersNotValidated = riders.filter((rider: object) => !rider.isValidated);
+      } 
+      
+      ridersValidated = riders.filter((rider: object) => rider.isValidated);
 
-      if (ridersDisplayed.length > 0) {
+      // if (ridersValidated.length > 0) {
         ridersSection =
           <View>
             <Text style={styles.sectionTitle}>Riders 🍻</Text>
             <View>
+              {
+                ridersValidated 
+                  && 
+                    <View>
+                      <Text style={{color: "#ffffff"}}>Status validated</Text>
+                      <FlatList
+                        data={ridersValidated}
+                        keyExtractor={(item) => item._id}
+                        renderItem={({ item }) =>
+                          (
+                            <View>
+                              <TouchableOpacity style={styles.singleRider} onPress={() => this._goToProfileSection(item._id)}>
+                                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
+                                <Text style={styles.roadtripCreatorName}>{item.username}</Text>
+                              </TouchableOpacity>
+                            </View>
+                          )
+                        }
+                      />
+                    </View>
+              }
+              <Text style={{color: "#ffffff"}}>Status not validated</Text>
               <FlatList
-                data={ridersDisplayed}
+                data={ridersNotValidated}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) =>
                   (
@@ -239,7 +261,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
               />
             </View>
           </View>
-      }
+      // }
     }
 
     return (

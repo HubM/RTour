@@ -1,13 +1,11 @@
 import * as React from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Image, ScrollView, FlatList } from 'react-native';
 import { withNavigation, NavigationActions, StackActions } from 'react-navigation';
 import { toJS } from "mobx";
 import { inject, observer } from 'mobx-react';
-import SvgUri from 'react-native-svg-uri';
 
 import style from "./_style";
 
-import { seeRoadtripHelpers } from "../../helpers/";
 import CrossExit from "../../helpers/components/CrossExit";
 import Roadtrip from "../../helpers/components/Roadtrip";
 import { yellowColor } from "../../helpers/styles/colors";
@@ -98,7 +96,6 @@ class RProfile extends React.Component<RProfileState, any> {
           />
         </View>
     }
-
 
     return (
       <ScrollView style={style.container}>
