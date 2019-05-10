@@ -1,7 +1,8 @@
 import * as React from "react";
 import SvgUri from "react-native-svg-uri";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Picker } from "react-native";
 import { withNavigation } from 'react-navigation';
+import SelectMultiple from 'react-native-select-multiple'
 
 import styles from "./_style";
 
@@ -12,22 +13,42 @@ import { grayColor } from '../../helpers/styles/colors';
 import { validateEmail } from "../../helpers/";
 
 interface RLoginState {
+  firstname: string,
+  lastname: string,
+  age: string,
+  city: string,
   email: string,
   username: string,
-  password: string,
-  passwordCheck: string
+  music: Array<string>,
+  selectedMusic: Array<string>
+}
+
+const renderLabel = (label, style) => {
+  return (
+    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <Image style={{width: 42, height: 42}} source={{uri: 'https://dummyimage.com/100x100/52c25a/fff&text=S'}} />
+      <View style={{marginLeft: 10}}>
+        <Text style={style}>{label}</Text>
+      </View>
+    </View>
+  )
 }
 
 class RLogin extends React.PureComponent<any, RLoginState> {
   constructor(props: any) {
     super(props);
+    this._onMusicSelectionChange = this._onMusicSelectionChange.bind(this);
     this._checkUserEmail = this._checkUserEmail.bind(this);
     this._checkRegister = this._checkRegister.bind(this);
     this.state = {
+      firstname: "",
+      lastname: "",
+      age: "",
+      city: "",
       email: "",
       username: "",
-      password: "",
-      passwordCheck: ""
+      music: ["All"],
+      selectedMusic: []
     }
   }
 
@@ -49,7 +70,11 @@ class RLogin extends React.PureComponent<any, RLoginState> {
     console.log("New user !", this.state)
     const { navigation } = this.props;
 
-    navigation.navigate('RListRoadtrips')
+    // navigation.navigate('RListRoadtrips')
+  }
+
+  _onMusicSelectionChange(selectedMusic: any) {
+    console.log("SELECTED MUSICS TYPE", selectedMusic);
   }
 
 
@@ -62,6 +87,30 @@ class RLogin extends React.PureComponent<any, RLoginState> {
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoWhite.svg")} />
         </View>
         <View style={styles.content}>
+          <RInputText
+            placeholder="Firstname"
+            onChangeText={firstname => this.setState({ firstname })}
+            textColor={grayColor.light}
+            crossMode="light"
+            textContentType="none"
+            isSecureText={false}
+          />
+          <RInputText
+            placeholder="Lastname"
+            onChangeText={lastname => this.setState({ lastname })}
+            textColor={grayColor.light}
+            crossMode="light"
+            textContentType="none"
+            isSecureText={false}
+          />
+          <RInputText
+            placeholder="Age"
+            onChangeText={age => this.setState({ age })}
+            textColor={grayColor.light}
+            crossMode="light"
+            textContentType="none"
+            isSecureText={false}
+          />
           <RInputText
             placeholder="Email"
             onChangeText={this._checkUserEmail}
@@ -78,22 +127,14 @@ class RLogin extends React.PureComponent<any, RLoginState> {
             textContentType="username"
             isSecureText={false}
           />
-          <RInputText
-            placeholder="Password"
-            onChangeText={password => this.setState({ password })}
-            textColor={grayColor.light}
-            crossMode="dark"
-            textContentType="password"
-            isSecureText={true}
-          />
-          <RInputText
-            placeholder="Password"
-            onChangeText={passwordCheck => this.setState({ passwordCheck })}
-            textColor={grayColor.light}
-            crossMode="dark"
-            textContentType="password"
-            isSecureText={true}
-          />
+          <View>
+            <SelectMultiple
+                items={["1","2","3"]}
+                renderLabel={renderLabel}
+                selectedItems={this.state.selectedMusic}
+                onSelectionsChange={this._onMusicSelectionChange} 
+              />
+          </View>
           <RButton
             text="Start"
             color={grayColor.light}

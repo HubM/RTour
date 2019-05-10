@@ -84,7 +84,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
   _saveRoadtrip() {
     const { navigation, user, addANewRoadtrip, setMessage } = this.props;
 
-    const { _id, firstname, lastname, username } = user;
+    const { _id, firstname, lastname, username, deviceToken } = user;
 
     const { startingDate, hour, roadtripType, seats, startCity, endCity } = this.state;
 
@@ -100,7 +100,8 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
           _id,
           firstname,
           lastname,
-          username
+          username,
+          deviceToken
         },
         roadtripType,
         seats,
@@ -132,7 +133,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
   }
 
   render() {
-    const { hour, seatStateValue, isTwoWaysTrip, isOneWayTrip, durationStateValue } = this.state;
+    const { hour, seatStateValue, isTwoWaysTrip, isOneWayTrip, durationStateValue, seats } = this.state;
 
     return (
       <View style={styles.container}>
@@ -165,7 +166,8 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
           />
           <RInputNumber
             placeholder="*Duration... (1 day)"
-            complementaryStateValue={durationStateValue}
+            complementarySingleStateValue={"day"}
+            complementaryMultipleStateValue={"days"}
             textColor={grayColor.light}
             onChangeNumber={(duration) => {
               if (Number(duration) === 0) {
@@ -189,7 +191,8 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
           />
           <RInputNumber
             placeholder="*1 seat available..."
-            complementaryStateValue={seatStateValue}
+            complementarySingleStateValue={"seat"}
+            complementaryMultipleStateValue={"seats"}
             textColor={grayColor.light}
             onChangeNumber={(seats) => {
               if (Number(seats) === 0) {

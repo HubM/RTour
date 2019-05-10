@@ -6,7 +6,7 @@ const { sendNotification } = require('../../services/notifications');
 module.exports.getDeviceToken = (req, res) => {
   const { token, user } = req.body;
 
-  global.dbRtour.collection("users").update({ "_id": ObjectId(user._id) }, {
+  global.dbRtour.collection("users").update({ "_id": ObjectId(user.id) }, {
     $set: {
       deviceToken: token
     }

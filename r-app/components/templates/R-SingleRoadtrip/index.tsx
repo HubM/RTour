@@ -109,11 +109,12 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
 
   _joinRoadtrip() {
     const { navigation, user, addRiderToRoadtrip, singleRoadtrip } = this.props;
-    const { _id, username } = user;
+    const { _id, username, deviceToken } = user;
 
     addRiderToRoadtrip(singleRoadtrip._id, {
       _id,
-      username
+      username,
+      deviceToken
     })
     navigation.pop();
   }

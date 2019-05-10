@@ -1,8 +1,6 @@
 import * as React from "react";
 import * as Expo from "expo";
 
-import { Notifications } from "expo";
-
 import { Provider } from "mobx-react";
 
 import AppContainer from "./router";
@@ -25,16 +23,7 @@ export default class App extends React.Component<{}, State> {
 
   componentDidMount() {
     this._loadFonts();
-    Notifications.addListener(this._handleNotifications)
   }
-
-
-
-
-  _handleNotifications = (notification) => {
-    console.log(notification)
-  }
-
 
   async _loadFonts() {
     await Expo.Font.loadAsync({

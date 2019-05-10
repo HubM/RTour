@@ -36,20 +36,39 @@ module.exports.registerRoadtrip = (req, res) => {
 
 module.exports.deleteRoadtrip = (req, res) => {
   const { id } = req.body;
+  
 
-  global.dbRtour.collection("roadtrips").remove({ _id: ObjectId(id) }, (errorDeleteRoadtrip, deleteRoadtrip) => {
-    if (errorDeleteRoadtrip) {
-      logger.error("Error on POST roadtrip", errorDeleteRoadtrip);
-      res.send("Error on POST Roadtrip request");
-    } else {
-      logger.info(`I've delete the roadtrip ${id} (${deleteRoadtrip})`);
-      res.send(deleteRoadtrip);
-    }
-  });
+  global.dbRtour.collection("roadtrips").findOne({ _id: ObjectId(id) }, (errorGetRoadtrip, roadtrip) => {
+    roadtrip.riders.forEach(rider => {
+
+      global.dbRtour.collection('users').findOne({ _id: ObjectId(rider._id)}, (errorRider, riderTarget) => {
+        sendNotification(riderTarget.deviceToken, {
+          body: "Roadtrip from to has been deleted 😪"   
+        })
+      })
+
+      global.dbRtour.collection("roadtrips").remove({ _id: ObjectId(id) }, (errorDeleteRoadtrip, deleteRoadtrip) => {
+        if (errorDeleteRoadtrip) {
+          logger.error("Error on POST roadtrip", errorDeleteRoadtrip);
+          res.send("Error on POST Roadtrip request");
+        } else {
+          logger.info(`I've delete the roadtrip ${id} (${deleteRoadtrip})`);
+          res.send(deleteRoadtrip);
+        }
+      });
+    })
+  })
 };
 
 module.exports.addRiderToRoadtrip = (req, res) => {
   const { roadtripId, rider } = req.body;
+
+  // 1 - Recupérer de req.body uniquement l'id
+  // 2 - Faire une première requête qui récupère le user à partir du riderId
+  // 3 - Faire la requête de MAJ du roadtrip pour ajouter le rider
+  // 4 - Faire une requête pour récupérer le roadtrip
+  // 4 - Envoyer le push au owner du trip pour le prévenir de l'ajout d'un rider
+
 
   global.dbRtour.collection("roadtrips").update({ _id: ObjectId(roadtripId) }, {
     $addToSet: {
@@ -65,12 +84,27 @@ module.exports.addRiderToRoadtrip = (req, res) => {
     } else {
       logger.info(`I have added the rider ${rider.username} to the trip ${roadtripId}`);
 
-      // global.dbRtour.collection("roadtrips").findOne({ _id: ObjectId(roadtripId) }, (errorGetRoadtripInfos, getRoadtripInfos) => {
-      //   if (errorGetRoadtripInfos) {
-      //     logger.error('Error while getting info roadtrip')
-      //   }
+
+      global.dbRtour.collection("roadtrips").findOne({ _id: ObjectId(roadtripId) }, (errorGetRoadtripInfos, roadtripInfos) => {
+        if (errorGetRoadtripInfos) {
+          logger.error('Error while getting info roadtrip')
+        } else {
+          sendNotification(roadtripInfos.owner.deviceToken, {
+            body: `${rider.username} would like to join your trip 🤘`,
+            data: {
+              type: "roadtrip/join",
+              rider,
+              roadtripId: roadtripInfos._id
+            }
+          });
+        }
+      })
+
+
+
+      //  {
+
       // })
-      // sendNotification()
 
       res.send(addingRiderToRoadtrip);
     }
@@ -103,11 +137,34 @@ module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
       } else {
         if (type === "refused") {
           logger.info(`The rider ${userId} has been refused for the trip ${roadtripId}`);
-          res.send(roadtrip);
+          
+          global.dbRtour.collection('users').findOne({ "_id": ObjectId(userId)}, (errorUser, user) => {
+            if(errorUser) {
+              logger.error(errorUser);
+            } else {
+              sendNotification(user.deviceToken, {
+                body: `The creator of the roadtrip has refused your request 😥`
+              })
+            }
+          })
+
+
         } else {
           logger.info(`The rider ${userId} has canceled the trip ${roadtripId}`);
-          res.send(roadtrip);
+          
+
+          global.dbRtour.collection('roadtrips').findOne({ "_id": ObjectId(roadtripId), }, (errorRoadtrip, roadtrip) => {
+            if(errorRoadtrip) {
+              logger.error(errorRoadtrip)
+            } else {
+              sendNotification(roadtrip.owner.deviceToken, {
+                body: `A user has cancel your trip 😥`
+              })
+            }
+          })
+
         }
+        res.send(roadtrip);
       }
     })
 }
@@ -115,8 +172,6 @@ module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
 
 module.exports.acceptedRiderToRoadtrip = (req, res) => {
   const { userId, roadtripId } = req.body;
-
-  logger.debug(`IM GOING TO UPDATE THE TRIP ${roadtripId} AND VALIDATE THE RIDER ${userId}`)
 
   global.dbRtour.collection('roadtrips').update(
     {
@@ -134,6 +189,18 @@ module.exports.acceptedRiderToRoadtrip = (req, res) => {
         res.send("Error on ACCEPT rider to roadtrip", errorAcceptRider);
       } else {
         logger.info(`The rider ${userId} has been accepted for the trip ${roadtripId}`);
+
+
+        global.dbRtour.collection('users').findOne({ "_id": ObjectId(userId), }, (errorUser, user) => {
+          if(errorUser) {
+            logger.error(errorUser)
+          } else {
+            sendNotification(user.deviceToken, {
+              body: `Your request for the roadtrip has been accepted 🙌`
+            })
+          }
+        })
+
         res.send(acceptRider);
       }
     }

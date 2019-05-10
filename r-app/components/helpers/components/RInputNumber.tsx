@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, TextInput, TouchableOpacity } from "react-native";
+import { View, TextInput, TouchableOpacity, Alert } from "react-native";
 import SvgUri from "react-native-svg-uri";
 
 import styleForm from "../styles/forms";
@@ -7,13 +7,15 @@ import { placeholderColor } from "../styles/colors";
 
 interface RInputNumberProps {
   placeholder: string,
-  complementaryStateValue: string,
+  complementarySingleStateValue: string,
+  complementaryMultipleStateValue: string,
   textColor: string,
   onChangeNumber(seats: string): void
 };
 
 interface RInputNumberState {
   emptyInputNumber: boolean,
+  buttonScopedValue: string
 }
 
 export default class RInputNumber extends React.PureComponent<RInputNumberProps, RInputNumberState> {
@@ -21,24 +23,36 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
     super(props)
     this._writeInputNumber = this._writeInputNumber.bind(this);
     this._clearNumberValue = this._clearNumberValue.bind(this);
+    // this._onKeyPress = this._onKeyPress.bind(this);
   }
 
   state = {
     emptyInputNumber: true,
+    buttonScopedValue: ""
   }
 
   _writeInputNumber(stringifiedNumber: string) {
 
     if (stringifiedNumber !== "") {
-      const { onChangeNumber } = this.props;
+      const { onChangeNumber, complementarySingleStateValue, complementaryMultipleStateValue } = this.props;
+      let additionnalButtonValueString = `${stringifiedNumber}`;
+
+      if (Number(stringifiedNumber) === 1) {
+        additionnalButtonValueString += ` ${complementarySingleStateValue}`;
+      }  else if (Number(stringifiedNumber) > 1) {
+        additionnalButtonValueString += ` ${complementaryMultipleStateValue}`;
+      }
 
       this.setState({
-        emptyInputNumber: false
+        emptyInputNumber: false,
+        buttonScopedValue: additionnalButtonValueString
       })
       onChangeNumber(stringifiedNumber)
+
     } else {
       this.setState({
-        emptyInputNumber: true
+        emptyInputNumber: true,
+        buttonScopedValue: ""
       })
     }
   }
@@ -46,15 +60,27 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
   _clearNumberValue() {
     const { onChangeNumber } = this.props;
     this.setState({
-      emptyInputNumber: true
+      emptyInputNumber: true,
+      buttonScopedValue: ""
     })
     onChangeNumber("")
   }
 
-  render() {
-    const { emptyInputNumber } = this.state;
-    const { placeholder, complementaryStateValue, textColor } = this.props;
+  // _onKeyPress({nativeEvent}: object) {
+  //   if (nativeEvent.key === 'Backspace') {
+  //     const { onChangeNumber } = this.props;
+  //     this.setState({
+  //       emptyInputNumber: true,
+  //       buttonScopedValue: ""
+  //     })
+  //     onChangeNumber("")
+  //   }
+  // }
 
+  render() {
+    const { emptyInputNumber, buttonScopedValue } = this.state;
+    const { placeholder, textColor } = this.props;
+  
     return (
       <View style={[styleForm.inputContainer, emptyInputNumber ? styleForm.emptyInput : styleForm.busyInput]}>
         <TextInput
@@ -66,7 +92,8 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
           keyboardAppearance="dark"
           keyboardType="numeric"
           onChangeText={this._writeInputNumber}
-          value={complementaryStateValue}
+          value={buttonScopedValue}
+          // onKeyPress={this._onKeyPress}
         />
 
         {
