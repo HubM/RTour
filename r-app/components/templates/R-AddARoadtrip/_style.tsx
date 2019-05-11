@@ -14,12 +14,13 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     marginTop: 35,
-    padding: 30
+    paddingHorizontal: 30,
+    paddingTop: 30
   },
   errorMessageContainer: {
-    width: "80%",
+    width: "90%",
     height: 50,
-    marginHorizontal: "10%",
+    marginHorizontal: "5%",
     backgroundColor: uiErrorColor.dark,
     ...fontWhiteColor,
     position: "absolute",
@@ -35,7 +36,8 @@ export default StyleSheet.create({
     ...titleMedium,
     ...fontWhiteColor,
     textAlign: "center",
-    marginBottom: 30
+    marginBottom: 15,
+    marginTop: 0
   },
   roadtripType: {
     flex: 1,

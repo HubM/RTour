@@ -1,7 +1,7 @@
 import { StyleSheet, ViewStyle } from 'react-native';
 
 import { contentS, contentRegular } from "./typos";
-import { placeholderColor } from "./colors";
+import { placeholderColor, grayColor, fontWhiteColor } from "./colors";
 
 
 const inputDefault = {
@@ -28,9 +28,19 @@ export default StyleSheet.create({
     borderBottomColor: placeholderColor,
   },
   busyInput: {
-    borderBottomColor: "transparent"
+    borderBottomColor: grayColor.light,
   },
   inputDate: {
     ...inputDefault,
+  },
+  additionnalContent__container: {
+    position: "absolute", 
+    left: 15,
+    top: 0
+  },
+  additionnalContent__text: {
+    ...fontWhiteColor,
+    ...contentS,
+    ...contentRegular
   }
 });

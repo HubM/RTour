@@ -86,14 +86,14 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
 
     const { _id, firstname, lastname, username, deviceToken } = user;
 
-    const { startingDate, hour, roadtripType, seats, startCity, endCity } = this.state;
+    const { startingDate, hour, roadtripType, seats, startCity, endCity, duration } = this.state;
 
     const newRoadtrip = {
       roadtrip: {
         address: "20 Place Saint Martial, 33000 Bordeaux",
         calendar: {
           startingDate,
-          duration: 1
+          duration
         },
         hour,
         owner: {
@@ -141,9 +141,11 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         <View style={styles.header}>
           <BackArrow color="white" navigationRoute="back" />
         </View>
-        <ScrollView style={styles.content}>
+        <View style={styles.content}>
           <Text style={styles.title}>Your roadtrip</Text>
           <Text style={styles.requiredFieldsDesc}>⚠️ Fields with (*) are required</Text>
+        </View>
+        <ScrollView style={[styles.content, { paddingTop: 10}]}>
           <RInputText
             placeholder="*Starting City..."
             onChangeText={startCity => this.setState({ startCity })}

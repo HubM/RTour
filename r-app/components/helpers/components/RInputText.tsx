@@ -69,9 +69,9 @@ export default class RInputText extends React.PureComponent<RInputTextProps, RIn
       : secureContext = false
 
     return (
-      <View style={[styleForm.inputContainer, emptyInputText ? styleForm.emptyInput : styleForm.busyInput]}>
+      <View style={[styleForm.inputContainer, emptyInputText ? styleForm.emptyInput : styleForm.busyInput ]}>
         <TextInput
-          style={[styleForm.inputText, { color: textColor }]}
+          style={[styleForm.inputText, { color: textColor }, {textAlignVertical: 'top'}, {marginTop: -5}]}
           underlineColorAndroid="transparent"
           placeholder={placeholder}
           placeholderTextColor={placeholderColor}
