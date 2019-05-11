@@ -4,6 +4,7 @@ import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { observer, inject } from "mobx-react";
 import { withNavigation } from 'react-navigation';
 import { toJS } from "mobx";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import styles from "./_style";
 import { grayColor } from "../../helpers/styles/colors";
@@ -145,109 +146,112 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
           <Text style={styles.title}>Your roadtrip</Text>
           <Text style={styles.requiredFieldsDesc}>⚠️ Fields with (*) are required</Text>
         </View>
-        <ScrollView style={[styles.content, { paddingTop: 10}]}>
-          <RInputText
-            placeholder="*Starting City..."
-            onChangeText={startCity => this.setState({ startCity })}
-            textColor={grayColor.light}
-            crossMode="light"
-            textContentType="location"
-            isSecureText={false}
-          />
-          <RInputText
-            placeholder="*Ending City..."
-            onChangeText={endCity => this.setState({ endCity })}
-            textColor={grayColor.light}
-            crossMode="light"
-            textContentType="location"
-            isSecureText={false}
-          />
-          <RInputDate
-            placeholder="*Starting Date..."
-            getDate={startingDate => this.setState({ startingDate })}
-          />
-          <RInputNumber
-            placeholder="*Duration... (1 day)"
-            complementarySingleStateValue={"day"}
-            complementaryMultipleStateValue={"days"}
-            textColor={grayColor.light}
-            onChangeNumber={(duration) => {
-              if (Number(duration) === 0) {
+        <KeyboardAwareScrollView style={[styles.content, { paddingTop: 10}]}>
+          <View>
+            <RInputText
+              placeholder="*Starting City..."
+              onChangeText={startCity => this.setState({ startCity })}
+              textColor={grayColor.light}
+              crossMode="light"
+              textContentType="location"
+              isSecureText={false}
+            />
+            <RInputText
+              placeholder="*Ending City..."
+              onChangeText={endCity => this.setState({ endCity })}
+              textColor={grayColor.light}
+              crossMode="light"
+              textContentType="location"
+              isSecureText={false}
+            />
+            <RInputDate
+              placeholder="*Starting Date..."
+              getDate={startingDate => this.setState({ startingDate })}
+            />
+            <RInputNumber
+              placeholder="*Duration... (1 day)"
+              complementarySingleStateValue={"day"}
+              complementaryMultipleStateValue={"days"}
+              textColor={grayColor.light}
+              onChangeNumber={(duration) => {
+                if (Number(duration) === 0) {
+                  this.setState({
+                    durationStateValue: "",
+                    duration: Number(duration)
+                  })
+                } else {
+                  this.setState({
+                    durationStateValue: duration,
+                    duration: Number(duration)
+                  })
+                }
+              }}
+            />
+            <RInputTime
+              placeholder="*Starting hour..."
+              complementaryStateValue={hour}
+              textColor={grayColor.light}
+              onChangeNumber={hour => this.setState({ hour })}
+            />
+            <RInputNumber
+              placeholder="*1 seat available..."
+              complementarySingleStateValue={"seat"}
+              complementaryMultipleStateValue={"seats"}
+              textColor={grayColor.light}
+              onChangeNumber={(seats) => {
+                if (Number(seats) === 0) {
+                  this.setState({
+                    seatStateValue: "",
+                    seats: Number(seats)
+                  })
+                } else {
+                  this.setState({
+                    seatStateValue: seats,
+                    seats: Number(seats)
+                  })
+                }
+              }}
+            />
+            <View style={styles.roadtripType}>
+              <TouchableOpacity style={[styles.roadtripType__container, { marginRight: 10 }]} onPress={() => {
                 this.setState({
-                  durationStateValue: "",
-                  duration: Number(duration)
+                  isTwoWaysTrip: true,
+                  isOneWayTrip: false,
+                  roadtripType: "twoWays"
                 })
-              } else {
-                this.setState({
-                  durationStateValue: duration,
-                  duration: Number(duration)
-                })
-              }
-            }}
-          />
-          <RInputTime
-            placeholder="*Starting hour..."
-            complementaryStateValue={hour}
-            textColor={grayColor.light}
-            onChangeNumber={hour => this.setState({ hour })}
-          />
-          <RInputNumber
-            placeholder="*1 seat available..."
-            complementarySingleStateValue={"seat"}
-            complementaryMultipleStateValue={"seats"}
-            textColor={grayColor.light}
-            onChangeNumber={(seats) => {
-              if (Number(seats) === 0) {
-                this.setState({
-                  seatStateValue: "",
-                  seats: Number(seats)
-                })
-              } else {
-                this.setState({
-                  seatStateValue: seats,
-                  seats: Number(seats)
-                })
-              }
-            }}
-          />
-          <View style={styles.roadtripType}>
-            <TouchableOpacity style={[styles.roadtripType__container, { marginRight: 10 }]} onPress={() => {
-              this.setState({
-                isTwoWaysTrip: true,
-                isOneWayTrip: false,
-                roadtripType: "twoWays"
-              })
-            }}>
-              {
-                isTwoWaysTrip
-                  ? <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--twoWaystripYellow.svg")} />
-                  : <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--twoWaystripGray.svg")} />
-              }
-              <Text style={[styles.roadtripType__text, isTwoWaysTrip && { color: yellowColor.light }]}>Two ways trip</Text>
-            </TouchableOpacity>
+              }}>
+                {
+                  isTwoWaysTrip
+                    ? <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--twoWaystripYellow.svg")} />
+                    : <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--twoWaystripGray.svg")} />
+                }
+                <Text style={[styles.roadtripType__text, isTwoWaysTrip && { color: yellowColor.light }]}>Two ways trip</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.roadtripType__container, { marginLeft: 10 }]} onPress={() => {
-              this.setState({
-                isTwoWaysTrip: false,
-                isOneWayTrip: true,
-                roadtripType: "oneWay"
-              })
-            }}>
-              {
-                isOneWayTrip
-                  ? <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--oneWaytripYellow.svg")} />
-                  : <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--oneWaytripGray.svg")} />
-              }
-              <Text style={[styles.roadtripType__text, isOneWayTrip && { color: yellowColor.light }]}>One way trip</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={[styles.roadtripType__container, { marginLeft: 10 }]} onPress={() => {
+                this.setState({
+                  isTwoWaysTrip: false,
+                  isOneWayTrip: true,
+                  roadtripType: "oneWay"
+                })
+              }}>
+                {
+                  isOneWayTrip
+                    ? <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--oneWaytripYellow.svg")} />
+                    : <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--oneWaytripGray.svg")} />
+                }
+                <Text style={[styles.roadtripType__text, isOneWayTrip && { color: yellowColor.light }]}>One way trip</Text>
+              </TouchableOpacity>
+            </View>
+            <RButton
+              text="Create"
+              color={yellowColor.light}
+              onPressEvent={this._saveRoadtrip}
+              type="main"
+            />
           </View>
-          <RButton
-            text="Create"
-            color={yellowColor.light}
-            onPressEvent={this._saveRoadtrip}
-            type="main"
-          />
-        </ScrollView>
+
+        </KeyboardAwareScrollView>
       </View>
     );
   }

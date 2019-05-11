@@ -5,6 +5,8 @@ import { View, ScrollView, InteractionManager } from "react-native";
 import { withNavigation } from 'react-navigation';
 import { observer, inject } from "mobx-react";
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import styles from "./_style";
 
 import { greenColor } from '../../helpers/styles/colors';
@@ -135,48 +137,50 @@ class RLogin extends React.Component<any, RLoginState> {
         <View style={styles.logo}>
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoColored.svg")} />
         </View>
-        <ScrollView style={styles.content}>
-          <RInputText
-            placeholder="Username or email"
-            onChangeText={text => this.setState({ usernameOrEmail: text, notif: {} })}
-            textColor={greenColor.light}
-            crossMode="dark"
-            textContentType="emailAddress"
-            isSecureText={false}
-          />
-          {/* <RInputText
-            placeholder="Password"
-            onChangeText={password => this.setState({ password })}
-            textColor={greenColor.light}
-            crossMode="dark"
-            textContentType="password"
-            isSecureText={true}
-          /> */}
-          <RButton
-            text="Let's go"
-            color={greenColor.light}
-            onPressEvent={this._checkAuth}
-            type="main"
-          />
-          <View style={styles.multiplesSecondAction}>
-            {/* <View style={{ marginRight: 5 }}>
-              <RButton
-                text="Password forget ?"
-                color={greenColor.light}
-                onPressEvent={() => navigation.navigate('PasswordForget')}
-                type="second"
-              />
-            </View> */}
-            <View style={{ marginLeft: 5 }}>
-              <RButton
-                text="Register"
-                color={greenColor.light}
-                onPressEvent={() => navigation.navigate('Register')}
-                type="second"
-              />
+        <KeyboardAwareScrollView style={styles.content}>
+          <View>
+            <RInputText
+              placeholder="Username or email"
+              onChangeText={text => this.setState({ usernameOrEmail: text, notif: {} })}
+              textColor={greenColor.light}
+              crossMode="dark"
+              textContentType="emailAddress"
+              isSecureText={false}
+            />
+            {/* <RInputText
+              placeholder="Password"
+              onChangeText={password => this.setState({ password })}
+              textColor={greenColor.light}
+              crossMode="dark"
+              textContentType="password"
+              isSecureText={true}
+            /> */}
+            <RButton
+              text="Let's go"
+              color={greenColor.light}
+              onPressEvent={this._checkAuth}
+              type="main"
+            />
+            <View style={styles.multiplesSecondAction}>
+              {/* <View style={{ marginRight: 5 }}>
+                <RButton
+                  text="Password forget ?"
+                  color={greenColor.light}
+                  onPressEvent={() => navigation.navigate('PasswordForget')}
+                  type="second"
+                />
+              </View> */}
+              <View style={{ marginLeft: 5 }}>
+                <RButton
+                  text="Register"
+                  color={greenColor.light}
+                  onPressEvent={() => navigation.navigate('Register')}
+                  type="second"
+                />
+              </View>
             </View>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     )
   }
