@@ -84,6 +84,7 @@ export default class RInputDate extends React.PureComponent<RInputDateProps, RIn
           isVisible={isDateTimePickerVisible}
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
+          date={moment(date, 'DD/MM/YYYY').toDate()}
         />
       </View>
     );

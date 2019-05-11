@@ -155,6 +155,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
               isVisible={isDateTimePickerVisible}
               onConfirm={this._handleDatePicked}
               onCancel={this._hideDateTimePicker}
+              date={moment(date, 'DD/MM/YYYY').toDate()}
             />
           </TouchableOpacity>
           {
