@@ -13,6 +13,7 @@ import { greenColor } from '../../helpers/styles/colors';
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
 import MessageManager from "../../helpers/components/MessageManager";
+import RCity from "../../helpers/components/RCity";
 
 const axios = require('react-native-axios');
 const settings = require('../../../settings');
@@ -139,6 +140,7 @@ class RLogin extends React.Component<any, RLoginState> {
         </View>
         <KeyboardAwareScrollView style={styles.content}>
           <View>
+            <RCity />
             <RInputText
               placeholder="Username or email"
               onChangeText={text => this.setState({ usernameOrEmail: text, notif: {} })}

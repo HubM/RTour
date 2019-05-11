@@ -1,3 +1,4 @@
 module.exports = {
-  apiUrl: "http://10.18.72.23:3000/api/v1"
+  apiUrl: "http://192.168.1.91:3000/api/v1",
+  apiKey: "AIzaSyCiHryd9UzwHp3gjCz-_RvKl3Aj9vbpaY8"
 }
