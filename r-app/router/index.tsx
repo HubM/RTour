@@ -8,6 +8,7 @@ import RListRoadtrips from "../components/templates/R-ListRoadtrips";
 import RSingleRoadtrip from "../components/templates/R-SingleRoadtrip";
 import RAddARoadtip from "../components/templates/R-AddARoadtrip";
 import RManageRider from "../components/templates/R-ManageRider";
+import RChooseCity from '../components/templates/R-ChooseCity';
 
 const RootNavigator = createStackNavigator(
   {
@@ -18,7 +19,8 @@ const RootNavigator = createStackNavigator(
     ListRoadtrips: RListRoadtrips,
     SingleRoadtrip: RSingleRoadtrip,
     AddARoadtrip: RAddARoadtip,
-    ManageRider: RManageRider
+    ManageRider: RManageRider,
+    ChooseCity: RChooseCity
   },
   {
     initialRouteName: "Welcome"

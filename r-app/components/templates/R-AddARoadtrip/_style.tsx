@@ -1,8 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 
 import { greenColor, yellowColor, grayColor } from "../../helpers/styles/colors";
-import { titleh3, titleMedium, } from "../../helpers/styles/typos";
+import { titleh3, titleMedium, contentS, contentRegular, } from "../../helpers/styles/typos";
 import { fontWhiteColor, placeholderColor, uiErrorColor } from "../../helpers/styles/colors";
+
+
+const inputDefault = {
+  ...contentS,
+  ...contentRegular,
+}
 
 export default StyleSheet.create({
   container: {
@@ -58,5 +64,18 @@ export default StyleSheet.create({
   requiredFieldsDesc: {
     color: grayColor.light,
     marginBottom: 30
-  }
+  },
+  cityButton: {
+    ...inputDefault
+  },
+  inputContainer: {
+    marginBottom: 30,
+    borderBottomWidth: 1,
+    paddingBottom: 5,
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    flexDirection: "row",
+  } as ViewStyle,
 })

@@ -7,7 +7,7 @@ import { toJS } from "mobx";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import styles from "./_style";
-import { grayColor } from "../../helpers/styles/colors";
+import { grayColor, placeholderColor } from "../../helpers/styles/colors";
 import { yellowColor } from "../../helpers/styles/colors";
 
 import BackArrow from "../../helpers/components/BackArrow";
@@ -18,7 +18,6 @@ import RInputNumber from "../../helpers/components/RInputNumber";
 import RButton from '../../helpers/components/RButton';
 import MessageManager from "../../helpers/components/MessageManager";
 import RCity from "../../helpers/components/RCity";
-import { start } from 'repl';
 
 const initialState = {
   address: "",
@@ -77,6 +76,8 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
   constructor(props: RAddARoadtripProps) {
     super(props);
     this._saveRoadtrip = this._saveRoadtrip.bind(this);
+    this._getBackCityData = this._getBackCityData.bind(this);
+    this._goToCityView = this._goToCityView.bind(this);
     this.state = initialState;
   }
 
@@ -135,8 +136,32 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
     }
   }
 
+  _getBackCityData(cityObject: object) {
+    const { city, type } = cityObject;
+
+    if (type === "startCity") {
+      this.setState({
+        startCity: city.details.name
+      })
+    }
+  }
+
+  _goToCityView() {
+    const { navigation } = this.props;
+    const { startCity } = this.state;
+
+    navigation.navigate('ChooseCity', { 
+      placeholder: "*Starting City...",
+      type: "startCity",
+      goBackCityData: this._getBackCityData,
+      value: startCity
+     })
+  }
+
+
   render() {
-    const { hour, seatStateValue, isTwoWaysTrip, isOneWayTrip, durationStateValue, seats } = this.state;
+    const { navigation } = this.props;
+    const { hour, isTwoWaysTrip, isOneWayTrip, startCity } = this.state;
 
     return (
       <View style={styles.container}>
@@ -149,20 +174,25 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
           <Text style={styles.requiredFieldsDesc}>⚠️ Fields with (*) are required</Text>
         </View>
         <KeyboardAwareScrollView style={[styles.content, { paddingTop: 10}]}>
-          <View>
-            <RCity
-              onChooseCity={startCity => {
-                console.log("STARTCITY", startCity)
-              }}
-            />
-            <RInputText
+            <View>
+              <TouchableOpacity onPress={this._goToCityView} style={[styles.inputContainer, startCity ?  { borderBottomColor: "transparent" }: { borderBottomColor: placeholderColor } ]}>
+                  {
+                    startCity 
+                    ?
+                      <Text style={[ styles.cityButton, { color: grayColor.light}]}>{startCity}</Text>
+                    :
+                      <Text style={[styles.cityButton, { color: placeholderColor}]}>*StartingCity</Text>
+                  }
+              </TouchableOpacity>
+            </View>
+            {/* <RInputText
               placeholder="*Starting City..."
               onChangeText={startCity => this.setState({ startCity })}
               textColor={grayColor.light}
               crossMode="light"
               textContentType="location"
               isSecureText={false}
-            />
+            /> */}
             <RInputText
               placeholder="*Ending City..."
               onChangeText={endCity => this.setState({ endCity })}
@@ -256,7 +286,6 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
               onPressEvent={this._saveRoadtrip}
               type="main"
             />
-          </View>
 
         </KeyboardAwareScrollView>
       </View>

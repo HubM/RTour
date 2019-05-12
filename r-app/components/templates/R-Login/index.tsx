@@ -124,14 +124,6 @@ class RLogin extends React.Component<any, RLoginState> {
               textContentType="emailAddress"
               isSecureText={false}
             />
-            {/* <RInputText
-              placeholder="Password"
-              onChangeText={password => this.setState({ password })}
-              textColor={greenColor.light}
-              crossMode="dark"
-              textContentType="password"
-              isSecureText={true}
-            /> */}
             <RButton
               text="Let's go"
               color={greenColor.light}
