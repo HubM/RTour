@@ -17,6 +17,8 @@ import RInputTime from "../../helpers/components/RInputTime";
 import RInputNumber from "../../helpers/components/RInputNumber";
 import RButton from '../../helpers/components/RButton';
 import MessageManager from "../../helpers/components/MessageManager";
+import RCity from "../../helpers/components/RCity";
+import { start } from 'repl';
 
 const initialState = {
   address: "",
@@ -148,6 +150,11 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         </View>
         <KeyboardAwareScrollView style={[styles.content, { paddingTop: 10}]}>
           <View>
+            <RCity
+              onChooseCity={startCity => {
+                console.log("STARTCITY", startCity)
+              }}
+            />
             <RInputText
               placeholder="*Starting City..."
               onChangeText={startCity => this.setState({ startCity })}
