@@ -1,7 +1,7 @@
 import * as React from "react";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { blackColor, placeholderColor } from '../styles/colors';
-import { contentS, contentRegular } from '../styles/typos';
+import { fontBlackColor } from '../styles/colors';
+import { contentS, contentRegular, contentXs, titleMedium } from '../styles/typos';
 
 const settings = require('../../../settings');
 
@@ -13,7 +13,16 @@ const inputDefault = {
 export default class RCity extends React.PureComponent<any, any> {
   
   render() {
-    const { onChooseCity, placeholder, value } = this.props;
+    const { onChooseCity, placeholder, value, adressDetails } = this.props;
+
+    let adressType;
+
+    if (adressDetails === "city") {
+      adressType = '(cities)'
+    } else {
+      adressType = 'geocode'
+    }
+
     return (
         <GooglePlacesAutocomplete
           placeholder={placeholder}
@@ -40,21 +49,25 @@ export default class RCity extends React.PureComponent<any, any> {
             listView: {
               position: "absolute",
               top: 50,
-              backgroundColor: blackColor.dark,
+              backgroundColor: "transparent",
               zIndex: 2
+            },
+            description: {
+              ...contentXs,
+              ...fontBlackColor,
+              ...titleMedium
             }
           }}
           query={{
             // available options: https://developers.google.com/places/web-service/autocomplete
             key: settings.apiKey,
             language: 'fr', // language of the results
-            types: '(cities)' // default: 'geocode'
+            types: adressType // default: 'geocode'
           }}
           currentLocation={false}
           getDefaultValue={() => value}
           onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
             onChooseCity({
-              data,
               details
             });
           }}

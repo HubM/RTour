@@ -43,10 +43,8 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
       let additionnalContent = ``;
 
       if (Number(stringifiedNumber) === 1) {
-        console.log(complementarySingleStateValue, typeof complementarySingleStateValue)
         additionnalContent += ` ${complementarySingleStateValue}`;
       }  else if (Number(stringifiedNumber) > 1) {
-        console.log(complementaryMultipleStateValue, typeof complementaryMultipleStateValue)
         additionnalContent += ` ${complementaryMultipleStateValue}`;
       }
 

@@ -13,9 +13,8 @@ class RChooseCity extends React.Component<any, any> {
   };
 
   render() {
-    const { placeholder, navigation } = this.props;
-    const { goBackCityData, type, value } = navigation.state.params;
-    
+    const { navigation } = this.props;
+    const { goBackCityData, type, value, adressDetails, placeholder } = navigation.state.params;
     return (
       <View style={styles.container}> 
         <View style={styles.header}>
@@ -24,15 +23,16 @@ class RChooseCity extends React.Component<any, any> {
         <View style={styles.content}>
           <RCity
             placeholder={placeholder}
-            onChooseCity={(city: object) => {
+            onChooseCity={(details: object) => {
               goBackCityData({
-                city,
+                city: { ...details },
                 type
                 })
               navigation.pop()
               }
             }
             value={value}
+            adressDetails={adressDetails}
           />
         </View>
       </View>

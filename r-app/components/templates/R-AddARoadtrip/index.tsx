@@ -17,7 +17,6 @@ import RInputTime from "../../helpers/components/RInputTime";
 import RInputNumber from "../../helpers/components/RInputNumber";
 import RButton from '../../helpers/components/RButton';
 import MessageManager from "../../helpers/components/MessageManager";
-import RCity from "../../helpers/components/RCity";
 
 const initialState = {
   address: "",
@@ -90,11 +89,11 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
 
     const { _id, firstname, lastname, username, deviceToken } = user;
 
-    const { startingDate, hour, roadtripType, seats, startCity, endCity, duration } = this.state;
+    const { startingDate, hour, roadtripType, seats, startCity, endCity, duration, address } = this.state;
 
     const newRoadtrip = {
       roadtrip: {
-        address: "20 Place Saint Martial, 33000 Bordeaux",
+        address,
         calendar: {
           startingDate,
           duration
@@ -120,7 +119,6 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         text: "You must complete required fields 🙏"
       })
     } else {
-      
       setMessage({
         status: "info-positive",
         text: "Your roadtrip has created 🎉"
@@ -130,38 +128,47 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         ...initialState
       })
 
-
       addANewRoadtrip(newRoadtrip);
       navigation.pop();
     }
   }
 
-  _getBackCityData(cityObject: object) {
+  _getBackCityData(cityObject: { city: string, type: string }) {
     const { city, type } = cityObject;
 
-    if (type === "startCity") {
-      this.setState({
-        startCity: city.details.name
-      })
+    switch (type) {
+      case "startCity":
+        const { formatted_address, vicinity } = city.details;
+        this.setState({
+          address: formatted_address,
+          startCity: vicinity,
+        })
+        break;
+        case "endCity":
+        this.setState({
+          endCity: city.details.name
+        })
+        break;    
+      default:
+        break;
     }
   }
 
-  _goToCityView() {
+  _goToCityView(params: {placeholder: string, type: string, value: string}) {
     const { navigation } = this.props;
-    const { startCity } = this.state;
+    const { placeholder, type, value } = params;
 
     navigation.navigate('ChooseCity', { 
-      placeholder: "*Starting City...",
-      type: "startCity",
+      placeholder,
+      type,
       goBackCityData: this._getBackCityData,
-      value: startCity
+      value
      })
   }
 
 
   render() {
-    const { navigation } = this.props;
-    const { hour, isTwoWaysTrip, isOneWayTrip, startCity } = this.state;
+    const { hour, isTwoWaysTrip, isOneWayTrip, startCity, endCity, address } = this.state;
 
     return (
       <View style={styles.container}>
@@ -175,32 +182,45 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
         </View>
         <KeyboardAwareScrollView style={[styles.content, { paddingTop: 10}]}>
             <View>
-              <TouchableOpacity onPress={this._goToCityView} style={[styles.inputContainer, startCity ?  { borderBottomColor: "transparent" }: { borderBottomColor: placeholderColor } ]}>
+              <TouchableOpacity onPress={
+                () => {
+                  const params = {
+                    placeholder: "*Starting Adress...",
+                    type: "startCity",
+                    value: startCity,
+                  }
+                  this._goToCityView(params)
+                }
+              } style={[styles.inputContainer, address ?  { borderBottomColor: "transparent" }: { borderBottomColor: placeholderColor } ]}>
                   {
-                    startCity 
+                    address 
                     ?
-                      <Text style={[ styles.cityButton, { color: grayColor.light}]}>{startCity}</Text>
+                      <Text style={[ styles.cityButton, { color: grayColor.light}]}>{address}</Text>
                     :
-                      <Text style={[styles.cityButton, { color: placeholderColor}]}>*StartingCity</Text>
+                      <Text style={[styles.cityButton, { color: placeholderColor}]}>*Starting Adress...</Text>
                   }
               </TouchableOpacity>
             </View>
-            {/* <RInputText
-              placeholder="*Starting City..."
-              onChangeText={startCity => this.setState({ startCity })}
-              textColor={grayColor.light}
-              crossMode="light"
-              textContentType="location"
-              isSecureText={false}
-            /> */}
-            <RInputText
-              placeholder="*Ending City..."
-              onChangeText={endCity => this.setState({ endCity })}
-              textColor={grayColor.light}
-              crossMode="light"
-              textContentType="location"
-              isSecureText={false}
-            />
+            <View>
+              <TouchableOpacity onPress={
+                () => {
+                  const params = {
+                    placeholder: "*Ending City...",
+                    type: "endCity",
+                    value: endCity,
+                  }
+                  this._goToCityView(params)
+                }
+              } style={[styles.inputContainer, endCity ?  { borderBottomColor: "transparent" }: { borderBottomColor: placeholderColor } ]}>
+                  {
+                    endCity 
+                    ?
+                      <Text style={[ styles.cityButton, { color: grayColor.light}]}>{endCity}</Text>
+                    :
+                      <Text style={[styles.cityButton, { color: placeholderColor}]}>*Ending City...</Text>
+                  }
+              </TouchableOpacity>
+            </View>            
             <RInputDate
               placeholder="*Starting Date..."
               getDate={startingDate => this.setState({ startingDate })}

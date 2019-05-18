@@ -39,24 +39,26 @@ module.exports.deleteRoadtrip = (req, res) => {
   
 
   global.dbRtour.collection("roadtrips").findOne({ _id: ObjectId(id) }, (errorGetRoadtrip, roadtrip) => {
-    roadtrip.riders.forEach(rider => {
-
-      global.dbRtour.collection('users').findOne({ _id: ObjectId(rider._id)}, (errorRider, riderTarget) => {
-        sendNotification(riderTarget.deviceToken, {
-          body: "Roadtrip from to has been deleted 😪"   
+    if (roadtrip.riders) {
+      roadtrip.riders.forEach(rider => {
+        global.dbRtour.collection('users').findOne({ _id: ObjectId(rider._id)}, (errorRider, riderTarget) => {
+          sendNotification(riderTarget.deviceToken, {
+            body: "Roadtrip from to has been deleted 😪"   
+          })
         })
       })
+    }
 
-      global.dbRtour.collection("roadtrips").remove({ _id: ObjectId(id) }, (errorDeleteRoadtrip, deleteRoadtrip) => {
-        if (errorDeleteRoadtrip) {
-          logger.error("Error on POST roadtrip", errorDeleteRoadtrip);
-          res.send("Error on POST Roadtrip request");
-        } else {
-          logger.info(`I've delete the roadtrip ${id} (${deleteRoadtrip})`);
-          res.send(deleteRoadtrip);
-        }
-      });
-    })
+    global.dbRtour.collection("roadtrips").remove({ _id: ObjectId(id) }, (errorDeleteRoadtrip, deleteRoadtrip) => {
+      if (errorDeleteRoadtrip) {
+        logger.error("Error on POST roadtrip", errorDeleteRoadtrip);
+        res.send("Error on POST Roadtrip request");
+      } else {
+        logger.info(`I've delete the roadtrip ${id} (${deleteRoadtrip})`);
+        res.send(deleteRoadtrip);
+      }
+    });
+
   })
 };
 
