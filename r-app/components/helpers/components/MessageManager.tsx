@@ -1,9 +1,10 @@
 import * as React from "react";
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { toJS } from "mobx";
 import { inject, observer } from 'mobx-react';
-import { uiValidColor, uiErrorColor, blackColor, grayColor } from '../styles/colors';
 
+import { uiValidColor, uiErrorColor, blackColor, grayColor } from '../styles/colors';
+import styleMessageContainer from "../styles/messageManager";
 
 @inject(stores => ({
   messageManagerContainer: toJS(stores.rootStore.messageManagerStore.messageManagerContainer),
@@ -15,15 +16,16 @@ class MessageManager extends React.Component<any> {
   render() {
     const {messageManagerContainer, clearMessageManager} = this.props;
     const { status, text} = messageManagerContainer;
+
     let messageManager;
-    let messageManagerBackground;
+    let messageManagerBackground = uiValidColor.light;
     let messageManagerTextColor = grayColor.light;
 
     switch (status) {
       case "info-negative": 
         messageManagerBackground = blackColor.light
         break;
-        case "info-positive": 
+      case "info-positive": 
         messageManagerBackground = grayColor.light;
         messageManagerTextColor = blackColor.dark
         break;
@@ -31,7 +33,7 @@ class MessageManager extends React.Component<any> {
         messageManagerBackground = uiValidColor.light
         break;
       case "error":
-      messageManagerBackground = uiErrorColor.dark
+        messageManagerBackground = uiErrorColor.dark;
       break;
       default:
         messageManagerBackground = uiValidColor.light
@@ -40,20 +42,11 @@ class MessageManager extends React.Component<any> {
 
     if (text) {
       messageManager =       
-        <View style={{ 
-          minHeight: 50, 
-          backgroundColor: messageManagerBackground, 
-          borderRadius: 50,
-        }}>
-          <Text style={{
-            color: messageManagerTextColor,
-            padding: 20,
-            textAlign: "center",
-            fontSize: 16
-          }}>
+        <TouchableOpacity style={[ styleMessageContainer.container, { backgroundColor: messageManagerBackground }]} onPress={() => clearMessageManager()}>
+          <Text style={[ styleMessageContainer.text, { color: messageManagerTextColor}] }>
             {text}
           </Text>
-        </View>
+        </TouchableOpacity>
 
         setTimeout(() => {
           clearMessageManager()

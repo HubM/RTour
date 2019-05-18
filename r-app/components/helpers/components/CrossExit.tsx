@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TouchableOpacity } from "react-native";
-import SvgUri from "react-native-svg-uri";
 import { withNavigation } from "react-navigation";
+import SvgUri from "react-native-svg-uri";
 
 import stylesButton from "../styles/buttons";
 
