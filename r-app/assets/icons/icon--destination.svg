@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="9px" height="55px" viewBox="0 0 9 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>icon--destination</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon--destination">
+            <polygon id="Ligne_3" fill="#FFF784" fill-rule="nonzero" points="0 46.7241286 8.27587138 55 9 54.2758714 0.724128622 46"></polygon>
+            <polygon id="Ligne_4" fill="#FFF784" fill-rule="nonzero" points="0.724128622 55 9 46.7241286 8.27587138 46 0 54.2758714"></polygon>
+            <path d="M4.5,0 C6.98528137,1.52179594e-16 9,2.01471863 9,4.5 C9,6.98528137 6.98528137,9 4.5,9 C2.01471863,9 3.04359188e-16,6.98528137 0,4.5 C-3.04359188e-16,2.01471863 2.01471863,4.56538782e-16 4.5,0 Z" id="Tracé_1" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <path d="M4.5,4.5 L4.5,19.5" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+            <path d="M4.5,22.5 L4.5,45.5" id="-Line" stroke="#FFFFFF" stroke-linecap="square" stroke-dasharray="3"></path>
+        </g>
+    </g>
+</svg>

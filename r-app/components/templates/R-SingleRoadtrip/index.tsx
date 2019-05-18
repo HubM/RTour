@@ -156,12 +156,13 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
   }
 
   render() {
-    const { isOwner, buttonLabel } = this.state;
-    const { isLoggedIn, user, navigation } = this.props;
-
+    const { navigation } = this.props;
     const { startCity, endCity, owner, seats, calendar, address, roadtripType, hour, riders } = this.props.singleRoadtrip;
+    
+    const { isOwner, buttonLabel } = this.state;
 
-    let name, buttonAction, headerSection, ridersSection, ridersValidated, ridersNotValidated;
+
+    let name, buttonAction, ridersSection, ridersValidated, ridersNotValidated;
 
     if (owner) {
       owner.firstname && owner.lastname
@@ -278,11 +279,13 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
         </View>
         <View style={styles.content}>
           <View style={styles.roadtripTitle}>
-            {
-
-            }
-            <Text style={styles.roadtripTitleStartCity}>{startCity}</Text>
-            <Text style={styles.roadtripTitleEndCity}>{endCity}</Text>
+            <View style={styles.roadtripTitleIcon}>
+              <SvgUri width="10" height="50" source={require("../../../assets/icons/icon--destination.svg")} />
+            </View>
+            <View>
+              <Text style={styles.roadtripTitleStartCity}>{startCity}</Text>
+              <Text style={styles.roadtripTitleEndCity}>{endCity}</Text>
+            </View>
           </View>
           <TouchableOpacity style={styles.roadtripCreator} onPress={() => this._goToProfileSection(owner._id)}>
             <SvgUri width="40" height="40" source={require("../../../assets/icons/icon--noProfile.svg")} />

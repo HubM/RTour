@@ -1,6 +1,5 @@
 import * as React from "react";
 import SvgUri from "react-native-svg-uri";
-import { toJS } from "mobx";
 import moment from "moment";
 import { inject, observer } from 'mobx-react';
 import { withNavigationFocus } from "react-navigation";
@@ -72,6 +71,8 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
       })
     })
   }
+
+  
 
   _getPrevRoadtrips() {
     const { date } = this.state;

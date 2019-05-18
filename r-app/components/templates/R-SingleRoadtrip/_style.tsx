@@ -37,7 +37,13 @@ export default StyleSheet.create({
   },
   roadtripTitle: {
     marginTop: 30,
-    marginBottom: 50
+    marginBottom: 50,
+    flexDirection: "row", 
+    justifyContent: "flex-start", 
+    alignItems: "center"
+  },
+  roadtripTitleIcon: {
+    marginRight: 10
   },
   roadtripTitleStartCity: {
     ...titleh3,
