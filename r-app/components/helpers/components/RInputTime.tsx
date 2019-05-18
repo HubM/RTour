@@ -67,8 +67,8 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
   }
 
   render() {
-    const { emptyInputNumber, isTimePickerVisible, time } = this.state;
-    const { placeholder, complementaryStateValue, textColor } = this.props;
+    const { placeholder } = this.props;
+    const { isTimePickerVisible, time } = this.state;
 
     return (
       <View>

@@ -22,7 +22,9 @@ export default StyleSheet.create({
   } as ViewStyle,
   inputText: {
     ...inputDefault,
-    width: "80%"
+    width: "80%",
+    textAlignVertical: 'top',
+    marginTop: -5
   },
   inputNumber: {
     position: "relative",

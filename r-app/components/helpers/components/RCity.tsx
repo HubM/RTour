@@ -5,7 +5,6 @@ import { contentS, contentRegular, contentXs, titleMedium } from '../styles/typo
 
 const settings = require('../../../settings');
 
-
 const inputDefault = {
   ...contentS,
   ...contentRegular,
@@ -32,11 +31,7 @@ export default class RCity extends React.PureComponent<any, any> {
           fetchDetails={true}
           styles={{
             textInputContainer: {
-              backgroundColor: "transparent",
-              borderTopWidth: 0,
-              borderBottomWidth:0,
-              position: "relative",
-              zIndex: 2
+   
             },
             textInput: {
               marginLeft: 0,
