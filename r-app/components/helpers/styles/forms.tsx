@@ -24,6 +24,11 @@ export default StyleSheet.create({
     ...inputDefault,
     width: "80%"
   },
+  inputNumber: {
+    position: "relative",
+    padding: 0,
+    margin: 0
+  },
   emptyInput: {
     borderBottomColor: placeholderColor,
   },

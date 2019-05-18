@@ -80,7 +80,7 @@ class RProfile extends React.Component<RProfileState, any> {
   render() {
     const { ownProfile } = this.state;
     const { user, roadtrips } = this.props.userProfile;
-    const { firstname, lastname, age, email, username, city, profilePic, music } = user;
+    const { firstname, lastname, age, email, username, city, profilePic } = user;
 
 
     let roadtripsSection;
@@ -125,7 +125,6 @@ class RProfile extends React.Component<RProfileState, any> {
           <ProfileInfo type="email" value={email} />
           <ProfileInfo type="username" value={username} />
           <ProfileInfo type="city" value={city} />
-          <ProfileInfo type="music" value={music} />
           {roadtripsSection}
         </View>
         {

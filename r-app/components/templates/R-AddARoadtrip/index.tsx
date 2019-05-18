@@ -226,7 +226,7 @@ class RAddARoadtrip extends React.Component<RAddARoadtripProps, RAddARoadtripSta
               getDate={startingDate => this.setState({ startingDate })}
             />
             <RInputNumber
-              placeholder="*Duration... (1 day)"
+              placeholder="*Duration... (in days)"
               complementarySingleStateValue={"day"}
               complementaryMultipleStateValue={"days"}
               textColor={grayColor.light}

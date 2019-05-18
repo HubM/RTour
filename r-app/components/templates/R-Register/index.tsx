@@ -1,16 +1,18 @@
 import * as React from "react";
 import SvgUri from "react-native-svg-uri";
-import { View, ScrollView, Picker } from "react-native";
+import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { withNavigation } from 'react-navigation';
-import SelectMultiple from 'react-native-select-multiple'
 
 import styles from "./_style";
 
 import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
-import { grayColor } from '../../helpers/styles/colors';
+import { grayColor, placeholderColor } from '../../helpers/styles/colors';
 
 import { validateEmail } from "../../helpers/";
+import { inject, observer } from 'mobx-react';
+import RInputNumber from '../../helpers/components/RInputNumber';
+import MessageManager from '../../helpers/components/MessageManager';
 
 interface RLoginState {
   firstname: string,
@@ -18,37 +20,32 @@ interface RLoginState {
   age: string,
   city: string,
   email: string,
-  username: string,
-  music: Array<string>,
-  selectedMusic: Array<string>
+  username: string
 }
 
-const renderLabel = (label, style) => {
-  return (
-    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-      <Image style={{width: 42, height: 42}} source={{uri: 'https://dummyimage.com/100x100/52c25a/fff&text=S'}} />
-      <View style={{marginLeft: 10}}>
-        <Text style={style}>{label}</Text>
-      </View>
-    </View>
-  )
-}
-
-class RLogin extends React.PureComponent<any, RLoginState> {
+@inject(stores => ({
+  setMessage: stores.rootStore.messageManagerStore.setMessage,
+  clearMessageManager: stores.rootStore.messageManagerStore.clearMessageManager,
+  createUser: stores.rootStore.userStore.createUser,
+}))
+@observer
+class RRegister extends React.Component<any, RLoginState> {
   constructor(props: any) {
     super(props);
-    this._onMusicSelectionChange = this._onMusicSelectionChange.bind(this);
     this._checkUserEmail = this._checkUserEmail.bind(this);
+    this._verifyAge = this._verifyAge.bind(this);
+    this._verifyUsername = this._verifyUsername.bind(this);
     this._checkRegister = this._checkRegister.bind(this);
+    this._getBackCityData = this._getBackCityData.bind(this);
+    this._goToCityView = this._goToCityView.bind(this);
+
     this.state = {
       firstname: "",
       lastname: "",
       age: "",
       city: "",
       email: "",
-      username: "",
-      music: ["All"],
-      selectedMusic: []
+      username: ""
     }
   }
 
@@ -57,38 +54,107 @@ class RLogin extends React.PureComponent<any, RLoginState> {
   };
 
   _checkUserEmail(email: string) {
-    if (validateEmail(email)) {
-      this.setState({
-        email
-      })
-    } else {
-      console.log("NOPE")
-    }
+    const { setMessage, clearMessageManager } = this.props;
+    setTimeout(() => {
+      if (validateEmail(email)) {
+        this.setState({
+          email
+        }),
+        clearMessageManager();
+      } else {
+        setMessage({
+          status: "error",
+          text: "You must add a valid email adress 🙏"
+        })
+      }
+    }, 1500);
   }
 
   _checkRegister() {
-    console.log("New user !", this.state)
+    const { firstname, lastname, age, username, city } = this.state;
+    const { createUser, setMessage, navigation } = this.props;
+  
+    if (firstname && lastname && age && username && city) {
+      createUser(this.state);
+      setMessage({
+        status: "info-positive",
+        text: `Welcome to Rtour ${username} 🤘`
+      })
+      navigation.navigate('Login')
+    }
+  }
+
+  _verifyAge(age: string) {
+    const { setMessage, clearMessageManager } = this.props;
+    if (Number(age) < 18) {
+      setMessage({
+        status: "error",
+        text: "Only adults can join us 😔"
+      })
+    } else {
+      this.setState({
+        age
+      }, () => {
+        clearMessageManager();
+      })
+    }
+  }
+
+  _verifyUsername(username: string) {
+    const { setMessage, clearMessageManager } = this.props;
+
+    if(username.length <= 3) {
+      setMessage({
+        status: "error",
+        text: "Username must have 4 or more letters 😺"
+      })
+    } else {
+      this.setState({
+        username
+      }, () => {
+        clearMessageManager();
+      })
+    }
+  }
+
+  _getBackCityData(cityObject: { city: string, type: string }) {
+    const { city, type } = cityObject;
+
+    if (type === "endCity") {
+      this.setState({
+        city: city.details.name
+      })
+    }
+  }
+
+
+  _goToCityView(params: {placeholder: string, type: string, value: string}) {
     const { navigation } = this.props;
+    const { placeholder, type, value } = params;
 
-    // navigation.navigate('RListRoadtrips')
+    navigation.navigate('ChooseCity', { 
+      placeholder,
+      type,
+      goBackCityData: this._getBackCityData,
+      value
+     })
   }
 
-  _onMusicSelectionChange(selectedMusic: any) {
-    console.log("SELECTED MUSICS TYPE", selectedMusic);
-  }
+
 
 
   render() {
     const { navigation } = this.props;
-
+    const { city } = this.state;
     return (
       <ScrollView style={styles.container}>
+        <MessageManager />
         <View style={styles.logo}>
           <SvgUri width="200" height="70" source={require("../../../assets/rtourLogoWhite.svg")} />
         </View>
         <View style={styles.content}>
           <RInputText
-            placeholder="Firstname"
+            placeholder="*Firstname"
             onChangeText={firstname => this.setState({ firstname })}
             textColor={grayColor.light}
             crossMode="light"
@@ -96,21 +162,48 @@ class RLogin extends React.PureComponent<any, RLoginState> {
             isSecureText={false}
           />
           <RInputText
-            placeholder="Lastname"
+            placeholder="*Lastname"
             onChangeText={lastname => this.setState({ lastname })}
             textColor={grayColor.light}
             crossMode="light"
             textContentType="none"
             isSecureText={false}
           />
+          <RInputNumber
+            placeholder="*Age..."
+            complementarySingleStateValue={"yo"}
+            complementaryMultipleStateValue={"yo"}
+            textColor={grayColor.light}
+            onChangeNumber={this._verifyAge}
+          />
           <RInputText
-            placeholder="Age"
-            onChangeText={age => this.setState({ age })}
+            placeholder="*Username"
+            onChangeText={username => this._verifyUsername(username)}
             textColor={grayColor.light}
             crossMode="light"
-            textContentType="none"
+            textContentType="username"
             isSecureText={false}
           />
+          <View>
+            <TouchableOpacity onPress={
+                () => {
+                  const params = {
+                    placeholder: "*City...",
+                    type: "endCity",
+                    value: city,
+                  }
+                  this._goToCityView(params)
+                }
+              } style={[styles.inputContainer, city ?  { borderBottomColor: "transparent" }: { borderBottomColor: placeholderColor } ]}>
+                  {
+                    city 
+                    ?
+                      <Text style={[ styles.cityButton, { color: grayColor.light}]}>{city}</Text>
+                    :
+                      <Text style={[styles.cityButton, { color: placeholderColor}]}>*City...</Text>
+                  }
+              </TouchableOpacity>
+          </View>  
           <RInputText
             placeholder="Email"
             onChangeText={this._checkUserEmail}
@@ -119,22 +212,8 @@ class RLogin extends React.PureComponent<any, RLoginState> {
             textContentType="none"
             isSecureText={false}
           />
-          <RInputText
-            placeholder="Username"
-            onChangeText={username => this.setState({ username })}
-            textColor={grayColor.light}
-            crossMode="light"
-            textContentType="username"
-            isSecureText={false}
-          />
-          <View>
-            <SelectMultiple
-                items={["1","2","3"]}
-                renderLabel={renderLabel}
-                selectedItems={this.state.selectedMusic}
-                onSelectionsChange={this._onMusicSelectionChange} 
-              />
-          </View>
+
+  
           <RButton
             text="Start"
             color={grayColor.light}
@@ -153,4 +232,4 @@ class RLogin extends React.PureComponent<any, RLoginState> {
   }
 }
 
-export default withNavigation(RLogin);
+export default withNavigation(RRegister);

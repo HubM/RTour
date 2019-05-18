@@ -1,6 +1,21 @@
 const logger = require("../../services/logger");
 const ObjectId = require("mongojs").ObjectID;
 
+module.exports.registerUser = (req, res) => {
+  const { user } = req.body;
+
+  global.dbRtour.collection('users').insert({
+    ...user
+  }, (errorRegisterUser, registerUser) => {
+    if (errorRegisterUser) {
+      logger.error("ERROR on POST user", errorRegisterUser);
+      res.status(404).send('ERROR width POST user request')
+    } else {
+      res.status(200).send(registerUser);
+    }
+  })
+}
+
 module.exports.getUserById = (req, res) => {
   const { id } = req.query;
   global.dbRtour.collection("users").findOne({ _id: ObjectId(id) }, (errorUser, user) => {

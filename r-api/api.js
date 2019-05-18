@@ -20,6 +20,7 @@ api.delete("/roadtrip", singleRoadtripController.deleteRoadtrip);
 
 /* User */
 api.get("/user", userController.getUserById);
+api.post("/user", userController.registerUser);
 api.post("/login", userController.getUserByUsernameOrEmail);
 
 /* Riders Request delete (canceled or refused) */

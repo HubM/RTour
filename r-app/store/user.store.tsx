@@ -1,6 +1,7 @@
 import { observable, action } from "mobx";
 import { checkUsernameOrEmailAPI } from "../components/templates/R-Login/_api";
 import { getUserByIdAPI, getRoadtripsByUserAPI } from "../components/templates/R-Profile/_api";
+import { createUserAPI } from '../components/templates/R-Register/_api';
 
 export default class UserStore {
   /**
@@ -74,6 +75,19 @@ export default class UserStore {
     }
 
     Object.assign(this.user, { ...initialUser });
+  }
+
+  @action
+  createUser(user: object) {
+    return new Promise(resolve => {
+      createUserAPI(user)
+      .then((response: object) => {
+        resolve(response)
+      })
+      .catch((error: string) => {
+        throw error;
+      })
+    })
   }
 
 

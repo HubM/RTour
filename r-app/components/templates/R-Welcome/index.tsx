@@ -40,8 +40,6 @@ class RWelcome extends React.PureComponent<any> {
             }
           }
         ])
-
-        console.log(notification)
         break;
     
       default:

@@ -10,7 +10,7 @@ interface RInputNumberProps {
   complementarySingleStateValue: string,
   complementaryMultipleStateValue: string,
   textColor: string,
-  onChangeNumber(seats: string): void
+  onChangeNumber(seats: string): void,
 };
 
 interface RInputNumberState {
@@ -37,9 +37,8 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
   state = initialState;
 
   _writeInputNumber(stringifiedNumber: string) {
-
     if (stringifiedNumber !== "") {
-      const { onChangeNumber, complementarySingleStateValue, complementaryMultipleStateValue } = this.props;
+      const { onChangeNumber, complementarySingleStateValue, complementaryMultipleStateValue, onEndTyping } = this.props;
       let additionnalContent = ``;
 
       if (Number(stringifiedNumber) === 1) {
@@ -52,10 +51,9 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
         emptyInputNumber: false,
         isAdditionnalContentShowable: true,
         content: stringifiedNumber,
-        additionnalContent: additionnalContent
+        additionnalContent
       })
       onChangeNumber(stringifiedNumber)
-
     } else {
       this.setState(initialState)
     }
@@ -74,12 +72,7 @@ export default class RInputNumber extends React.PureComponent<RInputNumberProps,
     return (
       <View style={[styleForm.inputContainer, emptyInputNumber ? styleForm.emptyInput : styleForm.busyInput]}>
         <TextInput
-          style={[styleForm.inputText, { 
-            color: textColor,
-            position: "relative",
-            padding: 0,
-            margin: 0
-          }]}
+          style={[styleForm.inputText, styleForm.inputNumber, { color: textColor}]}
           underlineColorAndroid={"transparent"}
           placeholder={placeholder}
           placeholderTextColor={placeholderColor}
