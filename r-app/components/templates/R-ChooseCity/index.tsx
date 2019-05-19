@@ -7,7 +7,6 @@ import styles from "./_style";
 import BackArrow from '../../helpers/components/BackArrow';
 
 class RChooseCity extends React.Component<any, any> {
-
   static navigationOptions = {
     header: null,
   };

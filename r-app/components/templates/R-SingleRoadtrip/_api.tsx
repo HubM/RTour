@@ -6,15 +6,15 @@ export const deleteOwnRoadtripAPI = (id: string) =>
     const url = `${settings.apiUrl}/roadtrip`;
     axios.delete(url, {
       data: { id }
-    }).then(response => {
+    }).then((response: { data: object }) => {
       resolve(response.data);
     })
-      .catch(error => {
+      .catch((error: object) => {
         reject(error);
       });
   })
 
-export const addRiderToRoadtripAPI = (roadtripId: string, rider: object) =>
+export const addRiderToRoadtripAPI = (roadtripId: string, rider: {_id: string, username: string}) =>
   new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/roadtrip`;
     const { _id, username } = rider;
@@ -26,10 +26,10 @@ export const addRiderToRoadtripAPI = (roadtripId: string, rider: object) =>
         username
       }
     })
-      .then(response => {
+      .then((response: {data: object}) => {
         resolve(response.data)
       })
-      .catch(error => {
+      .catch((error: object) => {
         reject(error);
       })
   })
@@ -45,10 +45,10 @@ export const cancelRiderToRoadtripAPI = (roadtripId: string, userId: string, typ
         type
       }
     })
-      .then(reponse => {
+      .then((response: {data: object}) => {
         resolve(response.data)
       })
-      .Catch(error => {
+      .Catch((error: object) => {
         reject(error);
       })
   })

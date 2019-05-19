@@ -21,7 +21,7 @@ interface RLoginState {
   username: string
 }
 
-@inject(stores => ({
+@inject((stores: any) => ({
   setMessage: stores.rootStore.messageManagerStore.setMessage,
   clearMessageManager: stores.rootStore.messageManagerStore.clearMessageManager,
   createUser: stores.rootStore.userStore.createUser,
@@ -96,7 +96,7 @@ class RRegister extends React.Component<any, RLoginState> {
     }
   }
 
-  _getBackCityData(cityObject: { city: string, type: string }) {
+  _getBackCityData(cityObject: { city: {details: any}, type: string }) {
     const { city, type } = cityObject;
 
     if (type === "endCity") {

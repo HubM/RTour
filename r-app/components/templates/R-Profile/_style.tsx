@@ -1,7 +1,7 @@
 import { StyleSheet, ViewStyle } from "react-native";
 
 import { fontWhiteColor, greenColor } from "../../helpers/styles/colors";
-import { titleh3, titleMedium, contentXxs, contentLight, contentS, contentRegular, contentM } from '../../helpers/styles/typos';
+import { titleh3, titleMedium, contentXxs, contentLight, contentS, contentRegular } from '../../helpers/styles/typos';
 
 export default StyleSheet.create({
   container: {

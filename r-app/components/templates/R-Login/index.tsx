@@ -1,10 +1,9 @@
 import * as React from "react";
 import * as Expo from "expo";
 import SvgUri from "react-native-svg-uri";
-import { View, ScrollView, InteractionManager } from "react-native";
+import { View, InteractionManager } from "react-native";
 import { withNavigation } from 'react-navigation';
 import { observer, inject } from "mobx-react";
-
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import styles from "./_style";
@@ -17,18 +16,10 @@ import MessageManager from "../../helpers/components/MessageManager";
 const axios = require('react-native-axios');
 const settings = require('../../../settings');
 
-const initialState = {
-  username: "",
-  password: "",
-  notif: {}
-}
-
 interface RLoginState {
-  username: string,
-  password: string,
-  notif: {}
+  username: string
 }
-@inject(stores => ({
+@inject((stores: any)  => ({
   setLoggedStatusToTrue: stores.rootStore.userStore.setLoggedStatusToTrue,
   setUser: stores.rootStore.userStore.setUser,
   setUserProfileInfos: stores.rootStore.userStore.setUserProfileInfos,
@@ -40,7 +31,9 @@ class RLogin extends React.Component<any, RLoginState> {
   constructor(props: any) {
     super(props);
     this._checkAuth = this._checkAuth.bind(this);
-    this.state = initialState
+    this.state = {
+      username: ""
+    }
   }
 
   static navigationOptions = {
@@ -51,7 +44,7 @@ class RLogin extends React.Component<any, RLoginState> {
     const { navigation } = this.props;
     if (navigation.getParam('resetState')) {
       InteractionManager.runAfterInteractions(() => {
-        this.setState(initialState);
+        this.setState({ username: ""});
         navigation.setParams({ resetState: false });
       })
     }
@@ -106,7 +99,6 @@ class RLogin extends React.Component<any, RLoginState> {
 
   render() {
     const { navigation } = this.props;
-    const { notif } = this.state;
 
     return (
       <View style={styles.container}>
@@ -118,7 +110,7 @@ class RLogin extends React.Component<any, RLoginState> {
           <View>
             <RInputText
               placeholder="Username"
-              onChangeText={text => this.setState({ username: text, notif: {} })}
+              onChangeText={text => this.setState({ username: text })}
               textColor={greenColor.light}
               crossMode="dark"
               textContentType="emailAddress"

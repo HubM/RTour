@@ -9,10 +9,10 @@ export const getUserByIdAPI = (id: string) =>
         id
       },
     })
-      .then((user: object) => {
+      .then((user: {data: object}) => {
         resolve(user.data);
       })
-      .catch((error: string) => {
+      .catch((error: object) => {
         reject(error);
       });
   })
@@ -26,10 +26,10 @@ export const getRoadtripsByUserAPI = (id: string) =>
         id
       }
     })
-      .then((roadtrips: object) => {
+      .then((roadtrips: {data: object}) => {
         resolve(roadtrips.data)
       })
-      .catch((error: string) => {
+      .catch((error: object) => {
         reject(error);
       })
   })

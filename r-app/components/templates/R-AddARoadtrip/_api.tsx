@@ -6,10 +6,10 @@ export const addRoadtripAPI = (roadtrip: object) =>
   new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/roadtrip`;
     axios.post(url, roadtrip)
-      .then(response => {
+      .then((response: object) => {
         resolve(response);
       })
-      .catch(error => {
+      .catch((error: object) => {
         reject(error);
       });
   })

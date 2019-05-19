@@ -20,7 +20,7 @@ interface RProfileState {
   ownProfile: boolean
 }
 
-@inject(stores => ({
+@inject((stores: any) => ({
   user: toJS(stores.rootStore.userStore.user),
   userProfile: toJS(stores.rootStore.userStore.userProfile),
   setUserProfileInfos: toJS(stores.rootStore.userStore.setUserProfileInfos),
@@ -29,7 +29,7 @@ interface RProfileState {
   setSingleRoadtrip: stores.rootStore.singleRoadtripStore.setSingleRoadtrip
 }))
 @observer
-class RProfile extends React.Component<RProfileState, any> {
+class RProfile extends React.Component<any, RProfileState> {
 
   constructor(props: any) {
     super(props);

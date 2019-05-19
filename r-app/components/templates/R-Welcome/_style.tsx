@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 
-import { greenColor, grayColor } from "../../helpers/styles/colors";
 import logo from "../../helpers/styles/logo";
-import { contentS, contentRegular, contentLight, contentBold } from "../../helpers/styles/typos";
+import { greenColor, grayColor } from "../../helpers/styles/colors";
+import { contentS, contentRegular } from "../../helpers/styles/typos";
 
 
 export default StyleSheet.create({

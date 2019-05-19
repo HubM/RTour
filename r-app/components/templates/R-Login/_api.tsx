@@ -7,10 +7,10 @@ export const checkUsernameAPI = (username: string) => {
     axios.post(url, {
       username
     })
-      .then(response => {
+      .then((response: {data: object}) => {
         resolve(response.data);
       })
-      .catch(error => {
+      .catch((error: object) => {
         reject(error);
       });
   })

@@ -1,6 +1,6 @@
 import { StyleSheet, ViewStyle } from 'react-native';
 
-import { greenColor, yellowColor, grayColor } from "../../helpers/styles/colors";
+import { greenColor, grayColor } from "../../helpers/styles/colors";
 import { titleh3, titleMedium, contentS, contentRegular, } from "../../helpers/styles/typos";
 import { fontWhiteColor, placeholderColor, uiErrorColor } from "../../helpers/styles/colors";
 

@@ -28,7 +28,7 @@ interface RListRoadtripsProps {
   isFetchingRoadtrips: boolean
 }
 
-@inject(stores => ({
+@inject((stores: any)  => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   userId: stores.rootStore.userStore.user._id,
   getRoadtrips: stores.rootStore.roadtripsStore.getRoadtrips,
@@ -43,8 +43,6 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     this._fetchRoadtrips = this._fetchRoadtrips.bind(this);
     this._getPrevRoadtrips = this._getPrevRoadtrips.bind(this);
     this._getNextRoadtrips = this._getNextRoadtrips.bind(this);
-
-
     this._showDateTimePicker = this._showDateTimePicker.bind(this);
     this._hideDateTimePicker = this._hideDateTimePicker.bind(this);
     this._handleDatePicked = this._handleDatePicked.bind(this);

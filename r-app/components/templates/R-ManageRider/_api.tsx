@@ -11,7 +11,7 @@ export const refusedOrCanceledRiderToRoadtripAPI = (userId: string, roadtripId: 
         type
       }
     })
-      .then((response: object) => {
+      .then((response: {data: object}) => {
         resolve(response.data);
       })
       .catch((error: string) => {
@@ -27,7 +27,7 @@ export const acceptRiderToRoadtripAPI = (userId: string, roadtripId: string) =>
       userId,
       roadtripId
     })
-      .then((response: object) => (
+      .then((response: {data: object}) => (
         resolve(response.data)
       ))
       .catch((error: object) => {
@@ -44,7 +44,7 @@ export const getRoadtripById = (roadtripId: string) =>
         roadtripId
       },
     })
-      .then((roadtrip: object) => {
+      .then((roadtrip: {data: object}) => {
         resolve(roadtrip.data);
       })
       .catch((error: String) => {

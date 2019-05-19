@@ -1,6 +1,6 @@
 import * as React from "react";
 import SvgUri from "react-native-svg-uri";
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { observer, inject } from "mobx-react";
 import { withNavigation } from 'react-navigation';
 import { toJS } from "mobx";
@@ -11,7 +11,6 @@ import { grayColor, placeholderColor } from "../../helpers/styles/colors";
 import { yellowColor } from "../../helpers/styles/colors";
 
 import BackArrow from "../../helpers/components/BackArrow";
-import RInputText from "../../helpers/components/RInputText";
 import RInputDate from "../../helpers/components/RInputDate";
 import RInputTime from "../../helpers/components/RInputTime";
 import RInputNumber from "../../helpers/components/RInputNumber";
@@ -65,7 +64,7 @@ interface RAddARoadtripProps {
   addANewRoadtrip(roadtrip: object): void
 }
 
-@inject(stores => ({
+@inject((stores: any) => ({
   user: toJS(stores.rootStore.userStore.user),
   addANewRoadtrip: stores.rootStore.roadtripsStore.addANewRoadtrip,
   setMessage: stores.rootStore.messageManagerStore.setMessage,

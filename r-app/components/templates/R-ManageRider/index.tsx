@@ -19,7 +19,7 @@ interface RProfileState {
 }
 
 
-@inject(stores => ({
+@inject((stores: any)  => ({
   riderProfile: toJS(stores.rootStore.userStore.riderProfile),
   fetchRiderProfileInfos: stores.rootStore.userStore.fetchRiderProfileInfos,
   refuseRiderToRoadtrip: stores.rootStore.singleRoadtripStore.refuseRiderToRoadtrip,

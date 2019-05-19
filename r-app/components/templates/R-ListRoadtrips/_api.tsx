@@ -10,10 +10,10 @@ export const getRoadtripsByDateAPI = (date: string) => {
         date
       },
     })
-      .then((roadtrips: Array<Object>) => {
+      .then((roadtrips: Array<object>) => {
         resolve(roadtrips.data);
       })
-      .catch((error: String) => {
+      .catch((error: object) => {
         reject(error);
       });
   })

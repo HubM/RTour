@@ -5,10 +5,10 @@ export const createUserAPI = (user: object) =>
   new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/user`;
     axios.post(url, { user })
-      .then(response => {
+      .then((response: { data: object }) => {
         resolve(response.data);
       })
-      .catch(error => {
+      .catch((error: object) => {
         reject(error);
       });
   })

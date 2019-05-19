@@ -15,13 +15,7 @@ interface RSingleRoadtripState {
   isOwner: boolean
 }
 
-interface RSingleRoadtripProps {
-  user: object,
-  isLoggedIn: boolean,
-  deleteOwnRoadtrip(): void
-}
-
-@inject(stores => ({
+@inject((stores: any) => ({
   isLoggedIn: stores.rootStore.userStore.isLoggedIn,
   user: toJS(stores.rootStore.userStore.user),
   deleteOwnRoadtrip: stores.rootStore.roadtripsStore.deleteOwnRoadtrip,
@@ -32,8 +26,8 @@ interface RSingleRoadtripProps {
   setMessage: stores.rootStore.messageManagerStore.setMessage,
 }))
 @observer
-class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingleRoadtripProps> {
-  constructor(props: RSingleRoadtripProps) {
+class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
+  constructor(props: any) {
     super(props);
     this._loginUser = this._loginUser.bind(this);
     this._joinRoadtrip = this._joinRoadtrip.bind(this);
@@ -51,7 +45,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState, RSingle
     header: null,
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: any, state: any) {
     const { isLoggedIn, user, singleRoadtrip } = props;
     const { owner } = singleRoadtrip;
 
