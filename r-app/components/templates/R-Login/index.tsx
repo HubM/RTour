@@ -18,13 +18,13 @@ const axios = require('react-native-axios');
 const settings = require('../../../settings');
 
 const initialState = {
-  usernameOrEmail: "",
+  username: "",
   password: "",
   notif: {}
 }
 
 interface RLoginState {
-  usernameOrEmail: string,
+  username: string,
   password: string,
   notif: {}
 }
@@ -32,7 +32,7 @@ interface RLoginState {
   setLoggedStatusToTrue: stores.rootStore.userStore.setLoggedStatusToTrue,
   setUser: stores.rootStore.userStore.setUser,
   setUserProfileInfos: stores.rootStore.userStore.setUserProfileInfos,
-  checkUsernameOrEmail: stores.rootStore.userStore.checkUsernameOrEmail,
+  checkUsername: stores.rootStore.userStore.checkUsername,
   setMessage: stores.rootStore.messageManagerStore.setMessage,
 }))
 @observer
@@ -78,12 +78,12 @@ class RLogin extends React.Component<any, RLoginState> {
   }
 
   _checkAuth() {
-    const { navigation, checkUsernameOrEmail, setMessage, clearMessageManager } = this.props;
-    const { usernameOrEmail } = this.state;
+    const { navigation, checkUsername, setMessage } = this.props;
+    const { username } = this.state;
 
 
-    if (usernameOrEmail) {
-      checkUsernameOrEmail(usernameOrEmail)
+    if (username) {
+      checkUsername(username)
         .then((response: object) => {
           if (response.user) {
             navigation.navigate('ListRoadtrips');
@@ -91,7 +91,7 @@ class RLogin extends React.Component<any, RLoginState> {
           } else {
             setMessage({
               status: "error",
-              text: `${usernameOrEmail} is not registred in rtour 😔`
+              text: `${username} is not registred in rtour 😔`
             })
           }
         })
@@ -117,8 +117,8 @@ class RLogin extends React.Component<any, RLoginState> {
         <KeyboardAwareScrollView style={styles.content}>
           <View>
             <RInputText
-              placeholder="Username or email"
-              onChangeText={text => this.setState({ usernameOrEmail: text, notif: {} })}
+              placeholder="Username"
+              onChangeText={text => this.setState({ username: text, notif: {} })}
               textColor={greenColor.light}
               crossMode="dark"
               textContentType="emailAddress"
@@ -131,14 +131,6 @@ class RLogin extends React.Component<any, RLoginState> {
               type="main"
             />
             <View style={styles.multiplesSecondAction}>
-              {/* <View style={{ marginRight: 5 }}>
-                <RButton
-                  text="Password forget ?"
-                  color={greenColor.light}
-                  onPressEvent={() => navigation.navigate('PasswordForget')}
-                  type="second"
-                />
-              </View> */}
               <View style={{ marginLeft: 5 }}>
                 <RButton
                   text="Register"

@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { checkUsernameOrEmailAPI } from "../components/templates/R-Login/_api";
+import { checkUsernameAPI } from "../components/templates/R-Login/_api";
 import { getUserByIdAPI, getRoadtripsByUserAPI } from "../components/templates/R-Profile/_api";
 import { createUserAPI } from '../components/templates/R-Register/_api';
 
@@ -14,7 +14,6 @@ export default class UserStore {
     firstname: "",
     lastname: "",
     age: undefined,
-    email: "",
     username: "",
     profilePic: "",
     city: "",
@@ -25,9 +24,9 @@ export default class UserStore {
   @observable userLoginMessageContainer = {}
 
   @action.bound
-  checkUsernameOrEmail(usernameOrEmail: string) {
+  checkUsername(usernameOrEmail: string) {
     return new Promise(resolve => {
-      checkUsernameOrEmailAPI(usernameOrEmail)
+      checkUsernameAPI(usernameOrEmail)
         .then((response: object) => {
           if (response.user) {
             this.setUser(response.user);
@@ -66,7 +65,6 @@ export default class UserStore {
       firstname: "",
       lastname: "",
       age: undefined,
-      email: "",
       username: "",
       profilePic: "",
       city: "",
@@ -99,7 +97,6 @@ export default class UserStore {
       firstname: "",
       lastname: "",
       age: undefined,
-      email: "",
       username: "",
       city: "",
       music: []
@@ -140,7 +137,6 @@ export default class UserStore {
     firstname: "",
     lastname: "",
     age: undefined,
-    email: "",
     username: "",
     profilePic: "",
     city: "",

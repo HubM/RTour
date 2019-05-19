@@ -9,7 +9,6 @@ import RButton from "../../helpers/components/RButton";
 import RInputText from "../../helpers/components/RInputText";
 import { grayColor, placeholderColor } from '../../helpers/styles/colors';
 
-import { validateEmail } from "../../helpers/";
 import { inject, observer } from 'mobx-react';
 import RInputNumber from '../../helpers/components/RInputNumber';
 import MessageManager from '../../helpers/components/MessageManager';
@@ -19,7 +18,6 @@ interface RLoginState {
   lastname: string,
   age: string,
   city: string,
-  email: string,
   username: string
 }
 
@@ -32,7 +30,6 @@ interface RLoginState {
 class RRegister extends React.Component<any, RLoginState> {
   constructor(props: any) {
     super(props);
-    this._checkUserEmail = this._checkUserEmail.bind(this);
     this._verifyAge = this._verifyAge.bind(this);
     this._verifyUsername = this._verifyUsername.bind(this);
     this._checkRegister = this._checkRegister.bind(this);
@@ -44,7 +41,6 @@ class RRegister extends React.Component<any, RLoginState> {
       lastname: "",
       age: "",
       city: "",
-      email: "",
       username: ""
     }
   }
@@ -52,23 +48,6 @@ class RRegister extends React.Component<any, RLoginState> {
   static navigationOptions = {
     header: null
   };
-
-  _checkUserEmail(email: string) {
-    const { setMessage, clearMessageManager } = this.props;
-    setTimeout(() => {
-      if (validateEmail(email)) {
-        this.setState({
-          email
-        }),
-        clearMessageManager();
-      } else {
-        setMessage({
-          status: "error",
-          text: "You must add a valid email adress 🙏"
-        })
-      }
-    }, 1500);
-  }
 
   _checkRegister() {
     const { firstname, lastname, age, username, city } = this.state;
@@ -204,15 +183,6 @@ class RRegister extends React.Component<any, RLoginState> {
                   }
               </TouchableOpacity>
           </View>  
-          <RInputText
-            placeholder="Email"
-            onChangeText={this._checkUserEmail}
-            textColor={grayColor.light}
-            crossMode="light"
-            textContentType="none"
-            isSecureText={false}
-          />
-
   
           <RButton
             text="Start"

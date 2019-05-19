@@ -28,12 +28,12 @@ module.exports.getUserById = (req, res) => {
   });
 };
 
-module.exports.getUserByUsernameOrEmail = (req, res) => {
-  const { usernameOrEmail } = req.body;
+module.exports.getUsername = (req, res) => {
+  const { username } = req.body;
 
   global.dbRtour.collection("users").findOne(
     {
-      $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }]
+      username
     },
     (errorUser, user) => {
       if (errorUser) {
@@ -49,7 +49,7 @@ module.exports.getUserByUsernameOrEmail = (req, res) => {
         } else {
           res.status(200).send({
             type: "error",
-            message: `Patient ${usernameOrEmail} not found`
+            message: `Patient ${username} not found`
           });
         }
       }

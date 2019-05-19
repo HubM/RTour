@@ -1,5 +1,3 @@
-import { object } from 'prop-types';
-
 export const isIndexEven = (index: number) => index % 2 == 0;
 
 export const validateEmail = (mail: string) => {

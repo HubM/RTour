@@ -1,11 +1,11 @@
 const axios = require('react-native-axios');
 const settings = require('../../../settings');
 
-export const checkUsernameOrEmailAPI = (usernameOrEmail: string) => {
+export const checkUsernameAPI = (username: string) => {
   return new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/login`;
     axios.post(url, {
-      usernameOrEmail
+      username
     })
       .then(response => {
         resolve(response.data);

@@ -122,7 +122,6 @@ class RProfile extends React.Component<RProfileState, any> {
           <ProfileInfo type="firstname" value={firstname} />
           <ProfileInfo type="lastname" value={lastname} />
           <ProfileInfo type="age" value={age} />
-          <ProfileInfo type="email" value={email} />
           <ProfileInfo type="username" value={username} />
           <ProfileInfo type="city" value={city} />
           {roadtripsSection}
