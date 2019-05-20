@@ -4,11 +4,11 @@
 
 #### Sommaire
 
- 🚀 [Installation](install.md)
+ 🚀 [Installation & architecture](install.md)
 
  📘 [Note d'intention](note-intention.md)
 
-📗 [Gestion de projet et méthode de travail](managment-workflow.md)
+📗 [Gestion de projet & méthode de travail](managment-workflow.md)
 
 🗝️ [API breakpoints](api.md)
 
