@@ -1,4 +1,4 @@
-![logo](/Users/hub/Documents/hub/rtour/Code/docs/assets/logo.svg)
+![logo](https://hubm.github.io/RTour/assets/logo.svg)
 
 
 
@@ -77,7 +77,7 @@ Même si l'objectif n'est pas d'inclure une dimension économique au projet, j'a
 
 
 
-![RT-lean-canvas](/Users/hub/Documents/hub/rtour/Code/docs/assets/RT-lean-canvas.jpg)
+![RT-lean-canvas](https://hubm.github.io/RTour/assets/RT-lean-canvas.jpg)
 
 Cette méthode de travail m'a permis de visualiser les différents aspects de mon concept/application. En simplifiant et formulant les arguments dans chaque case du tableau, on va directement à l'essentiel, et cette vision globale nous permet de réfléchir à un business plan. Mon modèle économique s'axe autour de deux sources de revenus :
 
