@@ -2,7 +2,7 @@
 
 
 
-#### Sommaire
+## Sommaire
 
  🚀 [Installation & architecture](install.md)
 
@@ -10,11 +10,11 @@
 
 📗 [Gestion de projet & méthode de travail](managment-workflow.md)
 
-🗝️ [API breakpoints](api.md)
+🗝️ [API endpoints](api.md)
 
 🔮 [V2](future.md)
 
 
 
-Enjoy !
+**Enjoy !**
 
