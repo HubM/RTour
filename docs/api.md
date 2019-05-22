@@ -35,14 +35,14 @@
 
   ```javascript
   {
-  	user: {
-  		id: string,
-  		firstname: string,
-  		lastname: string,
-  		age: string,
-  		username: string,
-  		city: string,
-  		deviceToken: string
+    user: {
+      id: string,
+      firstname: string,
+      lastname: string,
+      age: string,
+      username: string,
+      city: string,
+      deviceToken: string
   	}
   }
   ```
@@ -88,12 +88,12 @@
 
   ```javascript
   {
-  	user: {
-  		firstname: string,
-  		lastname: string,
-  		age: string,
-  		username: string,
-  		city: string
+    user: {
+      firstname: string,
+      lastname: string,
+      age: string,
+      username: string,
+      city: string
   	}
   }
   ```
@@ -311,7 +311,7 @@
 
   ```javascript
   {
-   	status: string,
+    status: string,
     text: string
   }
   ```
@@ -326,7 +326,7 @@
   {
     roadtripId: string,
     rider: {
-    	_id: string,
+      _id: string,
       username: string,
       deviceToken: string
     }
@@ -337,7 +337,7 @@
 
   ```javascript
   {
-   	status: string,
+    status: string,
     text: string
   }
   ```
@@ -358,7 +358,7 @@
 
   ```javascript
   {
-   	status: string,
+    status: string,
     text: string
   }
   ```
@@ -389,7 +389,7 @@
 
   ```javascript
   {
-   	status: string,
+    status: string,
     text: string
   }
   ```
