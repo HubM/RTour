@@ -12,7 +12,7 @@
 
 🗝️ [API endpoints](api.md)
 
-🔮 [V2](future.md)
+🔮 [Versions futures](future.md)
 
 
 

@@ -6,18 +6,5 @@
 
 
 
-#### Sommaire
+#### [Documentation](docs/index.md)
 
-:rocket: [Installation](docs/install.md)
-
-:blue_book:  [Note d'intention](docs/note-intention.md)
-
-:man_in_tuxedo: [Gestion de projet et méthode de travail](docs/managment-workflow.md)
-
-:key: [API breakpoints](docs/api.md)
-
-:crystal_ball: [V2](docs/future.md)
-
-
-
-Enjoy !
