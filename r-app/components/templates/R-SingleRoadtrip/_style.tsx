@@ -113,5 +113,9 @@ export default StyleSheet.create({
   deleteRoadtripBtn: {
     color: yellowColor.light,
     fontWeight: "500"
+  },
+  noRiders: {
+    ...fontWhiteColor,
+    textAlign: "center"
   }
 });

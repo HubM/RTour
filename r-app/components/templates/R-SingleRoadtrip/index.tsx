@@ -156,7 +156,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
     const { isOwner, buttonLabel } = this.state;
 
 
-    let name, buttonAction, ridersSection, ridersValidated, ridersNotValidated;
+    let name, buttonAction, ridersSection, ridersValidated = null, ridersNotValidated = null;
 
     if (owner) {
       owner.firstname && owner.lastname
@@ -204,11 +204,10 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
 
 
     if (riders && riders.length > 0) {
-      if (isOwner) {
-        ridersNotValidated = riders.filter((rider: object) => !rider.isValidated);
-      } 
-      
+      ridersNotValidated = riders.filter((rider: object) => !rider.isValidated);
       ridersValidated = riders.filter((rider: object) => rider.isValidated);
+      console.log("riders not validated", ridersNotValidated)
+      console.log("riders validated", ridersValidated)
 
       // if (ridersValidated.length > 0) {
         ridersSection =
@@ -216,7 +215,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
             <Text style={styles.sectionTitle}>Riders 🍻</Text>
             <View>
               {
-                ridersValidated 
+                ridersValidated.length > 0
                   && 
                     <View>
                       <Text style={{color: "#ffffff"}}>Status validated</Text>
@@ -236,34 +235,48 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
                       />
                     </View>
               }
-              <Text style={{color: "#ffffff"}}>Status not validated</Text>
-              <FlatList
-                data={ridersNotValidated}
-                keyExtractor={(item) => item._id}
-                renderItem={({ item }) =>
-                  (
-                    <View>
-                      {
-                        isOwner
-                          ?
-                          <TouchableOpacity style={styles.singleRider} onPress={() => this._manageRiderRequest(item._id)}>
-                            <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
-                            <Text style={styles.roadtripCreatorName}>{item.username} - </Text>
-                            <Text style={styles.singleRiderStatus}>STATUS : {item.isValidated ? "VALIDATED" : "WAITING"}</Text>
-                          </TouchableOpacity>
-                          :
-                          <TouchableOpacity style={styles.singleRider} onPress={() => navigation.navigate('Profile', { userId: item._id })}>
-                            <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
-                            <Text style={styles.roadtripCreatorName}>{item.username}</Text>
-                          </TouchableOpacity>
-                      }
-                    </View>
-                  )
-                }
-              />
+              {
+                ridersNotValidated.length > 0 && isOwner
+                &&
+                <View>
+                  <Text style={{color: "#ffffff"}}>Status not validated</Text>
+                  <FlatList
+                    data={ridersNotValidated}
+                    keyExtractor={(item) => item._id}
+                    renderItem={({ item }) =>
+                      (
+                        <View>
+                          {
+                            isOwner
+                              ?
+                              <TouchableOpacity style={styles.singleRider} onPress={() => this._manageRiderRequest(item._id)}>
+                                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
+                                <Text style={styles.roadtripCreatorName}>{item.username} - </Text>
+                                <Text style={styles.singleRiderStatus}>STATUS : {item.isValidated ? "VALIDATED" : "WAITING"}</Text>
+                              </TouchableOpacity>
+                              :
+                              <TouchableOpacity style={styles.singleRider} onPress={() => navigation.navigate('Profile', { userId: item._id })}>
+                                <SvgUri width="20" height="20" source={require("../../../assets/icons/icon--noProfile.svg")} />
+                                <Text style={styles.roadtripCreatorName}>{item.username}</Text>
+                              </TouchableOpacity>
+                          }
+                        </View>
+                      )
+                    }
+                  />
+                </View>
+              }
             </View>
           </View>
       // }
+    } else {
+      ridersSection = 
+      <View>
+        <Text style={styles.sectionTitle}>Riders 🍻</Text>
+        <View>
+          <Text style={styles.noRiders}>No riders have join the trip 😔</Text>
+        </View>
+      </View>
     }
 
     return (
