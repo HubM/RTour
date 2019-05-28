@@ -14,7 +14,7 @@
       "bundleIdentifier": "com.hubm.rtour"
     },
     "android": {
-      "package": "com.hub.rtour"
+      "package": "com.hubm.rtour"
     }
   }
 }
