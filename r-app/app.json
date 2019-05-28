@@ -4,6 +4,10 @@
     "icon": "./assets/app/ios-icon.png",
     "sdkVersion": "27.0.0",
     "version": "1.0.0",
+    "splash": {
+      "image": "./assets/app/splash.png",
+      "backgroundColor": "#0A2328"
+    },
     "slug": "rtour",
     "packagerOpts": {
       "sourceExts": ["ts", "tsx"],
