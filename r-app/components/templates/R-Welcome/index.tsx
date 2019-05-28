@@ -58,7 +58,7 @@ class RWelcome extends React.PureComponent<any> {
         <View style={styles.content}>
           <View style={styles.introContainer}>
             <Text style={styles.introContent}>
-              This webapp is made for all riders which like to share their
+              This app is made for all riders which like to share their
               passion and travel the world.
             </Text>
             <Text style={styles.introContent}>
