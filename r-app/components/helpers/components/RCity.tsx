@@ -31,7 +31,7 @@ export default class RCity extends React.PureComponent<any, any> {
           fetchDetails={true}
           styles={{
             textInputContainer: {
-   
+              backgroundColor: "transparent",
             },
             textInput: {
               marginLeft: 0,

@@ -32,4 +32,9 @@ api.get("/", (req, res) => {
   res.send("Hi, welcome on the rtour api ! :)");
 })
 
+/* Logs */
+api.get("/logs", (req, res) => {
+  res.sendFile("/home/pi/.forever/rtourApiLogs.txt");
+})
+
 module.exports = api;

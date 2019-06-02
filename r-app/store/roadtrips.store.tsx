@@ -33,7 +33,7 @@ export default class roadtripStore {
         this.roadtrips.push(roadtrip.data);
       })
       .catch(error => {
-        console.log(error);
+        console.log("Error while adding a new roadtrip => ",error);
       })
   }
 
@@ -49,7 +49,7 @@ export default class roadtripStore {
         })
       })
       .catch(error => {
-        console.log(error);
+        console.log("Error while deleting own roadtrip", error);
       })
   }
 
