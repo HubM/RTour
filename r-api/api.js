@@ -34,7 +34,7 @@ api.get("/", (req, res) => {
 
 /* Logs */
 api.get("/logs", (req, res) => {
-  res.sendFile("/home/pi/.forever/rtourApiLogs.txt");
+  res.sendFile(__dirname + "/rtourApiLogs.txt");
 })
 
 module.exports = api;
