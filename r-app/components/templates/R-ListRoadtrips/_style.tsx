@@ -136,8 +136,8 @@ export default StyleSheet.create({
     marginRight: 5
   },
   addBtn: {
-    position: "absolute",
-    bottom: "10%",
-    alignSelf: "center"
+    alignSelf: "center",
+    marginTop: 30,
+    marginBottom: 50
   }
 });

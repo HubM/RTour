@@ -3,7 +3,7 @@ import SvgUri from "react-native-svg-uri";
 import moment from "moment";
 import { inject, observer } from 'mobx-react';
 import { withNavigationFocus } from "react-navigation";
-import { View, Text, TouchableOpacity, FlatList, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Dimensions, ScrollView } from "react-native";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import styles from "./_style";
@@ -125,7 +125,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
     const { navigation, isLoggedIn, isFetchingRoadtrips, userId } = this.props;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <MessageManager />
         <View style={styles.header}>
           {
@@ -199,7 +199,7 @@ class RListRoadtrips extends React.Component<RListRoadtripsProps, RListRoadtrips
             </TouchableOpacity>
           </View>
         }
-      </View>
+      </ScrollView>
     );
   }
 }

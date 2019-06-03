@@ -76,37 +76,37 @@ class RManageRider extends React.Component<RProfileState, any> {
       name += ` ${lastname}`
     }
 
-    console.log("rider profile => ", riderProfile)
-
     return (
-      <ScrollView style={style.container}>
+      <View style={style.container}>
         <View style={style.header}>
           <CrossExit color="black" />
         </View>
-        <TouchableOpacity style={style.riderContainer} onPress={() => navigation.navigate('Profile', { userId: riderProfile._id })}>
-          <Image source={require('../../../assets/img/defaultProfile.jpg')} style={style.profilePicture} />
-          <Text style={style.title}>{name}</Text>
-          <Text style={style.city}>{city}</Text>
-        </TouchableOpacity>
-        <View style={style.actionsButtonContainer}>
-          <View style={{ marginRight: 10 }}>
-            <RButton
-              text="Refuse"
-              color={uiErrorColor.light}
-              onPressEvent={this._refuseRiderToRoadtrip}
-              type="main"
-            />
-          </View>
-          <View style={{ marginLeft: 10 }}>
-            <RButton
-              text="Accept"
-              color={greenColor.light}
-              onPressEvent={this._acceptRiderToRoadtrip}
-              type="main"
-            />
+        <View style={style.content}>
+          <TouchableOpacity style={style.riderContainer} onPress={() => navigation.navigate('Profile', { userId: riderProfile._id })}>
+            <Image source={require('../../../assets/img/defaultProfile.jpg')} style={style.profilePicture} />
+            <Text style={style.title}>{name}</Text>
+            <Text style={style.city}>{city}</Text>
+          </TouchableOpacity>
+          <View style={{ flexDirection: "row", justifyContent: "center", marginHorizontal: 30 }}>
+            <View style={{ marginRight: 5 }}>
+              <RButton
+                text="Refuse"
+                color={uiErrorColor.light}
+                onPressEvent={this._refuseRiderToRoadtrip}
+                type="main"
+              />
+            </View>
+            <View style={{ marginLeft: 5 }}>
+              <RButton
+                text="Accept"
+                color={greenColor.light}
+                onPressEvent={this._acceptRiderToRoadtrip}
+                type="main"
+              />
+            </View>
           </View>
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }

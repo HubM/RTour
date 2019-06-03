@@ -5,22 +5,17 @@ import { titleh3, titleMedium } from '../../helpers/styles/typos';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: grayColor.light
+    backgroundColor: grayColor.light,
+    paddingHorizontal: 15
   },
   header: {
-    flex: 1,
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "flex-end",
-    marginTop: 35,
-    padding: 15
+    marginVertical: 30,
   },
-  riderContainer: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "20%",
-    marginBottom: "10%"
+  content: {
+    paddingHorizontal: 30,
+    marginTop: 50
   },
   profilePicture: {
     width: 70,
@@ -28,6 +23,11 @@ export default StyleSheet.create({
     borderRadius: 40,
     marginBottom: 10
   } as ViewStyle,
+  riderContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   title: {
     ...titleh3,
     ...titleMedium,
@@ -43,6 +43,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 30
+    paddingHorizontal: 30,
+    marginHorizontal: 15
   }
 });

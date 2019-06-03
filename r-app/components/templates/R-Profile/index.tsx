@@ -103,13 +103,7 @@ class RProfile extends React.Component<any, RProfileState> {
           <CrossExit color="white" route="ListRoadtrips" />
         </View>
         <View style={style.titleContainer}>
-          {
-            profilePic
-              ?
-              <Image source={require('./tmpProfile.png')} style={style.profilePicture} />
-              :
-              <Image source={require('../../../assets/img/defaultProfile.jpg')} style={style.profilePicture} />
-          }
+          <Image source={require('./tmpProfile.png')} style={style.profilePicture} />
           {
             username
               ?
