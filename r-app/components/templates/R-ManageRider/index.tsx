@@ -48,7 +48,7 @@ class RManageRider extends React.Component<RProfileState, any> {
   _refuseRiderToRoadtrip() {
     const { refuseRiderToRoadtrip, navigation, riderProfile } = this.props;
     const roadtripId = navigation.getParam("roadtripId");
-
+    console.log(riderProfile);
     refuseRiderToRoadtrip(riderProfile._id, roadtripId, "refused");
     navigation.navigate('ListRoadtrips');
   }

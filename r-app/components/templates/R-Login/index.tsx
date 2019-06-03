@@ -62,7 +62,7 @@ class RLogin extends React.Component<any, RLoginState> {
     const { _id, username } = user;
 
     axios.post(url, {
-      token,
+      token: "ExponentPushToken[7z0DFcFvqT9RoOuzNzbpyv]",
       user: {
         id: _id,
         username

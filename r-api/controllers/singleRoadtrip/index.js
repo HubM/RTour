@@ -152,7 +152,7 @@ module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
 
 
         } else {
-          logger.info(`The rider ${userId} has canceled the trip ${roadtripId}`);
+          logger.info(`The rider ${userIdg} has canceled the trip ${roadtripId}`);
           
 
           global.dbRtour.collection('roadtrips').findOne({ "_id": ObjectId(roadtripId), }, (errorRoadtrip, roadtrip) => {

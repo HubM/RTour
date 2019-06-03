@@ -14,17 +14,13 @@ export const deleteOwnRoadtripAPI = (id: string) =>
       });
   })
 
-export const addRiderToRoadtripAPI = (roadtripId: string, rider: {_id: string, username: string}) =>
+export const addRiderToRoadtripAPI = (roadtripId: string, rider: {_id: string, username: string, deviceToken: string}) =>
   new Promise((resolve, reject) => {
     const url = `${settings.apiUrl}/roadtrip`;
-    const { _id, username } = rider;
 
     axios.put(url, {
       roadtripId,
-      rider: {
-        _id,
-        username
-      }
+      rider
     })
       .then((response: {data: object}) => {
         resolve(response.data)

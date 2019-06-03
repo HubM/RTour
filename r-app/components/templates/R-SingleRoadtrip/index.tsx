@@ -115,7 +115,7 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
 
   _cancelJoiningRoadtrip() {
     const { cancelRiderToRoadtrip, singleRoadtrip, user, navigation } = this.props;
-    cancelRiderToRoadtrip(user._id, singleRoadtrip._id, "canceled");
+    cancelRiderToRoadtrip(user, singleRoadtrip._id, "canceled");
     navigation.pop();
   }
 
@@ -206,8 +206,6 @@ class RSingleRoadtrip extends React.Component<any, RSingleRoadtripState> {
     if (riders && riders.length > 0) {
       ridersNotValidated = riders.filter((rider: object) => !rider.isValidated);
       ridersValidated = riders.filter((rider: object) => rider.isValidated);
-      console.log("riders not validated", ridersNotValidated)
-      console.log("riders validated", ridersValidated)
 
       // if (ridersValidated.length > 0) {
         ridersSection =

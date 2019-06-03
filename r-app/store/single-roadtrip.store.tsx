@@ -53,8 +53,12 @@ export default class SingleRoadtripStore {
   }
 
   @action
-  cancelRiderToRoadtrip(userId: string, roadtripId: string, type: string) {
-    refusedOrCanceledRiderToRoadtripAPI(userId, roadtripId, type)
+  cancelRiderToRoadtrip(user: object, roadtripId: string, type: string) {
+    const {_id, deviceToken } = user;
+    refusedOrCanceledRiderToRoadtripAPI({
+      _id,
+      deviceToken
+    }, roadtripId, type)
       .then(canceledRider => {
         console.log("CANCELED RIDER", canceledRider)
       })
