@@ -91,7 +91,7 @@ module.exports.addRiderToRoadtrip = (req, res) => {
         if (errorGetRoadtripInfos) {
           logger.error('Error while getting info roadtrip')
         } else {
-          sendNotification(roadtripInfos.owner.deviceToken, {
+          sendNotification(rider.deviceToken, {
             body: `${rider.username} would like to join your trip 🤘`,
             data: {
               type: "roadtrip/join",
@@ -114,8 +114,8 @@ module.exports.addRiderToRoadtrip = (req, res) => {
 }
 
 module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
-  const { userId, roadtripId, type } = req.body;
-
+  const { userId, deviceToken, roadtripId, type } = req.body;
+  console.log(req.body)
   global.dbRtour.collection('roadtrips').update(
     {
       "_id": ObjectId(roadtripId),
@@ -144,7 +144,7 @@ module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
             if(errorUser) {
               logger.error(errorUser);
             } else {
-              sendNotification(user.deviceToken, {
+              sendNotification(deviceToken, {
                 body: `The creator of the roadtrip has refused your request 😥`
               })
             }
@@ -159,7 +159,7 @@ module.exports.refusedOrCanceledRiderToRoadtrip = (req, res) => {
             if(errorRoadtrip) {
               logger.error(errorRoadtrip)
             } else {
-              sendNotification(roadtrip.owner.deviceToken, {
+              sendNotification(deviceToken, {
                 body: `A user has cancel your trip 😥`
               })
             }

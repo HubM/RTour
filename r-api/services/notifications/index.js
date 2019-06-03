@@ -1,11 +1,12 @@
 const { Expo } = require('expo-server-sdk');
+const logger = require('../logger');
 
 module.exports.sendNotification = (deviceToken, body) => {
   return new Promise((resolve, reject) => {
     let expo = new Expo();
 
     if (!Expo.isExpoPushToken(deviceToken)) {
-      console.error(`Push token ${deviceToken} is not a valid Expo push token`);
+      logger.error(`Push token ${deviceToken} is not a valid Expo push token`);
       reject();
     }
 
